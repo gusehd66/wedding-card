@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="모바일 청첩장">
+    <title>모바일 청첩장</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 카카오 SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.7/kakao.min.js" integrity="sha384-tJkjbtDbvoxO+diRuDtwRO9JXR7pjWnfjfRn5ePUpl7e7RJCxKCwwnfqUAdXh53p" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- 재생 버튼 -->
+    <!-- <button class="bgmbutton" id="play-btn">
+        <img id="btn-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z' fill='%23333'/%3E%3C/svg%3E" alt="재생 버튼">
+    </button> -->
+
+    <!-- 헤더 이미지 -->
+    <div class="header-image-wrapper">
+        <img src="images/header_image.png" alt="메인 이미지" class="header-image">
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <main>
+        <!-- 첫 번째 섹션 - 어두운 배경 -->
+        <section class="section section-white">
+            <!-- 날짜 및 시간 -->
+            <div class="date-section">
+                <img src="images/save_the_date.png" alt="save the date" class="date-section-header-image">
+                <p>2024.06.01 SAT 01:00PM</p>
+                <p>프로젝트 프로젝트 스튜디오</p>
+                <p>서울특별시 마포구 월드컵북로 15길23</p>
+            </div>
+
+            <div class="invite_to">
+                <img src="images/invite_to.png" alt="invite to" class="invite-to-image">
+                <img src="images/invite_letter2.png" alt="invite letter" class="invite-letter-image">
+            </div>
+
+            <!-- 신랑/신부 정보 -->
+            <div class="couple-section">
+                <p><strong>Groom</strong></p>
+                <p>Kim Hyun Dong</p>
+                <p><br></p>
+                <p><strong>Bride</strong></p>
+                <p>Lee Kyung Seo</p>
+            </div>
+        </section>
+        <div>
+            <img src="images/info_footer.png" alt="invite to" class="info-footer">
+        </div>
+
+        <!-- 두 번째 섹션 - 분홍 배경 -->
+        <section class="section section-pink">
+            <div class="parents-section">
+                <p><strong>Groom's Parents</strong></p>
+                <img src="images/groom_parent.png" alt="groom parents" class="groom-parents-image">
+            </div>
+            <div class="parents-section">
+                <p><strong>Bride's Parents</strong></p>
+                <img src="images/groom_parent.png" alt="groom parents" class="groom-parents-image">
+            </div>
+        </section>
+
+        <!-- 세 번째 섹션 - 검은 배경 -->
+        <!-- <section class="section section-white"> -->
+            <!-- 비디오 영역 (선택사항) -->
+        <!-- </section> -->
+
+        <section class="section section-white">
+            <div class="parents-section">
+                <img src="images/couple_letter.png" alt="couple letter" class="couple-letter-image">
+            </div>
+            <div class="parents-section">
+                <img src="images/couple_letter2.png" alt="couple letter" class="couple-letter-image">
+            </div>
+        </section>
+
+        <!-- 네 번째 섹션 - 갤러리 -->
+        <section class="section section-gallery">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 사진은 images 폴더에 넣고 여기에 동적으로 추가됩니다 -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop&q=80" alt="사진 1" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop&q=80" alt="사진 2" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop&q=80" alt="사진 3" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop&q=80" alt="사진 4" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop&q=80" alt="사진 5" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop&q=80" alt="사진 6" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop&q=80" alt="사진 7" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop&q=80" alt="사진 8" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop&q=80" alt="사진 9" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop&q=80" alt="사진 10" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop&q=80" alt="사진 11" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop&q=80" alt="사진 12" loading="lazy">
+                </div>
+            </div>
+            <button class="more-btn" id="moreBtn" style="display: none;">더보기</button>
+            <div>
+                <img src="images/calendar.png" alt="calendar">
+            </div>
+        </section>
+
+        <!-- 다섯 번째 섹션 - 교통편 안내 -->
+        <section class="section section-transport">
+            <div class="direction-image-wrapper">
+                <img src="images/direction.png" alt="direction" class="direction-image">    
+            </div>
+            <div class="map-section">
+                <div id="map-container" style="height: 300px; background: #f0f0f0; margin: 20px 0;">
+                    <!-- 지도 영역 (네이버 지도 API 사용 가능) -->
+                </div>
+                <span id="span">
+                    <p id="map">서울특별시 마포구 월드컵북로 15길23</p>
+                    <p id="map2" style="font-weight:bold">프로젝트 프로젝트 스튜디오</p>
+                </span>
+                <button id="map_btn" onclick="copy('map');return false;">복사하기</button>
+            </div>
+
+            <div class="transport-info">
+                <p><strong>🚎 고속버스</strong><br>서울고속버스터미널에서 오는 법<br>: 서울고속버스터미널 하차>9호선 탑승(동작역방면)>당산역하차>2호선 환승(영등포구청역 방면)>문래역 하차>4번 출구(뒷쪽) 셔틀버스 승차(5분 단위 운행)</p>
+                <p><strong>🚊 지하철</strong><br>2호선 문래역 하차<br>5번출구에서 전방 직진 300M<br>4번출구(뒷쪽) 셔틀버스 5분 단위 운행</p>
+                <p><strong>🚌 버스</strong><br>문래역 정류장 하차<br>간선: 641, 지선: 6211, 6625, 마을버스: 영등포12</p>
+            </div>
+        </section>
+
+        <!-- 여섯 번째 섹션 - 계좌번호 -->
+        <section class="section section-account">
+            <div class="send-to-image-wrapper">
+                <img src="images/send_to.png" alt="send to" class="send-to-image">    
+            </div>
+            <ul>
+                <h6 style="font-weight: bold; border-bottom: 1px solid #000;">🤵🏻‍♂️신랑측 계좌번호</h6>
+                <li>
+                    <span id="span">
+                        <p id="text1">농협 302 0679 9584 41</p>
+                        <p>안정환</p>
+                    </span>
+                    <button onclick="copy('text1');return false;">복사하기</button>
+                </li>
+                <li>
+                    <span id="span">
+                        <p id="text2">카카오뱅크 3333 05 0585629</p>
+                        <p>안재진</p>
+                    </span>
+                    <button onclick="copy('text2');return false;">복사하기</button>
+                </li>
+            </ul>
+
+            <br>
+
+            <ul>
+                <h6 style="font-weight: bold; border-bottom: 1px solid #000;">👰🏻‍♀️신부측 계좌번호</h6>
+                <li>
+                    <span id="span">
+                        <p id="text3">농협 723100 52 034771</p>
+                        <p>권세광</p>
+                    </span>
+                    <button onclick="copy('text3');return false;">복사하기</button>
+                </li>
+                <li>
+                    <span id="span">
+                        <p id="text4">카카오뱅크 3333 03 7286312</p>
+                        <p>권정은</p>
+                    </span>
+                    <button onclick="copy('text4');return false;">복사하기</button>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 일곱 번째 섹션 - 공유 버튼 -->
+        <section class="section section-share">
+            <a id="kakaotalk-sharing-btn" href="javascript:;" class="share-btn-link">
+                <button class="share-btn" id="kakaoShareBtn">카카오톡 공유하기</button>
+            </a>
+            <div style="text-align: center;">
+                <button id="url_copy" onclick="clip(); return false;">청첩장 주소 복사하기</button>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <p style="text-align: center;"><span style="font-size: 11px;">ⓒweddingpeach</span></p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

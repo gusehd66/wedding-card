@@ -1,0 +1,356 @@
+// 변수 정의
+$primary-color: #333;
+$secondary-color: #666;
+$light-gray: #f5f5f5;
+$border-color: #e0e0e0;
+$white: #ffffff;
+$black: #000000;
+$dark-bg: #0a0909;
+$pink-bg: #ecb3be;
+$account-bg: #f9eded;
+$button-pink: #ed7a8c;
+
+// 기본 스타일
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', 'Noto Sans', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;
+    color: $primary-color;
+    background-color: $white;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+// 모든 이미지가 body width를 벗어나지 않도록
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+// 헤더 이미지
+.header-image-wrapper {
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+}
+
+// 메인 컨텐츠
+main {
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+// 재생 버튼
+.bgmbutton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// 섹션 공통 스타일
+.section {
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    padding: 20px 16px;
+}
+
+// 첫 번째 섹션 - 어두운 배경
+.section-white {
+    background-color: $white;
+    color: $white;
+    text-align: center;
+}
+
+.date-section {
+    padding: 40px 0 30px;
+
+    p {
+        margin: 8px 0;
+        color: $white;
+    }
+}
+
+.couple-section {
+    padding: 30px 0;
+
+    p {
+        margin: 8px 0;
+        color: $white;
+    }
+}
+
+// 두 번째 섹션 - 분홍 배경
+.section-pink {
+    background-color: $pink-bg;
+    text-align: center;
+    padding: 40px 16px;
+}
+
+.parents-section {
+    margin: 30px 0;
+
+    p {
+        color: $black;
+        font-weight: bold;
+    }
+}
+
+// 세 번째 섹션 - 검은 배경
+.section-black {
+    background-color: $black;
+    min-height: 200px;
+}
+
+// 네 번째 섹션 - 갤러리
+.section-gallery {
+    background-color: transparent;
+    padding: 20px 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 20px;
+}
+
+.gallery-item {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background-color: $light-gray;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        max-width: 100%;
+    }
+}
+
+.more-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-size: 14px;
+    color: $primary-color;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+// 다섯 번째 섹션 - 교통편 안내
+.section-transport {
+    background-color: $white;
+    padding: 30px 16px;
+}
+
+.map-section {
+    text-align: center;
+    margin-bottom: 30px;
+
+    p {
+        margin: 8px 0;
+        color: $primary-color;
+    }
+}
+
+#map_btn {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+    color: $secondary-color;
+    cursor: pointer;
+    margin-top: 12px;
+}
+
+.transport-info {
+    padding: 20px 0;
+
+    p {
+        margin: 20px 0;
+        line-height: 1.8;
+        color: $primary-color;
+        font-size: 14px;
+    }
+}
+
+// 여섯 번째 섹션 - 계좌번호
+.section-account {
+    background-color: $account-bg;
+    padding: 30px 16px;
+}
+
+.section-account ul {
+    list-style: none;
+    margin-bottom: 30px;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.section-account h6 {
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid $black;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    color: $black;
+}
+
+.section-account li {
+    background-color: $white;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    span p {
+        margin: 4px 0;
+        color: $primary-color;
+
+        &:first-child {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        &:last-child {
+            font-size: 13px;
+            color: $secondary-color;
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: transparent;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 13px;
+        color: $secondary-color;
+        cursor: pointer;
+        margin-top: 12px;
+
+        &:hover {
+            background-color: #f8f8f8;
+        }
+    }
+}
+
+// 일곱 번째 섹션 - 공유 버튼
+.section-share {
+    background-color: $white;
+    padding: 30px 16px;
+    text-align: center;
+}
+
+.share-btn-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    margin-bottom: 12px;
+}
+
+.share-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: $button-pink;
+    color: $white;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+
+    &:hover {
+        background-color: #181818;
+    }
+}
+
+#url_copy {
+    padding: 16px;
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    min-width: 200px;
+
+    &:hover {
+        background-color: #181818;
+    }
+}
+
+// 푸터
+.footer {
+    background-color: $white;
+    padding: 30px 16px;
+    text-align: center;
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+
+    p {
+        color: #999;
+        font-size: 11px;
+    }
+}
+
+// 반응형
+@media (max-width: 414px) {
+    body {
+        max-width: 100%;
+    }
+    
+    .section {
+        max-width: 100%;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
