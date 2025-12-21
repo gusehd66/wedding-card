@@ -48,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
         let imageUrl;
         if (isLocalhost) {
             const baseUrl = 'http://127.0.0.1:5500';
-            imageUrl = baseUrl + '/fe/images/header_image.png';
+            imageUrl = baseUrl + '/fe/images/marker_pink.png';
         } else {
             // GitHub Pages인 경우
             imageUrl = githubPagesUrl + 'images/header_image.png';
         }
-
+        console.log("image url:", imageUrl);
         // 카카오톡 공유 버튼 생성
         // 항상 GitHub Pages URL로 연결
         Kakao.Share.createDefaultButton({
@@ -62,11 +62,12 @@ document.addEventListener('DOMContentLoaded', function() {
             content: {
                 title: 'Kim Hyun Dong & Lee Kyung Seo 결혼합니다',
                 description: '2026.04.12 SUN 13:00PM\n까사그랑데',
-                imageUrl: imageUrl,
-                link: {
-                    mobileWebUrl: githubPagesUrl,
-                    webUrl: githubPagesUrl,
-                },
+                imageUrl:
+                'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+              link: {
+                mobileWebUrl: githubPagesUrl,
+                webUrl: githubPagesUrl,
+              },
             },
             buttons: [
                 {
@@ -78,6 +79,73 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
             ],
         });
+
+        // Kakao.Share.createDefaultButton({
+        //     container: '#kakaotalk-share-btn',
+        //     objectType: 'feed',
+        //     content: {
+        //       title: '오늘의 디저트',
+        //       description: '아메리카노, 빵, 케익',
+        //       imageUrl:
+        //         'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+        //       link: {
+        //         mobileWebUrl: 'https://developers.kakao.com',
+        //         webUrl: 'https://developers.kakao.com',
+        //       },
+        //     },
+        //     itemContent: {
+        //       profileText: 'Kakao',
+        //       profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+        //       titleImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+        //       titleImageText: 'Cheese cake',
+        //       titleImageCategory: 'Cake',
+        //       items: [
+        //         {
+        //           item: 'Cake1',
+        //           itemOp: '1000원',
+        //         },
+        //         {
+        //           item: 'Cake2',
+        //           itemOp: '2000원',
+        //         },
+        //         {
+        //           item: 'Cake3',
+        //           itemOp: '3000원',
+        //         },
+        //         {
+        //           item: 'Cake4',
+        //           itemOp: '4000원',
+        //         },
+        //         {
+        //           item: 'Cake5',
+        //           itemOp: '5000원',
+        //         },
+        //       ],
+        //       sum: 'Total',
+        //       sumOp: '15000원',
+        //     },
+        //     social: {
+        //       likeCount: 10,
+        //       commentCount: 20,
+        //       sharedCount: 30,
+        //     },
+        //     buttons: [
+        //       {
+        //         title: '웹으로 이동',
+        //         link: {
+        //           mobileWebUrl: 'https://developers.kakao.com',
+        //           webUrl: 'https://developers.kakao.com',
+        //         },
+        //       },
+        //       {
+        //         title: '앱으로 이동',
+        //         link: {
+        //           mobileWebUrl: 'https://developers.kakao.com',
+        //           webUrl: 'https://developers.kakao.com',
+        //         },
+        //       },
+        //     ],
+        //   });
 
         // 메세지 꾸미는 부분
     // Kakao.Share.sendDefault({
