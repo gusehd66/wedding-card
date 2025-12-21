@@ -38,16 +38,24 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Kakao SDK 초기화 완료');
         
         // 카카오톡 공유 버튼 설정
+        // GitHub Pages URL 고정
+        const githubPagesUrl = 'https://gusehd66.github.io/wedding-card/';
         const currentUrl = window.location.href;
         const isLocalhost = currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1');
-        const baseUrl = isLocalhost ? 'http://127.0.0.1:5500' : window.location.origin;
         
-        // 공유할 이미지 URL (헤더 이미지 사용)
-        // localhost인 경우 fe 폴더 경로 포함, 아닌 경우 상대 경로
-        const imagePath = isLocalhost ? '/fe/images/header_image.png' : '/images/header_image.png';
-        const imageUrl = baseUrl + imagePath;
+        // 이미지 URL 설정
+        // localhost인 경우와 GitHub Pages인 경우 구분
+        let imageUrl;
+        if (isLocalhost) {
+            const baseUrl = 'http://127.0.0.1:5500';
+            imageUrl = baseUrl + '/fe/images/header_image.png';
+        } else {
+            // GitHub Pages인 경우
+            imageUrl = githubPagesUrl + 'images/header_image.png';
+        }
 
         // 카카오톡 공유 버튼 생성
+        // 항상 GitHub Pages URL로 연결
         Kakao.Share.createDefaultButton({
             container: '#kakaotalk-sharing-btn',
             objectType: 'feed',
@@ -56,16 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 description: '2026.04.12 SUN 13:00PM\n까사그랑데',
                 imageUrl: imageUrl,
                 link: {
-                    mobileWebUrl: currentUrl,
-                    webUrl: currentUrl,
+                    mobileWebUrl: githubPagesUrl,
+                    webUrl: githubPagesUrl,
                 },
             },
             buttons: [
                 {
                     title: '청첩장 보기',
                     link: {
-                        mobileWebUrl: currentUrl,
-                        webUrl: currentUrl,
+                        mobileWebUrl: githubPagesUrl,
+                        webUrl: githubPagesUrl,
                     },
                 },
             ],
