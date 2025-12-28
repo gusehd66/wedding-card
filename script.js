@@ -437,7 +437,85 @@ function updateLightboxImage() {
     lightboxCurrent.textContent = currentImageIndex + 1;
 }
 
-// 페이지 로드 시 라이트박스 초기화
+// 네이버 지도 초기화
+function initNaverMap() {
+    const mapContainer = document.getElementById('map-container');
+    if (!mapContainer) return;
+
+    // 주소: 서울 광진구 능동로 87, 까사그랑데
+    const address = '서울 광진구 능동로 87';
+    const placeName = '까사그랑데';
+
+    // 네이버 지도 Geocoding API를 사용하여 주소를 좌표로 변환
+    // 네이버 지도 API v3에서는 naver.maps.Service를 사용
+    naver.maps.Service.geocode({
+        query: address
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            console.error('지도 로드 실패:', status);
+            mapContainer.innerHTML = '<p style="text-align: center; padding: 50px;">지도를 불러올 수 없습니다.</p>';
+            return;
+        }
+
+        if (response.v2.meta.totalCount === 0) {
+            console.error('주소를 찾을 수 없습니다.');
+            mapContainer.innerHTML = '<p style="text-align: center; padding: 50px;">주소를 찾을 수 없습니다.</p>';
+            return;
+        }
+
+        // 첫 번째 결과의 좌표 가져오기
+        const item = response.v2.addresses[0];
+        const x = parseFloat(item.x);
+        const y = parseFloat(item.y);
+
+        // 지도 생성
+        const mapOptions = {
+            center: new naver.maps.LatLng(y, x),
+            zoom: 17,
+            zoomControl: true,
+            zoomControlOptions: {
+                position: naver.maps.Position.TOP_RIGHT
+            }
+        };
+
+        const map = new naver.maps.Map('map-container', mapOptions);
+
+        // 마커 추가
+        const marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(y, x),
+            map: map,
+            title: placeName
+        });
+
+        // 정보창 추가 (선택사항)
+        const infoWindow = new naver.maps.InfoWindow({
+            content: `<div style="padding: 10px; text-align: center;"><strong>${placeName}</strong><br>${address}</div>`
+        });
+
+        // 마커 클릭 시 정보창 표시
+        naver.maps.Event.addListener(marker, 'click', function() {
+            if (infoWindow.getMap()) {
+                infoWindow.close();
+            } else {
+                infoWindow.open(map, marker);
+            }
+        });
+    });
+}
+
+// 페이지 로드 시 라이트박스 및 지도 초기화
 document.addEventListener('DOMContentLoaded', function() {
     initLightbox();
+    
+    // 네이버 지도 API가 로드되었는지 확인 후 지도 초기화
+    if (typeof naver !== 'undefined' && naver.maps) {
+        initNaverMap();
+    } else {
+        // 네이버 지도 API 로드를 기다림
+        window.addEventListener('load', function() {
+            if (typeof naver !== 'undefined' && naver.maps) {
+                initNaverMap();
+            }
+        });
+    }
 });
