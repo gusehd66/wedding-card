@@ -58,7 +58,7 @@
             </div>
 
             <div class="invite_to">
-                <img src="images/invite_to.png" alt="invite to" class="invite-to-image">
+                <img src="images/invite_to_7.jpg" alt="invite to" class="invite-to-image">
                 <img src="images/invite_letter2.png" alt="invite letter" class="invite-letter-image">
             </div>
 
@@ -101,14 +101,92 @@
             </div>
         </section>
 
+        <!-- 네 번째 섹션 - 우리가 함께한 지 -->
+        <section class="section section-together">
+            <div class="together-container">
+                <h2 class="together-title">D+Day</h2>
+                <p class="together-subtitle">우리가 함께한 지</p>
+                
+                <!-- 타임라인 -->
+                <div class="timeline-container">
+                    <div class="timeline-wrapper">
+                        <!-- 타임라인 라인 -->
+                        <div class="timeline-line" id="timeline-line"></div>
+                        <!-- 프로그레스 바 -->
+                        <div class="timeline-progress" id="timeline-progress"></div>
+                        <!-- 하트 아이콘들 (오른쪽) -->
+                        <div class="timeline-hearts">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" class="heart-blue-svg" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"></path>
+                            </svg>
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" class="heart-red-svg" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"></path>
+                            </svg>
+                        </div>
+                        <!-- 시작 마커 (왼쪽) -->
+                        <div class="timeline-start-marker"></div>
+                        <!-- 화살표 (오른쪽) -->
+                        <div class="timeline-arrow-marker"></div>
+                        <!-- 시작 날짜 (왼쪽) -->
+                        <div class="timeline-start-date">
+                            <span>2012-06-18</span>
+                            <div class="timeline-dot start-dot"></div>
+                        </div>
+                        <!-- 오늘 마커 (동적 위치) -->
+                        <div class="timeline-today" id="timeline-today">
+                            <span class="timeline-label">오늘</span>
+                            <div class="timeline-dot today-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 함께한 시간 표시 -->
+                <div class="together-duration" id="together-duration">
+                    <span id="together-days">0</span>일 
+                    <span id="together-hours">0</span>시간 
+                    <span id="together-minutes">0</span>분 
+                    <span id="together-seconds">0</span>초
+                </div>
+            </div>
+        </section>
+
         <!-- 네 번째 섹션 - 갤러리 -->
         <section class="section section-gallery">
+            <!-- 갤러리 슬라이드쇼 -->
+            <div class="gallery-slideshow" id="gallerySlideshow">
+                <!-- 슬라이드 이미지들이 JavaScript로 동적으로 추가됩니다 -->
+            </div>
+            <!-- 갤러리 그리드 -->
             <div class="gallery-grid" id="galleryGrid">
                 <!-- images/gallery 폴더의 사진들이 JavaScript로 동적으로 추가됩니다 -->
             </div>
             <button class="more-btn" id="moreBtn" style="display: none;">더보기</button>
             <div>
-                <img src="images/calendar.png" alt="calendar">
+                <img src="images/calendar_2.jpg" alt="calendar">
+            </div>
+            <!-- 결혼식 카운트다운 -->
+            <div class="countdown-section">
+                <div class="countdown-container">
+                    <div class="countdown-card">
+                        <div class="countdown-label">DAYS</div>
+                        <div class="countdown-value" id="countdown-days">00</div>
+                    </div>
+                    <div class="countdown-card">
+                        <div class="countdown-label">HOUR</div>
+                        <div class="countdown-value" id="countdown-hours">00</div>
+                    </div>
+                    <div class="countdown-card">
+                        <div class="countdown-label">MIN</div>
+                        <div class="countdown-value" id="countdown-minutes">00</div>
+                    </div>
+                    <div class="countdown-card">
+                        <div class="countdown-label">SEC</div>
+                        <div class="countdown-value" id="countdown-seconds">00</div>
+                    </div>
+                </div>
+                <div class="countdown-message">
+                    <span>김현동 <span class="heart">♥</span> 이경서의 결혼식이 <span class="days-highlight" id="countdown-days-text">0</span>일 남았습니다.</span>
+                </div>
             </div>
         </section>
 

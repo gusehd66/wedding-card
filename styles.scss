@@ -20,7 +20,10 @@ $button-pink: #ed7a8c;
 body {
     font-family: 'Noto Sans KR', 'Noto Sans', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;
     color: $primary-color;
-    background-color: $white;
+    background-color: #f9f9f9;
+    background-image: linear-gradient(0deg, rgb(249, 249, 249), rgb(249, 249, 249)), url(images/background_pattern.jpg);
+    background-repeat: repeat;
+    background-position: center;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -60,6 +63,24 @@ main {
     overflow-x: hidden;
 }
 
+// 스크롤 애니메이션
+.section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+// 헤더 이미지는 애니메이션 제외
+.header-image-wrapper {
+    opacity: 1;
+    transform: none;
+}
+
 // 재생 버튼
 .bgmbutton {
     position: fixed;
@@ -85,6 +106,15 @@ main {
     max-width: 414px;
     margin: 0 auto;
     padding: 20px 16px;
+    // 스크롤 애니메이션
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 // 첫 번째 섹션 - 어두운 배경
@@ -134,10 +164,215 @@ main {
     min-height: 200px;
 }
 
+// 네 번째 섹션 - 우리가 함께한 지
+.section-together {
+    background-color: $white;
+    padding: 40px 16px;
+    text-align: center;
+}
+
+.together-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.together-title {
+    font-size: 32px;
+    font-weight: 300;
+    color: #8b7fa8;
+    margin-bottom: 8px;
+    font-style: italic;
+    letter-spacing: 2px;
+}
+
+.together-subtitle {
+    font-size: 16px;
+    color: #8b7fa8;
+    margin-bottom: 30px;
+}
+
+// 타임라인
+.timeline-container {
+    margin: 30px 0;
+    padding: 20px 0;
+}
+
+.timeline-wrapper {
+    position: relative;
+    width: 100%;
+    height: 50px;
+}
+
+// 타임라인 라인 (배경)
+.timeline-line {
+    position: absolute;
+    left: 30px;
+    right: 50px;
+    top: 25px;
+    height: 1px;
+    background-color: #aaa;
+}
+
+// 프로그레스 바
+.timeline-progress {
+    position: absolute;
+    left: 30px;
+    top: 25px;
+    height: 1px;
+    background-color: #ba94c1;
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+// 시작 마커 (왼쪽 작은 사각형)
+.timeline-start-marker {
+    position: absolute;
+    left: 28px;
+    top: 23.5px;
+    width: 4px;
+    height: 4px;
+    background-color: #aaa;
+}
+
+// 화살표 마커 (오른쪽)
+.timeline-arrow-marker {
+    position: absolute;
+    right: 48px;
+    top: 22.5px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid #aaa;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+}
+
+// 하트 아이콘들 (오른쪽)
+.timeline-hearts {
+    position: absolute;
+    right: 20px;
+    top: 19px;
+    display: flex;
+    gap: -7px;
+    align-items: center;
+}
+
+.heart-blue-svg {
+    color: #55A1FF;
+    height: 1em;
+    width: 1em;
+    margin-right: -7px;
+}
+
+.heart-red-svg {
+    color: #FF9091;
+    height: 1em;
+    width: 1em;
+}
+
+// 시작 날짜 (왼쪽)
+.timeline-start-date {
+    position: absolute;
+    left: 80px;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+
+    span {
+        margin-top: 4px;
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 4px;
+    }
+}
+
+.start-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #ba94c1;
+    border-radius: 50%;
+}
+
+// 오늘 마커 (고정 위치 80%)
+.timeline-today {
+    position: absolute;
+    top: -7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+    z-index: 2;
+    left: calc(30px + (100% - 80px) * 0.8); // left: 30px + (전체 너비 - 여백) * 80%
+}
+
+.timeline-label {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.today-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #ba94c1;
+    border-radius: 50%;
+}
+
+.together-duration {
+    font-size: 18px;
+    color: $primary-color;
+    font-weight: 500;
+    margin-top: 20px;
+    line-height: 1.8;
+
+    span {
+        font-weight: bold;
+        color: #8b7fa8;
+    }
+}
+
 // 네 번째 섹션 - 갤러리
 .section-gallery {
     background-color: transparent;
     padding: 20px 0;
+}
+
+// 갤러리 슬라이드쇼
+.gallery-slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 414px;
+    height: 400px;
+    margin: 0 auto 20px auto;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+}
+
+.gallery-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+    transform: scale(1.05);
+
+    &.active {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 2;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
 }
 
 .gallery-grid {
@@ -145,6 +380,69 @@ main {
     grid-template-columns: repeat(3, 1fr);
     gap: 2px;
     margin-bottom: 20px;
+}
+
+// 결혼식 카운트다운
+.countdown-section {
+    margin: 30px 0;
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.countdown-card {
+    background-color: $white;
+    border-radius: 8px;
+    padding: 16px 12px;
+    min-width: 70px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.countdown-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.countdown-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: $primary-color;
+    line-height: 1;
+}
+
+.countdown-message {
+    font-size: 16px;
+    color: $primary-color;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.countdown-message .heart {
+    color: $button-pink;
+    margin: 0 4px;
+    font-size: 18px;
+}
+
+.countdown-message .days-highlight {
+    color: #b886d9;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .gallery-item {

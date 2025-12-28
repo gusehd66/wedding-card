@@ -193,7 +193,8 @@ function shareMessage() {
 // 갤러리 이미지 로드
 function loadGalleryImages() {
     const galleryGrid = document.getElementById('galleryGrid');
-    if (!galleryGrid) return;
+    const gallerySlideshow = document.getElementById('gallerySlideshow');
+    if (!galleryGrid || !gallerySlideshow) return;
 
     // images/gallery 폴더의 이미지 목록
     // 숫자 순서대로 정렬하기 위해 배열로 정의
@@ -225,8 +226,26 @@ function loadGalleryImages() {
 
     // 갤러리 그리드 초기화
     galleryGrid.innerHTML = '';
+    gallerySlideshow.innerHTML = '';
 
-    // 이미지 아이템 생성
+    // 슬라이드쇼 이미지 생성
+    imageFiles.forEach((filename, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide';
+        if (index === 0) {
+            slide.classList.add('active');
+        }
+        const img = document.createElement('img');
+        img.src = `images/gallery/${filename}`;
+        img.alt = `사진 ${index + 1}`;
+        img.onerror = function() {
+            this.style.display = 'none';
+        };
+        slide.appendChild(img);
+        gallerySlideshow.appendChild(slide);
+    });
+
+    // 그리드 이미지 아이템 생성
     imageFiles.forEach((filename, index) => {
         const galleryItem = document.createElement('div');
         galleryItem.className = 'gallery-item';
@@ -262,6 +281,9 @@ function loadGalleryImages() {
         galleryGrid.appendChild(galleryItem);
     });
 
+    // 슬라이드쇼 시작
+    initGallerySlideshow(imageFiles.length);
+    
     // 더보기 기능 초기화
     initMoreButton();
     // 더보기 버튼 이벤트 연결
@@ -270,6 +292,60 @@ function loadGalleryImages() {
     setTimeout(() => {
         initLightbox();
     }, 100);
+}
+
+// 갤러리 슬라이드쇼 초기화
+let gallerySlideInterval = null;
+let currentSlideIndex = 0;
+
+function initGallerySlideshow(totalSlides) {
+    const slides = document.querySelectorAll('.gallery-slide');
+    if (slides.length === 0) return;
+
+    // 기존 인터벌 제거
+    if (gallerySlideInterval) {
+        clearInterval(gallerySlideInterval);
+    }
+
+    // 첫 번째 슬라이드 표시
+    currentSlideIndex = 0;
+    slides.forEach((slide, index) => {
+        if (index === 0) {
+            slide.classList.add('active');
+        } else {
+            slide.classList.remove('active');
+        }
+    });
+
+    // 자동 슬라이드쇼 시작 (3초마다 변경)
+    gallerySlideInterval = setInterval(() => {
+        // 현재 슬라이드 제거
+        slides[currentSlideIndex].classList.remove('active');
+        
+        // 다음 슬라이드로 이동
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        
+        // 새 슬라이드 표시
+        slides[currentSlideIndex].classList.add('active');
+    }, 3000); // 3초마다 변경
+
+    // 마우스 호버 시 일시정지
+    const slideshow = document.getElementById('gallerySlideshow');
+    if (slideshow) {
+        slideshow.addEventListener('mouseenter', () => {
+            if (gallerySlideInterval) {
+                clearInterval(gallerySlideInterval);
+            }
+        });
+        
+        slideshow.addEventListener('mouseleave', () => {
+            gallerySlideInterval = setInterval(() => {
+                slides[currentSlideIndex].classList.remove('active');
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                slides[currentSlideIndex].classList.add('active');
+            }, 3000);
+        });
+    }
 }
 
 // 갤러리 더보기 기능
@@ -516,9 +592,165 @@ function initNaverMap() {
     // infoWindow.open(map, marker);
 }
 
+// 스크롤 애니메이션 초기화
+function initScrollAnimation() {
+    // Intersection Observer 옵션
+    const observerOptions = {
+        root: null, // 뷰포트를 기준으로
+        rootMargin: '0px 0px -50px 0px', // 하단 50px 전에 트리거
+        threshold: 0.1 // 10% 보일 때 트리거
+    };
+
+    // Intersection Observer 콜백
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 섹션이 뷰포트에 들어오면 애니메이션 클래스 추가
+                entry.target.classList.add('animate');
+                // 한 번만 실행되도록 옵저버 해제 (선택사항)
+                // observer.unobserve(entry.target);
+            } else {
+                // 섹션이 뷰포트를 벗어나면 애니메이션 클래스 제거 (스크롤 위로 올릴 때 다시 애니메이션)
+                // entry.target.classList.remove('animate');
+            }
+        });
+    };
+
+    // Intersection Observer 생성
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // 모든 섹션 요소 관찰
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // 첫 번째 섹션은 즉시 표시 (페이지 로드 시)
+    if (sections.length > 0) {
+        sections[0].classList.add('animate');
+    }
+}
+
+// 우리가 함께한 지 계산 초기화
+function initTogetherTime() {
+    const firstDate = new Date('2012-06-18T00:00:00'); // 처음 만난 날
+    const weddingDate = new Date('2026-04-12T00:00:00'); // 결혼식 날짜
+    
+    const daysElement = document.getElementById('together-days');
+    const hoursElement = document.getElementById('together-hours');
+    const minutesElement = document.getElementById('together-minutes');
+    const secondsElement = document.getElementById('together-seconds');
+    const progressBar = document.getElementById('timeline-progress');
+
+    function updateTogetherTime() {
+        const now = new Date();
+        
+        // 처음 만난 날부터 오늘까지의 시간 계산
+        const timeDifference = now - firstDate;
+        
+        if (timeDifference <= 0) {
+            daysElement.textContent = '0';
+            hoursElement.textContent = '0';
+            minutesElement.textContent = '0';
+            secondsElement.textContent = '0';
+            return;
+        }
+
+        // 시간 계산
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // UI 업데이트
+        daysElement.textContent = days.toLocaleString();
+        hoursElement.textContent = hours;
+        minutesElement.textContent = minutes;
+        secondsElement.textContent = seconds;
+
+        // 프로그레스 바 계산 (처음 만난 날부터 결혼식 날짜까지의 퍼센트)
+        const totalTime = weddingDate - firstDate;
+        const elapsedTime = now - firstDate;
+        let percentage = (elapsedTime / totalTime) * 100;
+        
+        // 0% ~ 100% 사이로 제한
+        percentage = Math.max(0, Math.min(100, percentage));
+        
+        // 프로그레스 바 업데이트
+        if (progressBar) {
+            const timelineWrapper = progressBar.parentElement;
+            if (timelineWrapper) {
+                const lineWidth = timelineWrapper.offsetWidth - 80; // left: 30px + right: 50px
+                const progressWidth = (percentage / 100) * lineWidth;
+                progressBar.style.width = progressWidth + 'px';
+            }
+        }
+        
+        // 오늘 마커는 CSS에서 고정 위치(80%)로 설정됨
+    }
+
+    // 즉시 업데이트
+    updateTogetherTime();
+
+    // 1초마다 업데이트
+    setInterval(updateTogetherTime, 1000);
+}
+
+// 결혼식 카운트다운 초기화
+function initCountdown() {
+    const weddingDate = new Date('2026-04-12T13:00:00'); // 2026년 4월 12일 오후 1시
+    const daysElement = document.getElementById('countdown-days');
+    const hoursElement = document.getElementById('countdown-hours');
+    const minutesElement = document.getElementById('countdown-minutes');
+    const secondsElement = document.getElementById('countdown-seconds');
+    const daysTextElement = document.getElementById('countdown-days-text');
+
+    function updateCountdown() {
+        const now = new Date();
+        const timeDifference = weddingDate - now;
+
+        if (timeDifference <= 0) {
+            // 결혼식이 지났을 경우
+            daysElement.textContent = '00';
+            hoursElement.textContent = '00';
+            minutesElement.textContent = '00';
+            secondsElement.textContent = '00';
+            if (daysTextElement) {
+                daysTextElement.textContent = '0';
+            }
+            return;
+        }
+
+        // 시간 계산
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // UI 업데이트
+        daysElement.textContent = String(days).padStart(2, '0');
+        hoursElement.textContent = String(hours).padStart(2, '0');
+        minutesElement.textContent = String(minutes).padStart(2, '0');
+        secondsElement.textContent = String(seconds).padStart(2, '0');
+        
+        if (daysTextElement) {
+            daysTextElement.textContent = String(days);
+        }
+    }
+
+    // 즉시 업데이트
+    updateCountdown();
+
+    // 1초마다 업데이트
+    setInterval(updateCountdown, 1000);
+}
+
 // 페이지 로드 시 라이트박스 및 지도 초기화
 document.addEventListener('DOMContentLoaded', function() {
     initLightbox();
+    initScrollAnimation();
+    initTogetherTime();
+    initCountdown();
     
     // 네이버 지도 API가 로드되었는지 확인 후 지도 초기화
     if (typeof naver !== 'undefined' && naver.maps) {
