@@ -29,192 +29,185 @@ function clip() {
     alert("URL이 복사되었습니다.")
 }
 
+const JAVASCRIPT_KEY = 'ce28d51a4e91630df706129c5d4a99db';
+Kakao.init(JAVASCRIPT_KEY);
+
+
 // 카카오 SDK 초기화
 document.addEventListener('DOMContentLoaded', function() {
     const JAVASCRIPT_KEY = 'ce28d51a4e91630df706129c5d4a99db';
     
     if (typeof Kakao !== 'undefined') {
-        Kakao.init(JAVASCRIPT_KEY);
+        
+        if(!Kakao.isInitialized()) {
+            Kakao.init(JAVASCRIPT_KEY);
+        }
         console.log('Kakao SDK 초기화 완료');
         
-        // 카카오톡 공유 버튼 설정
-        // GitHub Pages URL 고정
-        const githubPagesUrl = 'https://gusehd66.github.io/wedding-card/';
-        const currentUrl = window.location.href;
-        const isLocalhost = currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1');
+//         // 카카오톡 공유 버튼 설정
+//         // GitHub Pages URL 고정
+//         // const githubPagesUrl = 'https://gusehd66.github.io/wedding-card/';
+//         // const currentUrl = window.location.href;
+//         // const isLocalhost = currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1');
         
-        // 이미지 URL 설정
-        // localhost인 경우와 GitHub Pages인 경우 구분
-        let imageUrl;
-        if (isLocalhost) {
-            const baseUrl = 'http://127.0.0.1:5500';
-            imageUrl = baseUrl + '/fe/images/marker_pink.png';
-        } else {
-            // GitHub Pages인 경우
-            imageUrl = githubPagesUrl + 'images/header_image.png';
-        }
-        console.log("image url:", imageUrl);
-        // 카카오톡 공유 버튼 생성
-        // 항상 GitHub Pages URL로 연결
-        Kakao.Share.createDefaultButton({
-            container: '#kakaotalk-sharing-btn',
-            objectType: 'feed',
-            content: {
-                title: 'Kim Hyun Dong & Lee Kyung Seo 결혼합니다',
-                description: '2026.04.12 SUN 13:00PM\n까사그랑데',
-                imageUrl:
-                'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
-              link: {
-                mobileWebUrl: githubPagesUrl,
-                webUrl: githubPagesUrl,
-              },
+//         // // 이미지 URL 설정
+//         // // localhost인 경우와 GitHub Pages인 경우 구분
+//         // let imageUrl;
+//         // if (isLocalhost) {
+//         //     const baseUrl = 'http://127.0.0.1:5500';
+//         //     imageUrl = baseUrl + '/fe/images/marker_pink.png';
+//         // } else {
+//         //     // GitHub Pages인 경우
+//         //     imageUrl = githubPagesUrl + 'images/header_image.png';
+//         // }
+//         // console.log("image url:", imageUrl);
+//         // // 카카오톡 공유 버튼 생성
+//         // // 항상 GitHub Pages URL로 연결
+//         // Kakao.Share.createDefaultButton({
+//         //     container: '#kakaotalk-sharing-btn',
+//         //     objectType: 'feed',
+//         //     content: {
+//         //         title: 'Kim Hyun Dong & Lee Kyung Seo 결혼합니다',
+//         //         description: '2026.04.12 SUN 13:00PM\n까사그랑데',
+//         //         imageUrl:
+//         //         'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+//         //       link: {
+//         //         mobileWebUrl: githubPagesUrl,
+//         //         webUrl: githubPagesUrl,
+//         //       },
+//         //     },
+//         //     buttons: [
+//         //         {
+//         //             title: '청첩장 보기',
+//         //             link: {
+//         //                 mobileWebUrl: githubPagesUrl,
+//         //                 webUrl: githubPagesUrl,
+//         //             },
+//         //         },
+//         //     ],
+//         // });
+
+//         var kakao_link = location.href;
+//         Kakao.Share.sendDefault({
+//             container: '#kakaotalk-sharing-btn',
+//             objectType: 'feed',
+//             content: {
+//               title: '오늘의 디저트',
+//               description: '아메리카노, 빵, 케익',
+//               imageUrl:
+//                 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+//                 imageWidth: 300,
+// 					imageHeight: 200,
+//               link: {
+//                 mobileWebUrl: 'https://developers.kakao.com',
+//                 webUrl: 'https://developers.kakao.com',
+//               },
+//             },
+//             social: {
+//               likeCount: 10,
+//               commentCount: 20,
+//               sharedCount: 30,
+//             },
+//             buttons: [
+//                 {
+//                     title: '자세히보기',
+//                     link: {
+//                         mobileWebUrl: kakao_link,
+//                         webUrl: kakao_link
+//                     }
+//                 }
+//             ]
+//           });
+    }
+//         console.error('Kakao SDK를 불러올 수 없습니다.');
+//     }
+});
+
+function shareMessage() {
+    const JAVASCRIPT_KEY = 'ce28d51a4e91630df706129c5d4a99db';
+    // const currentURL = window.location.href;
+    const currentURL = 'https://gusehd66.github.io/wedding-card/';
+    if (!window.Kakao) {
+        alert('Kakao SDK가 로드되지 않았습니다.');
+        return;
+    }
+
+    if (!Kakao.isInitialized()) {
+        Kakao.init(JAVASCRIPT_KEY);
+    }
+
+    console.log(Kakao, Kakao.Share);
+
+    Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: 'Kim Hyun Dong & Lee Kyung Seo 결혼합니다',
+            description: '2026.04.12 SUN 13:00PM\n까사그랑데',
+            imageUrl: currentURL + 'images/meta.jpg',
+            link: {
+                mobileWebUrl: currentURL,
+                webUrl: currentURL,
             },
-            buttons: [
-                {
-                    title: '청첩장 보기',
-                    link: {
-                        mobileWebUrl: githubPagesUrl,
-                        webUrl: githubPagesUrl,
-                    },
+        },
+        buttons: [
+            {
+                title: '청첩장 보기',
+                link: {
+                    mobileWebUrl: currentURL,
+                    webUrl: currentURL,
                 },
-            ],
-        });
+            },
+        ],
+    });
+}
 
-        // Kakao.Share.createDefaultButton({
-        //     container: '#kakaotalk-share-btn',
-        //     objectType: 'feed',
-        //     content: {
-        //       title: '오늘의 디저트',
-        //       description: '아메리카노, 빵, 케익',
-        //       imageUrl:
-        //         'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
-        //       link: {
-        //         mobileWebUrl: 'https://developers.kakao.com',
-        //         webUrl: 'https://developers.kakao.com',
-        //       },
-        //     },
-        //     itemContent: {
-        //       profileText: 'Kakao',
-        //       profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-        //       titleImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-        //       titleImageText: 'Cheese cake',
-        //       titleImageCategory: 'Cake',
-        //       items: [
-        //         {
-        //           item: 'Cake1',
-        //           itemOp: '1000원',
-        //         },
-        //         {
-        //           item: 'Cake2',
-        //           itemOp: '2000원',
-        //         },
-        //         {
-        //           item: 'Cake3',
-        //           itemOp: '3000원',
-        //         },
-        //         {
-        //           item: 'Cake4',
-        //           itemOp: '4000원',
-        //         },
-        //         {
-        //           item: 'Cake5',
-        //           itemOp: '5000원',
-        //         },
-        //       ],
-        //       sum: 'Total',
-        //       sumOp: '15000원',
-        //     },
-        //     social: {
-        //       likeCount: 10,
-        //       commentCount: 20,
-        //       sharedCount: 30,
-        //     },
-        //     buttons: [
-        //       {
-        //         title: '웹으로 이동',
-        //         link: {
-        //           mobileWebUrl: 'https://developers.kakao.com',
-        //           webUrl: 'https://developers.kakao.com',
-        //         },
-        //       },
-        //       {
-        //         title: '앱으로 이동',
-        //         link: {
-        //           mobileWebUrl: 'https://developers.kakao.com',
-        //           webUrl: 'https://developers.kakao.com',
-        //         },
-        //       },
-        //     ],
-        //   });
 
-        // 메세지 꾸미는 부분
-    // Kakao.Share.sendDefault({
-    //     objectType: 'feed', // 이미지 + 텍스트의 경우 feed
-    //     content: {
-    //     title: '재윤🤍영석 결혼합니다.', // 원하는 타이틀
-    //     description: '2024.03.01\n11시 30분 빌라드지디 청담', // 텍스트
-    //     imageUrl: imageUrl, //이미지 링크
-    //     link: {
-    //         mobileWebUrl: currentUrl, // 연결될 모바일 웹 링크
-    //         webUrl: currentUrl, // 연결될 pc 웹 링크
-    //     },
-    //     },
-    //     buttons: [
-    //     {
-    //         title: '모바일 청첩장 보기', // 메세지 내에 버튼에 쓰여질 텍스트
-    //         link: {
-    //         mobileWebUrl: currentUrl, // 연결될 모바일 웹 링크
-    //         webUrl: currentUrl, // 연결될 모바일 웹 링크
-    //         },
-    //     },
-    //     ],
-    //     // 카카오톡 미설치 시 카카오톡 설치 경로이동
-    //     installTalk: true,
-    // })
-    } else {
-        console.error('Kakao SDK를 불러올 수 없습니다.');
-    }
-});
+// 갤러리 이미지 로드
+function loadGalleryImages() {
+    const galleryGrid = document.getElementById('galleryGrid');
+    if (!galleryGrid) return;
 
-// 갤러리 더보기 기능
-let showAllImages = false;
-const allGalleryItems = document.querySelectorAll('.gallery-item');
-const initialVisibleCount = 9;
+    // images/gallery 폴더의 이미지 목록
+    // 숫자 순서대로 정렬하기 위해 배열로 정의
+    const imageFiles = [
+        'wedding_1.jpeg',
+        'wedding_2.jpeg',
+        'wedding_3.jpeg',
+        'wedding_4.jpeg',
+        'wedding_5.jpeg',
+        'wedding_6.jpeg',
+        'wedding_7.jpeg',
+        'wedding_8.jpeg',
+        'wedding_9.jpeg',
+        'wedding_10.jpeg',
+        'wedding_11.jpeg',
+        'wedding_12.jpeg',
+        'wedding_13.jpeg',
+        'wedding_14.jpeg',
+        'wedding_15.jpeg',
+        'wedding_16.png',
+        'wedding_17.png',
+        'wedding_18.jpeg',
+        'wedding_19.jpeg',
+        'wedding_20.jpeg',
+        'wedding_21.jpeg',
+        'wedding_22.jpeg',
+        'wedding_23.jpeg'
+    ];
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (allGalleryItems.length > initialVisibleCount) {
-        for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
-            allGalleryItems[i].style.display = 'none';
-        }
-        const moreBtn = document.getElementById('moreBtn');
-        if (moreBtn) {
-            moreBtn.style.display = 'block';
-        }
-    }
-});
+    // 갤러리 그리드 초기화
+    galleryGrid.innerHTML = '';
 
-document.getElementById('moreBtn')?.addEventListener('click', function() {
-    if (!showAllImages) {
-        allGalleryItems.forEach(item => {
-            item.style.display = 'block';
-        });
-        this.textContent = '접기';
-        showAllImages = true;
-    } else {
-        for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
-            allGalleryItems[i].style.display = 'none';
-        }
-        this.textContent = '더보기';
-        showAllImages = false;
-        document.querySelector('.section-gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-});
-
-// 이미지 로드 실패 처리
-document.addEventListener('DOMContentLoaded', function() {
-    const galleryImages = document.querySelectorAll('.gallery-item img');
-    galleryImages.forEach((img, index) => {
+    // 이미지 아이템 생성
+    imageFiles.forEach((filename, index) => {
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+        const img = document.createElement('img');
+        img.src = `images/gallery/${filename}`;
+        img.alt = `사진 ${index + 1}`;
+        img.loading = 'lazy';
         img.onerror = function() {
+            // 이미지 로드 실패 시 플레이스홀더 표시
             this.style.display = 'none';
             const placeholder = document.createElement('div');
             placeholder.className = 'image-placeholder';
@@ -237,5 +230,214 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             this.parentElement.appendChild(placeholder);
         };
+        galleryItem.appendChild(img);
+        galleryGrid.appendChild(galleryItem);
     });
+
+    // 더보기 기능 초기화
+    initMoreButton();
+    // 더보기 버튼 이벤트 연결
+    attachMoreButtonEvent();
+    // 라이트박스 초기화 (이미지 로드 후)
+    setTimeout(() => {
+        initLightbox();
+    }, 100);
+}
+
+// 갤러리 더보기 기능
+let showAllImages = false;
+let allGalleryItems = [];
+const initialVisibleCount = 9;
+
+function initMoreButton() {
+    allGalleryItems = document.querySelectorAll('.gallery-item');
+    
+    if (allGalleryItems.length > initialVisibleCount) {
+        for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
+            allGalleryItems[i].style.display = 'none';
+        }
+        const moreBtn = document.getElementById('moreBtn');
+        if (moreBtn) {
+            moreBtn.style.display = 'block';
+        }
+    } else {
+        const moreBtn = document.getElementById('moreBtn');
+        if (moreBtn) {
+            moreBtn.style.display = 'none';
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 갤러리 이미지 로드
+    loadGalleryImages();
+});
+
+// 더보기 버튼 이벤트는 동적으로 추가
+function attachMoreButtonEvent() {
+    const moreBtn = document.getElementById('moreBtn');
+    if (moreBtn) {
+        // 기존 이벤트 리스너 제거 후 새로 추가
+        const newMoreBtn = moreBtn.cloneNode(true);
+        moreBtn.parentNode.replaceChild(newMoreBtn, moreBtn);
+        
+        newMoreBtn.addEventListener('click', function() {
+            if (!showAllImages) {
+                allGalleryItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+                this.textContent = '접기';
+                showAllImages = true;
+            } else {
+                for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
+                    allGalleryItems[i].style.display = 'none';
+                }
+                this.textContent = '더보기';
+                showAllImages = false;
+                document.querySelector('.section-gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+}
+
+// 이미지 로드 실패 처리는 loadGalleryImages 함수 내에서 처리됨
+
+// 라이트박스 기능
+let currentImageIndex = 0;
+let galleryImages = [];
+
+function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    const lightboxCurrent = document.getElementById('lightboxCurrent');
+    const lightboxTotal = document.getElementById('lightboxTotal');
+    
+    // 갤러리 이미지 수집
+    galleryImages = Array.from(document.querySelectorAll('.gallery-item img'))
+        .map(img => img.src)
+        .filter(src => src && !src.includes('placeholder'));
+    
+    lightboxTotal.textContent = galleryImages.length;
+    
+    // 이미지 클릭 이벤트
+    document.querySelectorAll('.gallery-item img').forEach((img, index) => {
+        img.addEventListener('click', function(e) {
+            if (this.complete && this.naturalWidth > 0) {
+                currentImageIndex = index;
+                openLightbox();
+            }
+        });
+    });
+    
+    // 닫기 버튼
+    lightboxClose.addEventListener('click', closeLightbox);
+    
+    // 배경 클릭 시 닫기
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    
+    // 이전/다음 버튼
+    lightboxPrev.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showPreviousImage();
+    });
+    
+    lightboxNext.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showNextImage();
+    });
+    
+    // 키보드 이벤트
+    document.addEventListener('keydown', function(e) {
+        if (lightbox.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                showPreviousImage();
+            } else if (e.key === 'ArrowRight') {
+                showNextImage();
+            }
+        }
+    });
+    
+    // 터치 스와이프 지원
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    lightbox.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    lightbox.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // 왼쪽으로 스와이프 (다음)
+                showNextImage();
+            } else {
+                // 오른쪽으로 스와이프 (이전)
+                showPreviousImage();
+            }
+        }
+    }
+}
+
+function openLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCurrent = document.getElementById('lightboxCurrent');
+    
+    // 실제 이미지 URL 가져오기 (썸네일이 아닌 원본)
+    const currentImg = document.querySelectorAll('.gallery-item img')[currentImageIndex];
+    const imageSrc = currentImg ? currentImg.src : galleryImages[currentImageIndex];
+    
+    lightboxImage.src = imageSrc;
+    lightboxCurrent.textContent = currentImageIndex + 1;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // 스크롤 방지
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // 스크롤 복원
+}
+
+function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+    updateLightboxImage();
+}
+
+function showPreviousImage() {
+    currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+    updateLightboxImage();
+}
+
+function updateLightboxImage() {
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCurrent = document.getElementById('lightboxCurrent');
+    
+    const currentImg = document.querySelectorAll('.gallery-item img')[currentImageIndex];
+    const imageSrc = currentImg ? currentImg.src : galleryImages[currentImageIndex];
+    
+    lightboxImage.src = imageSrc;
+    lightboxCurrent.textContent = currentImageIndex + 1;
+}
+
+// 페이지 로드 시 라이트박스 초기화
+document.addEventListener('DOMContentLoaded', function() {
+    initLightbox();
 });
