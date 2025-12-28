@@ -5,15 +5,43 @@ document.getElementById('play-btn')?.addEventListener('click', function() {
     alert('음악 재생 기능을 구현하세요');
 });
 
-// 복사 함수 (sample과 동일한 방식)
+// 복사 함수 - 계좌번호는 숫자만 복사
 function copy(id) {
-    var r = document.createRange();
-    r.selectNode(document.getElementById(id));
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(r);
-    document.execCommand('copy');
-    alert("복사되었습니다");
-    window.getSelection().removeAllRanges();
+    var element = document.getElementById(id);
+    var text = element.textContent || element.innerText;
+    
+    // 계좌번호인 경우 (숫자와 공백이 포함된 경우) 은행명 제거하고 숫자만 추출
+    // 은행명 패턴: 국민, 카카오뱅크, 농협, 신한, 우리, 하나, 기업, SC제일, 씨티, 대구, 부산, 경남, 광주, 전북, 제주, 수협, 우체국, 새마을금고 등
+    var bankPattern = /^(국민|카카오뱅크|농협|신한|우리|하나|기업|SC제일|씨티|대구|부산|경남|광주|전북|제주|수협|우체국|새마을금고|신협|산업|한국씨티|케이뱅크|토스뱅크|카뱅)\s*/i;
+    
+    // 은행명이 있는 경우 제거하고 숫자와 공백만 남김
+    var accountNumber = text.replace(bankPattern, '').trim();
+    
+    // 공백 제거하여 숫자만 복사
+    accountNumber = accountNumber.replace(/\s+/g, '');
+    
+    // 숫자만 있는 경우 계좌번호로 간주
+    if (/^\d+$/.test(accountNumber)) {
+        // 클립보드에 복사
+        var textarea = document.createElement("textarea");
+        textarea.value = accountNumber;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert("계좌번호가 복사되었습니다: " + accountNumber);
+    } else {
+        // 일반 텍스트 복사 (기존 방식)
+        var r = document.createRange();
+        r.selectNode(element);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(r);
+        document.execCommand('copy');
+        alert("복사되었습니다");
+        window.getSelection().removeAllRanges();
+    }
 }
 
 // URL 복사 함수 (sample과 동일한 방식)
@@ -445,62 +473,47 @@ function initNaverMap() {
     // 주소: 서울 광진구 능동로 87, 까사그랑데
     const address = '서울 광진구 능동로 87';
     const placeName = '까사그랑데';
+    
+    // CORS 문제를 피하기 위해 직접 좌표 사용
+    // 건대입구역 자이엘라 (서울 광진구 능동로 87) 좌표
+    const latitude = 37.539146;  // 위도
+    const longitude = 127.069655; // 경도
 
-    // 네이버 지도 Geocoding API를 사용하여 주소를 좌표로 변환
-    // 네이버 지도 API v3에서는 naver.maps.Service를 사용
-    naver.maps.Service.geocode({
-        query: address
-    }, function(status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
-            console.error('지도 로드 실패:', status);
-            mapContainer.innerHTML = '<p style="text-align: center; padding: 50px;">지도를 불러올 수 없습니다.</p>';
-            return;
+    // 지도 생성
+    const mapOptions = {
+        center: new naver.maps.LatLng(latitude, longitude),
+        zoom: 17,
+        zoomControl: true,
+        zoomControlOptions: {
+            position: naver.maps.Position.TOP_RIGHT
         }
+    };
 
-        if (response.v2.meta.totalCount === 0) {
-            console.error('주소를 찾을 수 없습니다.');
-            mapContainer.innerHTML = '<p style="text-align: center; padding: 50px;">주소를 찾을 수 없습니다.</p>';
-            return;
-        }
+    const map = new naver.maps.Map('map-container', mapOptions);
 
-        // 첫 번째 결과의 좌표 가져오기
-        const item = response.v2.addresses[0];
-        const x = parseFloat(item.x);
-        const y = parseFloat(item.y);
-
-        // 지도 생성
-        const mapOptions = {
-            center: new naver.maps.LatLng(y, x),
-            zoom: 17,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: naver.maps.Position.TOP_RIGHT
-            }
-        };
-
-        const map = new naver.maps.Map('map-container', mapOptions);
-
-        // 마커 추가
-        const marker = new naver.maps.Marker({
-            position: new naver.maps.LatLng(y, x),
-            map: map,
-            title: placeName
-        });
-
-        // 정보창 추가 (선택사항)
-        const infoWindow = new naver.maps.InfoWindow({
-            content: `<div style="padding: 10px; text-align: center;"><strong>${placeName}</strong><br>${address}</div>`
-        });
-
-        // 마커 클릭 시 정보창 표시
-        naver.maps.Event.addListener(marker, 'click', function() {
-            if (infoWindow.getMap()) {
-                infoWindow.close();
-            } else {
-                infoWindow.open(map, marker);
-            }
-        });
+    // 마커 추가
+    const marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(latitude, longitude),
+        map: map,
+        title: placeName
     });
+
+    // 정보창 추가
+    const infoWindow = new naver.maps.InfoWindow({
+        content: `<div style="padding: 10px; text-align: center; min-width: 150px;"><strong>${placeName}</strong><br>${address}<br>건대입구역 자이엘라 6F</div>`
+    });
+
+    // 마커 클릭 시 정보창 표시
+    naver.maps.Event.addListener(marker, 'click', function() {
+        if (infoWindow.getMap()) {
+            infoWindow.close();
+        } else {
+            infoWindow.open(map, marker);
+        }
+    });
+    
+    // 지도 로드 시 정보창 자동 표시 (선택사항)
+    // infoWindow.open(map, marker);
 }
 
 // 페이지 로드 시 라이트박스 및 지도 초기화
