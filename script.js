@@ -199,11 +199,11 @@ function loadGalleryImages() {
     // images/gallery 폴더의 이미지 목록
     // 숫자 순서대로 정렬하기 위해 배열로 정의
     const imageFiles = [
-        'wedding_1.jpeg',
-        'wedding_2.jpeg',
-        'wedding_3.jpeg',
-        'wedding_4.jpeg',
-        'wedding_5.jpeg',
+        'wedding_1.jpg',
+        'wedding_2.jpg',
+        'wedding_3.jpg',
+        'wedding_4.jpg',
+        'wedding_5.jpg',
         'wedding_6.jpeg',
         'wedding_7.jpeg',
         'wedding_8.jpeg',
@@ -214,8 +214,8 @@ function loadGalleryImages() {
         'wedding_13.jpeg',
         'wedding_14.jpeg',
         'wedding_15.jpeg',
-        'wedding_16.png',
-        'wedding_17.png',
+        'wedding_16.jpg',
+        'wedding_17.jpg',
         'wedding_18.jpeg',
         'wedding_19.jpeg',
         'wedding_20.jpeg',
@@ -746,7 +746,35 @@ function initCountdown() {
 }
 
 // 페이지 로드 시 라이트박스 및 지도 초기화
+// 오프닝 애니메이션 제어
+function initOpeningAnimation() {
+    const openingOverlay = document.getElementById('openingOverlay');
+    if (!openingOverlay) return;
+
+    // 오프닝 제거 함수
+    function removeOpening() {
+        openingOverlay.classList.add('hide');
+        setTimeout(function() {
+            openingOverlay.style.display = 'none';
+            document.body.classList.remove('opening-active');
+            // 스크롤 복원 - 명시적으로 설정
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowX = 'hidden'; // 가로 스크롤은 유지
+        }, 800); // transition 시간과 맞춤
+    }
+    
+    // 약간의 지연 후 애니메이션 시작 (렌더링 완료 대기)
+    setTimeout(function() {
+        // 3초 후 자동으로 사라지기
+        setTimeout(removeOpening, 3000);
+        
+        // 클릭 시 즉시 사라지기
+        openingOverlay.addEventListener('click', removeOpening);
+    }, 100);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    initOpeningAnimation();
     initLightbox();
     initScrollAnimation();
     initTogetherTime();
