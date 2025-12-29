@@ -180,7 +180,7 @@ img {
     background-size: 1600px 28px;
     background-position: center;
     background-repeat: repeat-x;
-    background-image: url(/fe/images/wave.svg);
+    background-image: url(images/wave.svg);
     z-index: 10;
 }
 
