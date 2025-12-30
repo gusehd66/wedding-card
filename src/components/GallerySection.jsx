@@ -10,7 +10,7 @@ const GALLERY_IMAGES = Array.from({ length: 23 }, (_, i) => ({
 
 const INITIAL_VISIBLE_COUNT = 9
 
-export default function GallerySection() {
+export default function GallerySection({ onImageClick }) {
   const [showAllImages, setShowAllImages] = useState(false)
   const galleryGridRef = useRef(null)
   
@@ -20,69 +20,64 @@ export default function GallerySection() {
   const handleMoreClick = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    // e.stopImmediatePropagation()
     
     if (!showAllImages) {
-      const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
-      items?.forEach(item => {
-        item.style.display = 'block'
-      })
       setShowAllImages(true)
     } else {
-      const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
-      items?.forEach(item => {
-        item.style.display = 'none'
-      })
       setShowAllImages(false)
-      document.querySelector('.section-gallery')?.scrollIntoView({ behavior: 'smooth' })
+      const gallerySection = document.querySelector('.section-gallery')
+      if (gallerySection) {
+        gallerySection.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 
-  useEffect(() => {
-    const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
-    items?.forEach(item => {
-      item.style.display = 'none'
-    })
-  }, [])
+  const handleImageClick = (e, index) => {
+    e.preventDefault()
+    e.stopPropagation()
+    e.stopImmediatePropagation()
+    
+    if (onImageClick) {
+      onImageClick(index)
+    }
+  }
 
   const shouldShowMoreButton = GALLERY_IMAGES.length > INITIAL_VISIBLE_COUNT
 
   return (
     <section className="section section-gallery">
-      <div className="gallery-slideshow" id="gallerySlideshow">
+      {/* <div className="gallery-slideshow" id="gallerySlideshow">
         {GALLERY_IMAGES.map((img, index) => (
           <div key={img.id} className={`gallery-slide ${index === 0 ? 'active' : ''}`}>
             <img src={img.src} alt={img.alt} />
           </div>
         ))}
-      </div>
+      </div> */}
       
       <div className="gallery-grid" id="galleryGrid" ref={galleryGridRef}>
-        {/* {GALLERY_IMAGES.map((img, index) => {
-          let groupClass = ''
-          if (index >= 9 && index < 18) groupClass = 'gallery-item-group-2'
-          else if (index >= 18) groupClass = 'gallery-item-group-3'
-          
-          return (
-            <div key={img.id} className={`gallery-item ${groupClass}`}>
-              <img src={img.src} alt={img.alt} loading="lazy" />
-            </div>
-          )
-        })} */}
         {GALLERY_IMAGES.map((img, index) => {
-          const isHidden =
-            !showAllImages && index >= INITIAL_VISIBLE_COUNT
+          const isHidden = !showAllImages && index >= INITIAL_VISIBLE_COUNT
 
           return (
             <div
               key={img.id}
               className="gallery-item"
-              onClick={(e) => {
+              onClick={(e) => handleImageClick(e, index)}
+              onTouchStart={(e) => {
                 e.preventDefault()
-                e.stopPropagation()
               }}
               style={{ display: isHidden ? 'none' : 'block' }}
             >
-              <img src={img.src} alt={img.alt} loading="lazy" />
+              <img 
+                src={img.src} 
+                alt={img.alt} 
+                loading="lazy"
+                onClick={(e) => handleImageClick(e, index)}
+                onTouchStart={(e) => {
+                  e.preventDefault()
+                }}
+              />
             </div>
           )
         })}
@@ -94,7 +89,9 @@ export default function GallerySection() {
           className="more-btn" 
           id="moreBtn"
           onClick={handleMoreClick}
-          // onTouchStart={(e) => e.preventDefault()}
+          onTouchStart={(e) => {
+            e.preventDefault()
+          }}
         >
           {showAllImages ? '접기' : '더보기'}
         </button>

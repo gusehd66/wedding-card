@@ -30,7 +30,8 @@ export function shareMessage() {
   }
 
   // 카카오톡 링크 검증을 위해 정확한 URL 사용
-  const shareURL = vercelURL;
+  // 슬래시를 추가하여 일관성 유지
+  const shareURL = vercelURL + '/';
   const imageURL = vercelURL + '/images/meta.jpg';
 
   const shareData = {
@@ -58,6 +59,8 @@ export function shareMessage() {
   console.log('카카오톡 공유 데이터:', JSON.stringify(shareData, null, 2));
   console.log('공유 URL 확인:', shareURL);
   console.log('이미지 URL 확인:', imageURL);
+  console.log('실제 전달되는 link.mobileWebUrl:', shareData.content.link.mobileWebUrl);
+  console.log('실제 전달되는 link.webUrl:', shareData.content.link.webUrl);
 
   window.Kakao.Share.sendDefault(shareData);
 }

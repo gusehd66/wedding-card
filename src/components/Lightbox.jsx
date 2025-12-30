@@ -6,34 +6,7 @@ const GALLERY_IMAGES = Array.from({ length: 23 }, (_, i) => ({
   alt: `사진 ${i + 1}`
 }))
 
-export default function Lightbox() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  useEffect(() => {
-    const handleImageClick = (e) => {
-      const img = e.target.closest('.gallery-item img')
-      if (!img) return
-      
-      e.preventDefault()
-      e.stopPropagation()
-      
-      if (img.complete && img.naturalWidth > 0) {
-        const allImages = Array.from(document.querySelectorAll('.gallery-item img'))
-        const index = allImages.indexOf(img)
-        if (index >= 0) {
-          setCurrentIndex(index)
-          setIsOpen(true)
-        }
-      }
-    }
-
-    const galleryGrid = document.getElementById('galleryGrid')
-    if (galleryGrid) {
-      galleryGrid.addEventListener('click', handleImageClick)
-      return () => galleryGrid.removeEventListener('click', handleImageClick)
-    }
-  }, [])
+export default function Lightbox({ isOpen, currentIndex, onClose, onPrev, onNext }) {
 
   useEffect(() => {
     if (isOpen) {
@@ -48,17 +21,17 @@ export default function Lightbox() {
       if (!isOpen) return
       
       if (e.key === 'Escape') {
-        setIsOpen(false)
+        onClose()
       } else if (e.key === 'ArrowLeft') {
-        setCurrentIndex((prev) => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
+        onPrev()
       } else if (e.key === 'ArrowRight') {
-        setCurrentIndex((prev) => (prev + 1) % GALLERY_IMAGES.length)
+        onNext()
       }
     }
 
     document.addEventListener('keydown', handleKeydown)
     return () => document.removeEventListener('keydown', handleKeydown)
-  }, [isOpen])
+  }, [isOpen, onClose, onPrev, onNext])
 
   if (!isOpen) return null
 
@@ -67,14 +40,28 @@ export default function Lightbox() {
   return (
     <div 
       className={`lightbox ${isOpen ? 'active' : ''}`}
-      onClick={() => setIsOpen(false)}
+      onClick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        onClose()
+      }}
     >
-      <span className="lightbox-close" onClick={() => setIsOpen(false)}>&times;</span>
+      <span 
+        className="lightbox-close" 
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          onClose()
+        }}
+      >
+        &times;
+      </span>
       <span 
         className="lightbox-prev" 
         onClick={(e) => {
+          e.preventDefault()
           e.stopPropagation()
-          setCurrentIndex((prev) => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
+          onPrev()
         }}
       >
         &#10094;
@@ -82,13 +69,20 @@ export default function Lightbox() {
       <span 
         className="lightbox-next" 
         onClick={(e) => {
+          e.preventDefault()
           e.stopPropagation()
-          setCurrentIndex((prev) => (prev + 1) % GALLERY_IMAGES.length)
+          onNext()
         }}
       >
         &#10095;
       </span>
-      <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+      <div 
+        className="lightbox-content" 
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+        }}
+      >
         <img id="lightboxImage" src={currentImage.src} alt={currentImage.alt} />
         <div className="lightbox-counter">
           <span id="lightboxCurrent">{currentIndex + 1}</span> / <span id="lightboxTotal">{GALLERY_IMAGES.length}</span>

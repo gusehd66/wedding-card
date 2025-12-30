@@ -15,8 +15,12 @@ import { initKakaoSDK } from './utils/kakao'
 import { initNaverMap } from './utils/naverMap'
 import { initScrollAnimation } from './utils/scrollAnimation'
 
+const GALLERY_IMAGES_COUNT = 23
+
 function App() {
   const [showOpening, setShowOpening] = useState(true)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   useEffect(() => {
     // 카카오 SDK 초기화
@@ -37,6 +41,23 @@ function App() {
     initScrollAnimation()
   }, [])
 
+  const handleImageClick = (index) => {
+    setLightboxIndex(index)
+    setLightboxOpen(true)
+  }
+
+  const handleLightboxClose = () => {
+    setLightboxOpen(false)
+  }
+
+  const handleLightboxPrev = () => {
+    setLightboxIndex((prev) => (prev - 1 + GALLERY_IMAGES_COUNT) % GALLERY_IMAGES_COUNT)
+  }
+
+  const handleLightboxNext = () => {
+    setLightboxIndex((prev) => (prev + 1) % GALLERY_IMAGES_COUNT)
+  }
+
   return (
     <div className={showOpening ? 'opening-active' : ''}>
       <OpeningAnimation onClose={() => setShowOpening(false)} />
@@ -45,13 +66,19 @@ function App() {
         <DateSection />
         <ParentsSection />
         <TogetherSection />
-        <GallerySection />
+        <GallerySection onImageClick={handleImageClick} />
         <TransportSection />
         <AccountSection />
         <ShareSection />
         <Footer />
       </main>
-      <Lightbox />
+      <Lightbox 
+        isOpen={lightboxOpen}
+        currentIndex={lightboxIndex}
+        onClose={handleLightboxClose}
+        onPrev={handleLightboxPrev}
+        onNext={handleLightboxNext}
+      />
     </div>
   )
 }
