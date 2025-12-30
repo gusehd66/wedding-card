@@ -330,22 +330,22 @@ function initGallerySlideshow(totalSlides) {
     }, 3000); // 3초마다 변경
 
     // 마우스 호버 시 일시정지
-    const slideshow = document.getElementById('gallerySlideshow');
-    if (slideshow) {
-        slideshow.addEventListener('mouseenter', () => {
-            if (gallerySlideInterval) {
-                clearInterval(gallerySlideInterval);
-            }
-        });
+    // const slideshow = document.getElementById('gallerySlideshow');
+    // if (slideshow) {
+    //     slideshow.addEventListener('mouseenter', () => {
+    //         if (gallerySlideInterval) {
+    //             clearInterval(gallerySlideInterval);
+    //         }
+    //     });
         
-        slideshow.addEventListener('mouseleave', () => {
-            gallerySlideInterval = setInterval(() => {
-                slides[currentSlideIndex].classList.remove('active');
-                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-                slides[currentSlideIndex].classList.add('active');
-            }, 3000);
-        });
-    }
+    //     slideshow.addEventListener('mouseleave', () => {
+    //         gallerySlideInterval = setInterval(() => {
+    //             slides[currentSlideIndex].classList.remove('active');
+    //             currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+    //             slides[currentSlideIndex].classList.add('active');
+    //         }, 3000);
+    //     });
+    // }
 }
 
 // 갤러리 더보기 기능
@@ -384,20 +384,24 @@ function attachMoreButtonEvent() {
     const moreBtn = document.getElementById('moreBtn');
     if (!moreBtn) return;
     
-    // 기존 이벤트 리스너 제거
-    if (moreButtonHandler) {
-        moreBtn.removeEventListener('click', moreButtonHandler);
-        moreBtn.removeEventListener('touchend', moreButtonHandler);
-    }
+    // 기존 이벤트 리스너 모두 제거 (완전히 초기화)
+    const newBtn = moreBtn.cloneNode(true);
+    moreBtn.parentNode.replaceChild(newBtn, moreBtn);
+    
+    // 버튼이 form 안에 있지 않더라도 명시적으로 type 설정
+    newBtn.setAttribute('type', 'button');
+    newBtn.setAttribute('onclick', 'return false;'); // 인라인 핸들러로 추가 보호
     
     // 이벤트 핸들러 함수 정의
     moreButtonHandler = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+        }
         
         // 모바일 터치 이벤트도 방지
-        if (e.type === 'touchstart' || e.type === 'touchend') {
+        if (e && (e.type === 'touchstart' || e.type === 'touchend')) {
             e.preventDefault();
         }
         
@@ -405,42 +409,57 @@ function attachMoreButtonEvent() {
             allGalleryItems.forEach(item => {
                 item.style.display = 'block';
             });
-            moreBtn.textContent = '접기';
+            newBtn.textContent = '접기';
             showAllImages = true;
         } else {
             for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
                 allGalleryItems[i].style.display = 'none';
             }
-            moreBtn.textContent = '더보기';
+            newBtn.textContent = '더보기';
             showAllImages = false;
-            document.querySelector('.section-gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // scrollIntoView는 에러가 발생할 수 있으므로 try-catch로 감싸기
+            try {
+                const gallerySection = document.querySelector('.section-gallery');
+                if (gallerySection) {
+                    gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } catch (err) {
+                console.log('scrollIntoView error:', err);
+            }
         }
         
         return false;
     };
     
-    // 클릭 이벤트 (모바일에서도 작동)
-    moreBtn.addEventListener('click', moreButtonHandler, { passive: false, capture: true });
+    // 클릭 이벤트 (모바일에서도 작동) - capture 단계에서 처리
+    newBtn.addEventListener('click', moreButtonHandler, { passive: false, capture: true });
     
     // 모바일 터치 이벤트 처리
-    moreBtn.addEventListener('touchstart', function(e) {
+    newBtn.addEventListener('touchstart', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
     }, { passive: false, capture: true });
     
-    moreBtn.addEventListener('touchend', function(e) {
+    newBtn.addEventListener('touchend', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         moreButtonHandler(e);
     }, { passive: false, capture: true });
     
     // 추가 안전장치: 기본 동작 방지
-    moreBtn.addEventListener('mousedown', function(e) {
+    newBtn.addEventListener('mousedown', function(e) {
         e.preventDefault();
-    }, { passive: false });
+        e.stopPropagation();
+    }, { passive: false, capture: true });
     
-    // 버튼이 form 안에 있지 않더라도 명시적으로 type 설정
-    moreBtn.setAttribute('type', 'button');
+    // contextmenu 이벤트도 방지 (우클릭 메뉴)
+    newBtn.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }, { passive: false });
 }
 
 // 이미지 로드 실패 처리는 loadGalleryImages 함수 내에서 처리됨
@@ -450,12 +469,10 @@ let currentImageIndex = 0;
 let galleryImages = [];
 let lightboxInitialized = false;
 
+// 갤러리 이미지 클릭 이벤트 핸들러 (외부에 정의하여 removeEventListener 가능하도록)
+let handleGalleryImageClick = null;
+
 function initLightbox() {
-    // 이미 초기화되었으면 중복 초기화 방지
-    if (lightboxInitialized) {
-        return;
-    }
-    lightboxInitialized = true;
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxClose = document.getElementById('lightboxClose');
@@ -471,15 +488,45 @@ function initLightbox() {
     
     lightboxTotal.textContent = galleryImages.length;
     
-    // 이미지 클릭 이벤트
-    document.querySelectorAll('.gallery-item img').forEach((img, index) => {
-        img.addEventListener('click', function(e) {
-            if (this.complete && this.naturalWidth > 0) {
-                currentImageIndex = index;
-                openLightbox();
+    // 이미지 클릭 이벤트 - 이벤트 위임 방식으로 변경하여 중복 방지
+    const galleryGrid = document.getElementById('galleryGrid');
+    if (galleryGrid) {
+        // 기존 이벤트 리스너 제거
+        if (handleGalleryImageClick) {
+            galleryGrid.removeEventListener('click', handleGalleryImageClick);
+            galleryGrid.removeEventListener('touchend', handleGalleryImageClick);
+        }
+        
+        // 이벤트 핸들러 함수 정의
+        handleGalleryImageClick = function(e) {
+            const img = e.target.closest('.gallery-item img');
+            if (!img) return;
+            
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            if (img.complete && img.naturalWidth > 0) {
+                // 클릭한 이미지의 인덱스 찾기
+                const allImages = Array.from(document.querySelectorAll('.gallery-item img'));
+                currentImageIndex = allImages.indexOf(img);
+                if (currentImageIndex >= 0) {
+                    openLightbox();
+                }
             }
-        });
-    });
+            return false;
+        };
+        
+        // 이벤트 위임으로 등록 (매번 갱신)
+        galleryGrid.addEventListener('click', handleGalleryImageClick, { passive: false, capture: true });
+        galleryGrid.addEventListener('touchend', handleGalleryImageClick, { passive: false, capture: true });
+    }
+    
+    // 이미 초기화되었으면 여기서 종료 (라이트박스 UI는 한 번만 초기화)
+    if (lightboxInitialized) {
+        return;
+    }
+    lightboxInitialized = true;
     
     // 이벤트 핸들러 함수들을 미리 정의 (중복 등록 방지)
     function handleCloseClick(e) {
