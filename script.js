@@ -378,6 +378,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 더보기 버튼 이벤트는 동적으로 추가
+let moreButtonHandler = null;
+
 function attachMoreButtonEvent() {
     const moreBtn = document.getElementById('moreBtn');
     if (moreBtn) {
@@ -385,24 +387,51 @@ function attachMoreButtonEvent() {
         const newMoreBtn = moreBtn.cloneNode(true);
         moreBtn.parentNode.replaceChild(newMoreBtn, moreBtn);
         
-        newMoreBtn.addEventListener('click', function(e) {
+        // 이벤트 핸들러 함수 정의
+        moreButtonHandler = function(e) {
             e.preventDefault();
             e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            // 모바일 터치 이벤트도 방지
+            if (e.type === 'touchstart' || e.type === 'touchend') {
+                e.preventDefault();
+            }
+            
             if (!showAllImages) {
                 allGalleryItems.forEach(item => {
                     item.style.display = 'block';
                 });
-                this.textContent = '접기';
+                newMoreBtn.textContent = '접기';
                 showAllImages = true;
             } else {
                 for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
                     allGalleryItems[i].style.display = 'none';
                 }
-                this.textContent = '더보기';
+                newMoreBtn.textContent = '더보기';
                 showAllImages = false;
                 document.querySelector('.section-gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-        });
+            
+            return false;
+        };
+        
+        // 클릭 이벤트
+        newMoreBtn.addEventListener('click', moreButtonHandler, { passive: false });
+        
+        // 모바일 터치 이벤트도 처리
+        newMoreBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            moreButtonHandler(e);
+            return false;
+        }, { passive: false });
+        
+        // 추가 안전장치: 기본 동작 방지
+        newMoreBtn.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+        }, { passive: false });
     }
 }
 
@@ -516,7 +545,7 @@ function initLightbox() {
                 console.log("swipe right");
                 showPreviousImage();
             }
-            setTimeout(() => { isNavigating = false; }, 300);
+            setTimeout(() => { isNavigating = false; }, 200);
         }
     }
     
@@ -813,11 +842,77 @@ function initCountdown() {
     setInterval(updateCountdown, 1000);
 }
 
+// 이미지 프리로드 함수
+function preloadImages() {
+    // 갤러리 이미지 목록
+    const galleryImages = [
+        'wedding_1.jpg',
+        'wedding_2.jpg',
+        'wedding_3.jpg',
+        'wedding_4.jpg',
+        'wedding_5.jpg',
+        'wedding_6.jpeg',
+        'wedding_7.jpeg',
+        'wedding_8.jpeg',
+        'wedding_9.jpeg',
+        'wedding_10.jpeg',
+        'wedding_11.jpeg',
+        'wedding_12.jpeg',
+        'wedding_13.jpeg',
+        'wedding_14.jpeg',
+        'wedding_15.jpeg',
+        'wedding_16.jpg',
+        'wedding_17.jpg',
+        'wedding_18.jpeg',
+        'wedding_19.jpeg',
+        'wedding_20.jpeg',
+        'wedding_21.jpeg',
+        'wedding_22.jpeg',
+        'wedding_23.jpeg'
+    ];
+    
+    // 주요 이미지 목록
+    const mainImages = [
+        'images/header_image.jpg',
+        'images/save_the_date.png',
+        'images/invite_to_7.jpg',
+        'images/invite_letter2.png',
+        'images/info_footer.png',
+        'images/groom_parent.png',
+        'images/couple_letter.png',
+        'images/couple_letter2.png',
+        'images/calendar.jpg',
+        'images/direction.png',
+        'images/send_to.png'
+    ];
+    
+    // 모든 이미지 프리로드
+    const allImages = [
+        ...mainImages,
+        ...galleryImages.map(img => `images/gallery/${img}`)
+    ];
+    
+    // 이미지 프리로드 시작
+    allImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        // 에러가 발생해도 계속 진행
+        img.onerror = function() {
+            // 조용히 실패 처리
+        };
+    });
+    
+    console.log(`이미지 프리로드 시작: ${allImages.length}개`);
+}
+
 // 페이지 로드 시 라이트박스 및 지도 초기화
 // 오프닝 애니메이션 제어
 function initOpeningAnimation() {
     const openingOverlay = document.getElementById('openingOverlay');
     if (!openingOverlay) return;
+
+    // 오프닝 시작 시 이미지 프리로드 시작
+    preloadImages();
 
     // 오프닝 제거 함수
     function removeOpening() {

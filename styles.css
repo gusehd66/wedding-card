@@ -674,6 +674,13 @@ main {
     color: #333;
     cursor: pointer;
     margin-top: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 /* 다섯 번째 섹션 - 교통편 안내 */
