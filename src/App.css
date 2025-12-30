@@ -662,6 +662,22 @@ main {
     display: block;
     max-width: 100%;
     cursor: pointer;
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.gallery-item {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .more-btn {
@@ -1067,5 +1083,86 @@ main {
         width: 40px;
         height: 40px;
         font-size: 30px;
+    }
+}
+
+/* react-image-gallery 커스텀 스타일 */
+.lightbox-overlay .image-gallery {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    -webkit-touch-callout: none;
+}
+
+.lightbox-overlay .image-gallery * {
+    touch-action: none;
+    -webkit-touch-callout: none;
+}
+
+.lightbox-overlay .image-gallery-content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-overlay .image-gallery-slide-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-overlay .image-gallery-slide {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-overlay .image-gallery-image {
+    max-height: 90vh;
+    max-width: 100%;
+}
+
+.lightbox-overlay .image-gallery-icon {
+    color: #fff;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.lightbox-overlay .image-gallery-icon:hover {
+    color: #fff;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.lightbox-overlay .image-gallery-icon:focus {
+    outline: none;
+}
+
+.lightbox-overlay .image-gallery-bullets {
+    bottom: 20px;
+}
+
+.lightbox-overlay .image-gallery-bullet {
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox-overlay .image-gallery-bullet.active {
+    background: #fff;
+}
+
+/* 모바일 터치 최적화 */
+@media (max-width: 768px) {
+    .lightbox-overlay .image-gallery-icon {
+        font-size: 2em;
+        padding: 10px;
+    }
+    
+    .lightbox-overlay .image-gallery-left-nav,
+    .lightbox-overlay .image-gallery-right-nav {
+        padding: 10px;
     }
 }

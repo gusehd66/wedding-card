@@ -50,14 +50,6 @@ function App() {
     setLightboxOpen(false)
   }
 
-  const handleLightboxPrev = () => {
-    setLightboxIndex((prev) => (prev - 1 + GALLERY_IMAGES_COUNT) % GALLERY_IMAGES_COUNT)
-  }
-
-  const handleLightboxNext = () => {
-    setLightboxIndex((prev) => (prev + 1) % GALLERY_IMAGES_COUNT)
-  }
-
   return (
     <div className={showOpening ? 'opening-active' : ''}>
       <OpeningAnimation onClose={() => setShowOpening(false)} />
@@ -76,8 +68,6 @@ function App() {
         isOpen={lightboxOpen}
         currentIndex={lightboxIndex}
         onClose={handleLightboxClose}
-        onPrev={handleLightboxPrev}
-        onNext={handleLightboxNext}
       />
     </div>
   )

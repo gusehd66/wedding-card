@@ -18,64 +18,142 @@ export default function GallerySection({ onImageClick }) {
   const countdown = useCountdown()
 
   const handleMoreClick = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    // e.stopImmediatePropagation()
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+      if (typeof e.stopImmediatePropagation === 'function') {
+        e.stopImmediatePropagation()
+      }
+    }
     
     if (!showAllImages) {
+      const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
+      items?.forEach(item => {
+        item.style.display = 'block'
+      })
       setShowAllImages(true)
     } else {
+      const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
+      items?.forEach(item => {
+        item.style.display = 'none'
+      })
       setShowAllImages(false)
-      const gallerySection = document.querySelector('.section-gallery')
-      if (gallerySection) {
-        gallerySection.scrollIntoView({ behavior: 'smooth' })
-      }
+      document.querySelector('.section-gallery')?.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
   const handleImageClick = (e, index) => {
-    e.preventDefault()
-    e.stopPropagation()
-    e.stopImmediatePropagation()
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+      if (typeof e.stopImmediatePropagation === 'function') {
+        e.stopImmediatePropagation()
+      }
+    }
     
     if (onImageClick) {
       onImageClick(index)
     }
   }
 
+  useEffect(() => {
+    const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
+    items?.forEach(item => {
+      item.style.display = 'none'
+    })
+  }, [])
+
   const shouldShowMoreButton = GALLERY_IMAGES.length > INITIAL_VISIBLE_COUNT
 
   return (
     <section className="section section-gallery">
-      {/* <div className="gallery-slideshow" id="gallerySlideshow">
+      <div className="gallery-slideshow" id="gallerySlideshow">
         {GALLERY_IMAGES.map((img, index) => (
-          <div key={img.id} className={`gallery-slide ${index === 0 ? 'active' : ''}`}>
-            <img src={img.src} alt={img.alt} />
+          <div 
+            key={img.id} 
+            className={`gallery-slide ${index === 0 ? 'active' : ''}`}
+            onContextMenu={(e) => {
+              e.preventDefault()
+              return false
+            }}
+            style={{
+              touchAction: 'none',
+              WebkitTouchCallout: 'none',
+              WebkitUserSelect: 'none',
+              userSelect: 'none'
+            }}
+          >
+            <img 
+              src={img.src} 
+              alt={img.alt}
+              draggable={false}
+              onContextMenu={(e) => {
+                e.preventDefault()
+                return false
+              }}
+              onDragStart={(e) => {
+                e.preventDefault()
+                return false
+              }}
+              style={{
+                touchAction: 'none',
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none',
+                userSelect: 'none'
+              }}
+            />
           </div>
         ))}
-      </div> */}
+      </div>
       
       <div className="gallery-grid" id="galleryGrid" ref={galleryGridRef}>
         {GALLERY_IMAGES.map((img, index) => {
-          const isHidden = !showAllImages && index >= INITIAL_VISIBLE_COUNT
-
+          let groupClass = ''
+          if (index >= 9 && index < 18) groupClass = 'gallery-item-group-2'
+          else if (index >= 18) groupClass = 'gallery-item-group-3'
+          
           return (
-            <div
-              key={img.id}
-              className="gallery-item"
+            <div 
+              key={img.id} 
+              className={`gallery-item ${groupClass}`}
               onClick={(e) => handleImageClick(e, index)}
               onTouchStart={(e) => {
                 e.preventDefault()
               }}
-              style={{ display: isHidden ? 'none' : 'block' }}
+              onContextMenu={(e) => {
+                e.preventDefault()
+                return false
+              }}
+              style={{
+                touchAction: 'none',
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none',
+                userSelect: 'none'
+              }}
             >
               <img 
                 src={img.src} 
                 alt={img.alt} 
                 loading="lazy"
+                draggable={false}
                 onClick={(e) => handleImageClick(e, index)}
                 onTouchStart={(e) => {
                   e.preventDefault()
+                }}
+                onContextMenu={(e) => {
+                  e.preventDefault()
+                  return false
+                }}
+                onDragStart={(e) => {
+                  e.preventDefault()
+                  return false
+                }}
+                style={{
+                  touchAction: 'none',
+                  WebkitTouchCallout: 'none',
+                  WebkitUserSelect: 'none',
+                  userSelect: 'none',
+                  pointerEvents: 'auto'
                 }}
               />
             </div>
