@@ -232,11 +232,15 @@
                 <div id="map-container" style="width: 100%; height: 300px; margin: 20px 0;">
                     <!-- 네이버 지도가 여기에 표시됩니다 -->
                 </div>
-                <span id="span">
-                    <p id="map">서울 광진구 능동로 87</p>
-                    <p id="map2" style="font-weight:bold">까사그랑데</p>
-                </span>
-                <button id="map_btn" onclick="copy('map');return false;">복사하기</button>
+                <div id="span" class="map-section-content">
+                    <div class="map-section-content-left">
+                        <div id="map">서울 광진구 능동로 87</div>
+                        <div id="map2" style="font-weight:bold">까사그랑데</div>
+                    </div>
+                    <div>
+                        <button id="map_btn" onclick="copy('map');return false;">복사하기</button>
+                    </div>
+                </div>
             </div>
 
             <div class="transport-info">

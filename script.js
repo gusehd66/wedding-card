@@ -437,22 +437,29 @@ function initLightbox() {
     });
     
     // 닫기 버튼
-    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeLightbox();
+    });
     
     // 배경 클릭 시 닫기
     lightbox.addEventListener('click', function(e) {
         if (e.target === lightbox) {
+            e.preventDefault();
             closeLightbox();
         }
     });
     
     // 이전/다음 버튼
     lightboxPrev.addEventListener('click', function(e) {
+        e.preventDefault();
         e.stopPropagation();
         showPreviousImage();
     });
     
     lightboxNext.addEventListener('click', function(e) {
+        e.preventDefault();
         e.stopPropagation();
         showNextImage();
     });

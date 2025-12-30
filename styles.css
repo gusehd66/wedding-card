@@ -705,6 +705,16 @@ main {
     color: #333;
 }
 
+.map-section-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.map-section-content-left {
+    text-align: start;
+}
+
 #map_btn {
     padding: 10px 20px;
     background-color: transparent;
@@ -713,7 +723,7 @@ main {
     font-size: 13px;
     color: #666;
     cursor: pointer;
-    margin-top: 12px;
+    /* margin-top: 12px; */
 }
 
 .transport-info {
@@ -824,6 +834,7 @@ main {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
+    min-width: 185px;
 }
 
 .kakao_btn:hover {
@@ -856,7 +867,7 @@ main {
 }
 
 #url_copy {
-    padding: 16px;
+    padding: 10px 20px;
     background-color: #333;
     color: #ffffff;
     border: none;
@@ -864,7 +875,7 @@ main {
     font-size: 15px;
     font-weight: 400;
     cursor: pointer;
-    min-width: 200px;
+    min-width: 185px;
 }
 
 #url_copy:hover {
@@ -940,6 +951,12 @@ main {
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .lightbox-close:hover {
@@ -966,6 +983,11 @@ main {
     /* background-color: rgba(0, 0, 0, 0.5); */
     transition: all 0.3s ease;
     user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .lightbox-prev {
