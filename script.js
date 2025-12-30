@@ -390,20 +390,12 @@ function attachMoreButtonEvent() {
     
     // 버튼이 form 안에 있지 않더라도 명시적으로 type 설정
     newBtn.setAttribute('type', 'button');
-    newBtn.setAttribute('onclick', 'return false;'); // 인라인 핸들러로 추가 보호
     
-    // 이벤트 핸들러 함수 정의
+    // 이벤트 핸들러 함수 정의 - click 이벤트만 사용
     moreButtonHandler = function(e) {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-        }
-        
-        // 모바일 터치 이벤트도 방지
-        if (e && (e.type === 'touchstart' || e.type === 'touchend')) {
-            e.preventDefault();
-        }
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         
         if (!showAllImages) {
             allGalleryItems.forEach(item => {
@@ -431,35 +423,8 @@ function attachMoreButtonEvent() {
         return false;
     };
     
-    // 클릭 이벤트 (모바일에서도 작동) - capture 단계에서 처리
-    newBtn.addEventListener('click', moreButtonHandler, { passive: false, capture: true });
-    
-    // 모바일 터치 이벤트 처리
-    newBtn.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-    }, { passive: false, capture: true });
-    
-    newBtn.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        moreButtonHandler(e);
-    }, { passive: false, capture: true });
-    
-    // 추가 안전장치: 기본 동작 방지
-    newBtn.addEventListener('mousedown', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }, { passive: false, capture: true });
-    
-    // contextmenu 이벤트도 방지 (우클릭 메뉴)
-    newBtn.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-    }, { passive: false });
+    // click 이벤트만 사용 (모바일에서도 자동으로 처리됨)
+    newBtn.addEventListener('click', moreButtonHandler, { passive: false });
 }
 
 // 이미지 로드 실패 처리는 loadGalleryImages 함수 내에서 처리됨
@@ -494,10 +459,9 @@ function initLightbox() {
         // 기존 이벤트 리스너 제거
         if (handleGalleryImageClick) {
             galleryGrid.removeEventListener('click', handleGalleryImageClick);
-            galleryGrid.removeEventListener('touchend', handleGalleryImageClick);
         }
         
-        // 이벤트 핸들러 함수 정의
+        // 이벤트 핸들러 함수 정의 - click 이벤트만 사용
         handleGalleryImageClick = function(e) {
             const img = e.target.closest('.gallery-item img');
             if (!img) return;
@@ -517,9 +481,8 @@ function initLightbox() {
             return false;
         };
         
-        // 이벤트 위임으로 등록 (매번 갱신)
-        galleryGrid.addEventListener('click', handleGalleryImageClick, { passive: false, capture: true });
-        galleryGrid.addEventListener('touchend', handleGalleryImageClick, { passive: false, capture: true });
+        // click 이벤트만 사용 (모바일에서도 자동으로 처리됨)
+        galleryGrid.addEventListener('click', handleGalleryImageClick, { passive: false });
     }
     
     // 이미 초기화되었으면 여기서 종료 (라이트박스 UI는 한 번만 초기화)
@@ -617,11 +580,11 @@ function initLightbox() {
     lightboxNext.removeEventListener('click', handleNextClick);
     lightboxNext.addEventListener('click', handleNextClick);
     
-    lightbox.removeEventListener('touchstart', handleTouchStart);
-    lightbox.addEventListener('touchstart', handleTouchStart);
+    // lightbox.removeEventListener('touchstart', handleTouchStart);
+    // lightbox.addEventListener('touchstart', handleTouchStart);
     
-    lightbox.removeEventListener('touchend', handleTouchEnd);
-    lightbox.addEventListener('touchend', handleTouchEnd);
+    // lightbox.removeEventListener('touchend', handleTouchEnd);
+    // lightbox.addEventListener('touchend', handleTouchEnd);
     
     // 키보드 이벤트 - 한 번만 등록되도록 함수로 분리
     function handleKeydown(e) {
