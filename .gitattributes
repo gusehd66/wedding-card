@@ -1,0 +1,24 @@
+# 줄바꿈 문자 자동 변환 설정
+* text=auto
+
+# 텍스트 파일은 LF로 통일 (저장소에서는 LF, 체크아웃 시 OS에 맞게 변환)
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.scss text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+
+# 바이너리 파일은 변환하지 않음
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+

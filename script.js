@@ -190,99 +190,14 @@ function shareMessage() {
 }
 
 
-// 갤러리 이미지 로드
+// 갤러리 초기화 (HTML에 이미지가 직접 포함되어 있으므로 초기화만 수행)
 function loadGalleryImages() {
-    const galleryGrid = document.getElementById('galleryGrid');
     const gallerySlideshow = document.getElementById('gallerySlideshow');
-    if (!galleryGrid || !gallerySlideshow) return;
-
-    // images/gallery 폴더의 이미지 목록
-    // 숫자 순서대로 정렬하기 위해 배열로 정의
-    const imageFiles = [
-        'wedding_1.jpg',
-        'wedding_2.jpg',
-        'wedding_3.jpg',
-        'wedding_4.jpg',
-        'wedding_5.jpg',
-        'wedding_6.jpeg',
-        'wedding_7.jpeg',
-        'wedding_8.jpeg',
-        'wedding_9.jpeg',
-        'wedding_10.jpeg',
-        'wedding_11.jpeg',
-        'wedding_12.jpeg',
-        'wedding_13.jpeg',
-        'wedding_14.jpeg',
-        'wedding_15.jpeg',
-        'wedding_16.jpg',
-        'wedding_17.jpg',
-        'wedding_18.jpeg',
-        'wedding_19.jpeg',
-        'wedding_20.jpeg',
-        'wedding_21.jpeg',
-        'wedding_22.jpeg',
-        'wedding_23.jpeg'
-    ];
-
-    // 갤러리 그리드 초기화
-    galleryGrid.innerHTML = '';
-    gallerySlideshow.innerHTML = '';
-
-    // 슬라이드쇼 이미지 생성
-    imageFiles.forEach((filename, index) => {
-        const slide = document.createElement('div');
-        slide.className = 'gallery-slide';
-        if (index === 0) {
-            slide.classList.add('active');
-        }
-        const img = document.createElement('img');
-        img.src = `images/gallery/${filename}`;
-        img.alt = `사진 ${index + 1}`;
-        img.onerror = function() {
-            this.style.display = 'none';
-        };
-        slide.appendChild(img);
-        gallerySlideshow.appendChild(slide);
-    });
-
-    // 그리드 이미지 아이템 생성
-    imageFiles.forEach((filename, index) => {
-        const galleryItem = document.createElement('div');
-        galleryItem.className = 'gallery-item';
-        const img = document.createElement('img');
-        img.src = `images/gallery/${filename}`;
-        img.alt = `사진 ${index + 1}`;
-        img.loading = 'lazy';
-        img.onerror = function() {
-            // 이미지 로드 실패 시 플레이스홀더 표시
-            this.style.display = 'none';
-            const placeholder = document.createElement('div');
-            placeholder.className = 'image-placeholder';
-            placeholder.innerHTML = `
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 19V5C21 3.9 20.1 3 19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19ZM8.5 13.5L11 16.51L14.5 12L19 18H5L8.5 13.5Z" fill="#ccc"/>
-                </svg>
-                <p>사진 ${index + 1}</p>
-            `;
-            placeholder.style.cssText = `
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                background-color: #f5f5f5;
-                color: #999;
-                font-size: 12px;
-            `;
-            this.parentElement.appendChild(placeholder);
-        };
-        galleryItem.appendChild(img);
-        galleryGrid.appendChild(galleryItem);
-    });
+    if (!gallerySlideshow) return;
 
     // 슬라이드쇼 시작
-    initGallerySlideshow(imageFiles.length);
+    const slides = document.querySelectorAll('.gallery-slide');
+    initGallerySlideshow(slides.length);
     
     // 더보기 기능 초기화
     initMoreButton();
@@ -351,18 +266,20 @@ function initGallerySlideshow(totalSlides) {
 // 갤러리 더보기 기능
 let showAllImages = false;
 let allGalleryItems = [];
-const initialVisibleCount = 9;
+const initialVisibleCount = 9; // 첫 번째 그룹: 9개
 
 function initMoreButton() {
     allGalleryItems = document.querySelectorAll('.gallery-item');
     
     if (allGalleryItems.length > initialVisibleCount) {
+        // 첫 번째 그룹(9개) 이후의 모든 아이템 숨기기
         for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
             allGalleryItems[i].style.display = 'none';
         }
         const moreBtn = document.getElementById('moreBtn');
         if (moreBtn) {
             moreBtn.style.display = 'block';
+            moreBtn.textContent = '더보기'; // 초기 버튼 텍스트
         }
     } else {
         const moreBtn = document.getElementById('moreBtn');
@@ -398,18 +315,20 @@ function attachMoreButtonEvent() {
         e.stopImmediatePropagation();
         
         if (!showAllImages) {
-            allGalleryItems.forEach(item => {
-                item.style.display = 'block';
-            });
+            // 나머지 그룹들 모두 표시 (10번째부터 마지막까지)
+            for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
+                allGalleryItems[i].style.display = 'block';
+            }
             newBtn.textContent = '접기';
             showAllImages = true;
         } else {
+            // 나머지 그룹들 숨기기 (10번째부터 마지막까지)
             for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
                 allGalleryItems[i].style.display = 'none';
             }
             newBtn.textContent = '더보기';
             showAllImages = false;
-            // scrollIntoView는 에러가 발생할 수 있으므로 try-catch로 감싸기
+            // 접기 시 갤러리 섹션으로 스크롤
             try {
                 const gallerySection = document.querySelector('.section-gallery');
                 if (gallerySection) {
