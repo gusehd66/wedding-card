@@ -1,4 +1,4 @@
-const JAVASCRIPT_KEY = 'ce28d51a4e91630df706129c5d4a99db';
+const JAVASCRIPT_KEY = '51ce90a5a85c4e81932e03038c1559be';
 
 export function initKakaoSDK() {
   if (typeof window === 'undefined' || !window.Kakao) {
