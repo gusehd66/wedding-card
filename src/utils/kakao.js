@@ -13,8 +13,12 @@ export function initKakaoSDK() {
 }
 
 export function shareMessage() {
-  // 항상 현재 배포된 URL 사용 (Vercel 배포 시 자동으로 Vercel URL 사용)
-  const currentURL = window.location.origin;
+  // Vercel 배포 URL로 고정
+  const vercelURL = 'https://wedding-card-eight-kappa.vercel.app';
+  
+  // 콘솔에 공유 링크 로그 출력
+  console.log('카카오톡 공유 링크:', vercelURL);
+  console.log('현재 페이지 URL:', window.location.href);
   
   if (!window.Kakao) {
     alert('Kakao SDK가 로드되지 않았습니다.');
@@ -25,26 +29,30 @@ export function shareMessage() {
     window.Kakao.init(JAVASCRIPT_KEY);
   }
 
-  window.Kakao.Share.sendDefault({
+  const shareData = {
     objectType: 'feed',
     content: {
       title: 'Kim Hyun Dong & Lee Kyung Seo 결혼합니다',
       description: '2026.04.12 SUN 13:00PM\n까사그랑데',
-      imageUrl: currentURL + '/images/meta.jpg',
+      imageUrl: vercelURL + '/images/meta.jpg',
       link: {
-        mobileWebUrl: currentURL,
-        webUrl: currentURL,
+        mobileWebUrl: vercelURL,
+        webUrl: vercelURL,
       },
     },
     buttons: [
       {
         title: '청첩장 보기',
         link: {
-          mobileWebUrl: currentURL,
-          webUrl: currentURL,
+          mobileWebUrl: vercelURL,
+          webUrl: vercelURL,
         },
       },
     ],
-  });
+  };
+
+  console.log('카카오톡 공유 데이터:', shareData);
+
+  window.Kakao.Share.sendDefault(shareData);
 }
 
