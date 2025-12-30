@@ -382,57 +382,65 @@ let moreButtonHandler = null;
 
 function attachMoreButtonEvent() {
     const moreBtn = document.getElementById('moreBtn');
-    if (moreBtn) {
-        // 기존 이벤트 리스너 제거 후 새로 추가
-        const newMoreBtn = moreBtn.cloneNode(true);
-        moreBtn.parentNode.replaceChild(newMoreBtn, moreBtn);
-        
-        // 이벤트 핸들러 함수 정의
-        moreButtonHandler = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            
-            // 모바일 터치 이벤트도 방지
-            if (e.type === 'touchstart' || e.type === 'touchend') {
-                e.preventDefault();
-            }
-            
-            if (!showAllImages) {
-                allGalleryItems.forEach(item => {
-                    item.style.display = 'block';
-                });
-                newMoreBtn.textContent = '접기';
-                showAllImages = true;
-            } else {
-                for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
-                    allGalleryItems[i].style.display = 'none';
-                }
-                newMoreBtn.textContent = '더보기';
-                showAllImages = false;
-                document.querySelector('.section-gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            
-            return false;
-        };
-        
-        // 클릭 이벤트
-        newMoreBtn.addEventListener('click', moreButtonHandler, { passive: false });
-        
-        // 모바일 터치 이벤트도 처리
-        newMoreBtn.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            moreButtonHandler(e);
-            return false;
-        }, { passive: false });
-        
-        // 추가 안전장치: 기본 동작 방지
-        newMoreBtn.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-        }, { passive: false });
+    if (!moreBtn) return;
+    
+    // 기존 이벤트 리스너 제거
+    if (moreButtonHandler) {
+        moreBtn.removeEventListener('click', moreButtonHandler);
+        moreBtn.removeEventListener('touchend', moreButtonHandler);
     }
+    
+    // 이벤트 핸들러 함수 정의
+    moreButtonHandler = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        // 모바일 터치 이벤트도 방지
+        if (e.type === 'touchstart' || e.type === 'touchend') {
+            e.preventDefault();
+        }
+        
+        if (!showAllImages) {
+            allGalleryItems.forEach(item => {
+                item.style.display = 'block';
+            });
+            moreBtn.textContent = '접기';
+            showAllImages = true;
+        } else {
+            for (let i = initialVisibleCount; i < allGalleryItems.length; i++) {
+                allGalleryItems[i].style.display = 'none';
+            }
+            moreBtn.textContent = '더보기';
+            showAllImages = false;
+            document.querySelector('.section-gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        return false;
+    };
+    
+    // 클릭 이벤트 (모바일에서도 작동)
+    moreBtn.addEventListener('click', moreButtonHandler, { passive: false, capture: true });
+    
+    // 모바일 터치 이벤트 처리
+    moreBtn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }, { passive: false, capture: true });
+    
+    moreBtn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        moreButtonHandler(e);
+    }, { passive: false, capture: true });
+    
+    // 추가 안전장치: 기본 동작 방지
+    moreBtn.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+    
+    // 버튼이 form 안에 있지 않더라도 명시적으로 type 설정
+    moreBtn.setAttribute('type', 'button');
 }
 
 // 이미지 로드 실패 처리는 loadGalleryImages 함수 내에서 처리됨
