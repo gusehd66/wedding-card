@@ -385,7 +385,9 @@ function attachMoreButtonEvent() {
         const newMoreBtn = moreBtn.cloneNode(true);
         moreBtn.parentNode.replaceChild(newMoreBtn, moreBtn);
         
-        newMoreBtn.addEventListener('click', function() {
+        newMoreBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             if (!showAllImages) {
                 allGalleryItems.forEach(item => {
                     item.style.display = 'block';
@@ -409,8 +411,14 @@ function attachMoreButtonEvent() {
 // 라이트박스 기능
 let currentImageIndex = 0;
 let galleryImages = [];
+let lightboxInitialized = false;
 
 function initLightbox() {
+    // 이미 초기화되었으면 중복 초기화 방지
+    if (lightboxInitialized) {
+        return;
+    }
+    lightboxInitialized = true;
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxClose = document.getElementById('lightboxClose');
@@ -436,74 +444,125 @@ function initLightbox() {
         });
     });
     
-    // 닫기 버튼
-    lightboxClose.addEventListener('click', function(e) {
+    // 이벤트 핸들러 함수들을 미리 정의 (중복 등록 방지)
+    function handleCloseClick(e) {
         e.preventDefault();
         e.stopPropagation();
         closeLightbox();
-    });
+    }
     
-    // 배경 클릭 시 닫기
-    lightbox.addEventListener('click', function(e) {
+    function handleBackgroundClick(e) {
         if (e.target === lightbox) {
             e.preventDefault();
             closeLightbox();
         }
-    });
+    }
     
-    // 이전/다음 버튼
-    lightboxPrev.addEventListener('click', function(e) {
+    // 이전/다음 버튼 - 중복 호출 방지
+    let isNavigating = false;
+    
+    function handlePrevClick(e) {
         e.preventDefault();
         e.stopPropagation();
-        showPreviousImage();
-    });
-    
-    lightboxNext.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        showNextImage();
-    });
-    
-    // 키보드 이벤트
-    document.addEventListener('keydown', function(e) {
-        if (lightbox.classList.contains('active')) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            } else if (e.key === 'ArrowLeft') {
-                showPreviousImage();
-            } else if (e.key === 'ArrowRight') {
-                showNextImage();
-            }
+        if (!isNavigating) {
+            isNavigating = true;
+            console.log("previous button clicked");
+            showPreviousImage();
+            setTimeout(() => { isNavigating = false; }, 300);
         }
-    });
+    }
+    
+    function handleNextClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!isNavigating) {
+            isNavigating = true;
+            console.log("next button clicked");
+            showNextImage();
+            setTimeout(() => { isNavigating = false; }, 300);
+        }
+    }
     
     // 터치 스와이프 지원
     let touchStartX = 0;
     let touchEndX = 0;
+    let isSwipeHandled = false;
     
-    lightbox.addEventListener('touchstart', function(e) {
+    function handleTouchStart(e) {
         touchStartX = e.changedTouches[0].screenX;
-    });
+        isSwipeHandled = false;
+    }
     
-    lightbox.addEventListener('touchend', function(e) {
+    function handleTouchEnd(e) {
+        if (isSwipeHandled) return;
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
-    });
+    }
     
     function handleSwipe() {
+        if (isNavigating) return;
         const swipeThreshold = 50;
         const diff = touchStartX - touchEndX;
         
         if (Math.abs(diff) > swipeThreshold) {
+            isSwipeHandled = true;
+            isNavigating = true;
             if (diff > 0) {
                 // 왼쪽으로 스와이프 (다음)
+                console.log("swipe left");
                 showNextImage();
             } else {
                 // 오른쪽으로 스와이프 (이전)
+                console.log("swipe right");
                 showPreviousImage();
+            }
+            setTimeout(() => { isNavigating = false; }, 300);
+        }
+    }
+    
+    // 기존 이벤트 리스너 제거 후 새로 등록
+    lightboxClose.removeEventListener('click', handleCloseClick);
+    lightboxClose.addEventListener('click', handleCloseClick);
+    
+    lightbox.removeEventListener('click', handleBackgroundClick);
+    lightbox.addEventListener('click', handleBackgroundClick);
+    
+    lightboxPrev.removeEventListener('click', handlePrevClick);
+    lightboxPrev.addEventListener('click', handlePrevClick);
+    
+    lightboxNext.removeEventListener('click', handleNextClick);
+    lightboxNext.addEventListener('click', handleNextClick);
+    
+    lightbox.removeEventListener('touchstart', handleTouchStart);
+    lightbox.addEventListener('touchstart', handleTouchStart);
+    
+    lightbox.removeEventListener('touchend', handleTouchEnd);
+    lightbox.addEventListener('touchend', handleTouchEnd);
+    
+    // 키보드 이벤트 - 한 번만 등록되도록 함수로 분리
+    function handleKeydown(e) {
+        if (lightbox.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft' && !isNavigating) {
+                e.preventDefault();
+                isNavigating = true;
+                showPreviousImage();
+                setTimeout(() => { isNavigating = false; }, 300);
+            } else if (e.key === 'ArrowRight' && !isNavigating) {
+                e.preventDefault();
+                isNavigating = true;
+                showNextImage();
+                setTimeout(() => { isNavigating = false; }, 300);
             }
         }
     }
+    
+    // 기존 키보드 이벤트 리스너 제거 후 새로 등록
+    document.removeEventListener('keydown', handleKeydown);
+    document.addEventListener('keydown', handleKeydown);
+    
 }
 
 function openLightbox() {
@@ -528,7 +587,9 @@ function closeLightbox() {
 }
 
 function showNextImage() {
+    console.log("previous image index: ", currentImageIndex);
     currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+    console.log("next image index: ", currentImageIndex);
     updateLightboxImage();
 }
 
@@ -782,7 +843,7 @@ function initOpeningAnimation() {
 
 document.addEventListener('DOMContentLoaded', function() {
     initOpeningAnimation();
-    initLightbox();
+    // initLightbox는 loadGalleryImages에서 호출되므로 여기서는 호출하지 않음
     initScrollAnimation();
     initTogetherTime();
     initCountdown();
