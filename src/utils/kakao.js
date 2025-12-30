@@ -13,6 +13,7 @@ export function initKakaoSDK() {
 }
 
 export function shareMessage() {
+  // 항상 현재 배포된 URL 사용 (Vercel 배포 시 자동으로 Vercel URL 사용)
   const currentURL = window.location.origin;
   
   if (!window.Kakao) {
