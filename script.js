@@ -154,7 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function shareMessage() {
     const JAVASCRIPT_KEY = 'ce28d51a4e91630df706129c5d4a99db';
     // const currentURL = window.location.href;
-    const currentURL = 'https://gusehd66.github.io/wedding-card/';
+    // const currentURL = 'https://gusehd66.github.io/wedding-card/';
+    const currentURL = 'https://wedding-card-eight-kappa.vercel.app';
     if (!window.Kakao) {
         alert('Kakao SDK가 로드되지 않았습니다.');
         return;

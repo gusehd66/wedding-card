@@ -8,7 +8,7 @@ export default function ShareSection() {
         카카오톡 공유하기
       </button>
       <div style={{ textAlign: 'center' }}>
-        <button onClick={copyURL}>청첩장 주소 복사하기</button>
+        <button className="url_copy" onClick={copyURL}>청첩장 주소 복사하기</button>
       </div>
     </section>
   )
