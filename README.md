@@ -1,135 +1,90 @@
-# 모바일 청첩장
+# 모바일 청첩장 - React 프로젝트
 
-wedding-peach.com 스타일의 모바일 청첩장입니다.
+Kim Hyun Dong & Lee Kyung Seo의 모바일 청첩장 웹사이트입니다.
 
-## 파일 구조
+## 기술 스택
 
-```
-fe/
-├── index.html      # 메인 HTML 파일
-├── styles.scss     # SCSS 스타일 파일 (소스)
-├── styles.css      # 컴파일된 CSS 파일 (사용)
-├── script.js       # JavaScript 파일
-├── images/         # 사진 폴더 (여기에 사진을 추가하세요)
-└── README.md       # 이 파일
-```
+- React 18
+- Vite
+- Vanilla CSS
 
-## 사용 방법
+## 설치 및 실행
 
-### 1. 사진 추가하기
-
-`images/` 폴더에 사진을 추가한 후, `script.js` 파일의 `loadGalleryImages()` 함수를 수정하세요:
-
-```javascript
-const images = [
-    'images/photo1.jpg',
-    'images/photo2.jpg',
-    'images/photo3.jpg',
-    // ... 더 많은 사진
-];
-```
-
-그리고 `script.js` 파일 하단의 주석을 해제하세요:
-
-```javascript
-// loadGalleryImages();  // 이 줄의 주석을 제거하세요
-```
-
-### 2. 정보 수정하기
-
-`index.html` 파일에서 다음 정보를 수정하세요:
-
-- **날짜/시간**: `.date-section` 섹션
-- **장소**: `.venue-section` 섹션
-- **신랑/신부 이름**: `.couple-section` 섹션
-- **교통편 안내**: `.transport-section` 섹션
-- **계좌번호**: `.account-section` 섹션
-
-### 3. SCSS 컴파일 (선택사항)
-
-SCSS를 사용하려면 다음 중 하나를 선택하세요:
-
-**방법 1: Node.js 사용**
 ```bash
-npm install -g sass
-sass styles.scss styles.css --watch
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
+
+# 빌드 미리보기
+npm run preview
 ```
 
-**방법 2: VS Code 확장 프로그램**
-- "Live Sass Compiler" 확장 프로그램 설치
-- `styles.scss` 파일을 열고 "Watch Sass" 클릭
+## 프로젝트 구조
 
-**방법 3: 직접 CSS 사용**
-- `styles.css` 파일을 직접 수정하여 사용
+```
+src/
+├── components/          # React 컴포넌트
+│   ├── OpeningAnimation.jsx
+│   ├── HeaderImage.jsx
+│   ├── DateSection.jsx
+│   ├── ParentsSection.jsx
+│   ├── TogetherSection.jsx
+│   ├── GallerySection.jsx
+│   ├── TransportSection.jsx
+│   ├── AccountSection.jsx
+│   ├── ShareSection.jsx
+│   ├── Footer.jsx
+│   └── Lightbox.jsx
+├── hooks/              # Custom Hooks
+│   ├── useTogetherTime.js
+│   ├── useCountdown.js
+│   └── useGallerySlideshow.js
+├── utils/              # 유틸리티 함수
+│   ├── kakao.js
+│   ├── naverMap.js
+│   ├── scrollAnimation.js
+│   └── copy.js
+├── App.jsx            # 메인 앱 컴포넌트
+├── App.css            # 스타일시트
+├── main.jsx           # 진입점
+└── index.css          # 글로벌 스타일
 
-### 4. 로컬에서 실행하기
+public/
+└── images/            # 이미지 리소스
+    └── gallery/
+```
 
-**방법 1: Python 사용**
+## Vercel 배포
+
+1. GitHub에 프로젝트 푸시
+2. [Vercel](https://vercel.com)에 로그인
+3. "New Project" 클릭
+4. GitHub 저장소 선택
+5. 자동으로 빌드 설정 감지됨 (Vite)
+6. "Deploy" 클릭
+
+또는 Vercel CLI 사용:
+
 ```bash
-# Python 3
-python -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
+npm i -g vercel
+vercel
 ```
 
-**방법 2: Node.js 사용**
-```bash
-npx http-server
-```
+## 주요 기능
 
-**방법 3: VS Code Live Server**
-- "Live Server" 확장 프로그램 설치
-- `index.html` 파일에서 우클릭 → "Open with Live Server"
-
-브라우저에서 `http://localhost:8000` (또는 표시된 포트)로 접속하세요.
-
-## 기능
-
-- ✅ 반응형 모바일 디자인
-- ✅ 계좌번호 복사 기능
-- ✅ 주소 복사 기능
-- ✅ 카카오톡 공유 기능 (Kakao SDK 필요)
-- ✅ 청첩장 링크 복사 기능
-- ✅ 사진 갤러리
-- ✅ 부드러운 애니메이션
-
-## 카카오톡 공유 기능 활성화
-
-카카오톡 공유 기능을 사용하려면:
-
-1. [Kakao Developers](https://developers.kakao.com/)에서 앱 등록
-2. JavaScript 키 발급
-3. `index.html`의 `<head>` 섹션에 다음 코드 추가:
-
-```html
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>
-    Kakao.init('YOUR_JAVASCRIPT_KEY');
-</script>
-```
-
-## 커스터마이징
-
-### 색상 변경
-
-`styles.scss` 또는 `styles.css` 파일에서 색상 변수를 수정하세요:
-
-```scss
-$primary-color: #333;      // 메인 색상
-$secondary-color: #666;    // 보조 색상
-$light-gray: #f5f5f5;      // 배경색
-```
-
-### 폰트 변경
-
-`index.html`의 Google Fonts 링크를 수정하거나, `styles.css`의 `font-family`를 변경하세요.
-
-## 배포
-
-정적 파일이므로 GitHub Pages, Netlify, Vercel 등 어디서나 호스팅 가능합니다.
+- 오프닝 애니메이션
+- 갤러리 슬라이드쇼
+- 함께한 시간 카운터
+- 결혼식 카운트다운
+- 네이버 지도 통합
+- 카카오톡 공유 기능
+- 라이트박스 이미지 뷰어
 
 ## 라이선스
 
-ⓒweddingpeach 스타일 기반
-
+Private

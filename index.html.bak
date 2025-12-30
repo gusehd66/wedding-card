@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Kim Hyun Dong & Lee Kyung Seo 결혼합니다. 2026.04.12 SUN 13:00PM 까사그랑데">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gusehd66.github.io/wedding-card/">
+    <meta property="og:title" content="Kim Hyun Dong & Lee Kyung Seo 결혼합니다">
+    <meta property="og:description" content="2026.04.12 SUN 13:00PM 까사그랑데">
+    <meta property="og:image" content="https://gusehd66.github.io/wedding-card/images/meta.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://gusehd66.github.io/wedding-card/">
+    <meta name="twitter:title" content="Kim Hyun Dong & Lee Kyung Seo 결혼합니다">
+    <meta name="twitter:description" content="2026.04.12 SUN 13:00PM 까사그랑데">
+    <meta name="twitter:image" content="https://gusehd66.github.io/wedding-card/images/meta.jpg">
+    
+    <title>Kim Hyun Dong & Lee Kyung Seo 결혼합니다</title>
+    <style>
+        /* 초기 로딩 시 메인 콘텐츠 숨기기 */
+        body.opening-active .header-image-wrapper,
+        body.opening-active main {
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+        body.opening-active {
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 카카오 SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.7/kakao.min.js" integrity="sha384-tJkjbtDbvoxO+diRuDtwRO9JXR7pjWnfjfRn5ePUpl7e7RJCxKCwwnfqUAdXh53p" crossorigin="anonymous"></script>
+    <!-- 네이버 지도 API (신규 NCP Maps API) -->
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=v1q01p9ghn"></script>
+
+</head>
+<body class="opening-active">
+    <!-- 오프닝 애니메이션 -->
+    <div class="opening-overlay" id="openingOverlay">
+        <div class="opening-content">
+            <div class="opening-text">
+                <h1 class="opening-title">Kim Hyun Dong</h1>
+                <div class="opening-heart">♥</div>
+                <h1 class="opening-title">Lee Kyung Seo</h1>
+            </div>
+            <p class="opening-subtitle">결혼합니다</p>
+        </div>
+    </div>
+
+    <!-- 재생 버튼 -->
+    <!-- <button class="bgmbutton" id="play-btn">
+        <img id="btn-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z' fill='%23333'/%3E%3C/svg%3E" alt="재생 버튼">
+    </button> -->
+
+    <!-- 헤더 이미지 -->
+    <div class="header-image-wrapper">
+        <img src="images/header_image.jpg" alt="메인 이미지" class="header-image" loading="eager">
+    </div>
+
+    
+
+    <!-- 메인 컨텐츠 -->
+    <main>
+        <!-- 첫 번째 섹션 - 어두운 배경 -->
+        <section class="section section-white">
+            
+            <!-- 날짜 및 시간 -->
+            <div class="date-section">
+                <img src="images/save_the_date.png" alt="save the date" class="date-section-header-image" loading="eager">
+                <p>2026.04.12 SUN 01:00PM</p>
+                <p>까사그랑데 센트로</p>
+                <p>서울 광진구 능동로 87
+                    건대입구역 자이엘라 6F</p>
+            </div>
+
+            <div class="invite_to">
+                <img src="images/invite_to_7.jpg" alt="invite to" class="invite-to-image" loading="eager">
+                <img src="images/invite_letter2.png" alt="invite letter" class="invite-letter-image" loading="eager">
+            </div>
+
+            <!-- 신랑/신부 정보 -->
+            <div class="couple-section">
+                <p><strong>Groom</strong></p>
+                <p>Kim Hyun Dong</p>
+                <p><br></p>
+                <p><strong>Bride</strong></p>
+                <p>Lee Kyung Seo</p>              
+            </div>
+        </section>
+        <div class="info-footer-wrapper">
+            <div>
+                <img src="images/info_footer.png" alt="invite to" class="info-footer">
+            </div>
+        </div>
+
+        <!-- 두 번째 섹션 - 분홍 배경 -->
+        <section class="section section-pink">
+            <div class="wave-surfer-comp-lower">
+                <div class="wave wave-1"></div>
+                <div class="wave wave-2"></div>
+                <div class="wave wave-3"></div>
+            </div>
+            <div class="parents-section">
+                <p><strong>Groom's Parents</strong></p>
+                <img src="images/groom_parent.png" alt="groom parents" class="groom-parents-image">
+            </div>
+            <div class="parents-section">
+                <p><strong>Bride's Parents</strong></p>
+                <img src="images/groom_parent.png" alt="groom parents" class="groom-parents-image">
+            </div>
+        </section>
+
+        <!-- 세 번째 섹션 - 검은 배경 -->
+        <!-- <section class="section section-white"> -->
+            <!-- 비디오 영역 (선택사항) -->
+        <!-- </section> -->
+
+        <section class="section section-white">
+            <div class="parents-section">
+                <img src="images/couple_letter.png" alt="couple letter" class="couple-letter-image">
+            </div>
+            <div class="parents-section">
+                <img src="images/couple_letter2.png" alt="couple letter" class="couple-letter-image">
+            </div>
+        </section>
+
+        <!-- 네 번째 섹션 - 우리가 함께한 지 -->
+        <section class="section section-together">
+            <div class="together-container">
+                <h2 class="together-title">D+Day</h2>
+                <p class="together-subtitle">우리가 함께한 지</p>
+                
+                <!-- 타임라인 -->
+                <div class="timeline-container">
+                    <div class="timeline-wrapper">
+                        <!-- 타임라인 라인 -->
+                        <div class="timeline-line" id="timeline-line"></div>
+                        <!-- 프로그레스 바 -->
+                        <div class="timeline-progress" id="timeline-progress"></div>
+                        <!-- 하트 아이콘들 (오른쪽) -->
+                        <div class="timeline-hearts">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" class="heart-blue-svg" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"></path>
+                            </svg>
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" class="heart-red-svg" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"></path>
+                            </svg>
+                        </div>
+                        <!-- 시작 마커 (왼쪽) -->
+                        <div class="timeline-start-marker"></div>
+                        <!-- 화살표 (오른쪽) -->
+                        <div class="timeline-arrow-marker"></div>
+                        <!-- 시작 날짜 (왼쪽) -->
+                        <div class="timeline-start-date">
+                            <span>2012-06-18</span>
+                            <div class="timeline-dot start-dot"></div>
+                        </div>
+                        <!-- 오늘 마커 (동적 위치) -->
+                        <div class="timeline-today" id="timeline-today">
+                            <span class="timeline-label">오늘</span>
+                            <div class="timeline-dot today-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 함께한 시간 표시 -->
+                <div class="together-duration" id="together-duration">
+                    <span id="together-days">0</span>일 
+                    <span id="together-hours">0</span>시간 
+                    <span id="together-minutes">0</span>분 
+                    <span id="together-seconds">0</span>초
+                </div>
+            </div>
+        </section>
+
+        <!-- 네 번째 섹션 - 갤러리 -->
+        <section class="section section-gallery">
+            <!-- 갤러리 슬라이드쇼 -->
+            <div class="gallery-slideshow" id="gallerySlideshow">
+                <div class="gallery-slide active">
+                    <img src="images/gallery/wedding_1.jpg" alt="사진 1">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_2.jpg" alt="사진 2">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_3.jpg" alt="사진 3">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_4.jpg" alt="사진 4">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_5.jpg" alt="사진 5">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_6.jpeg" alt="사진 6">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_7.jpeg" alt="사진 7">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_8.jpeg" alt="사진 8">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_9.jpeg" alt="사진 9">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_10.jpeg" alt="사진 10">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_11.jpeg" alt="사진 11">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_12.jpeg" alt="사진 12">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_13.jpeg" alt="사진 13">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_14.jpeg" alt="사진 14">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_15.jpeg" alt="사진 15">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_16.jpg" alt="사진 16">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_17.jpg" alt="사진 17">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_18.jpeg" alt="사진 18">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_19.jpeg" alt="사진 19">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_20.jpeg" alt="사진 20">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_21.jpeg" alt="사진 21">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_22.jpeg" alt="사진 22">
+                </div>
+                <div class="gallery-slide">
+                    <img src="images/gallery/wedding_23.jpeg" alt="사진 23">
+                </div>
+            </div>
+            <!-- 갤러리 그리드 -->
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 첫 번째 그룹 (1-9) -->
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_1.jpg" alt="사진 1" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_2.jpg" alt="사진 2" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_3.jpg" alt="사진 3" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_4.jpg" alt="사진 4" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_5.jpg" alt="사진 5" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_6.jpeg" alt="사진 6" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_7.jpeg" alt="사진 7" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_8.jpeg" alt="사진 8" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/gallery/wedding_9.jpeg" alt="사진 9" loading="lazy">
+                </div>
+                <!-- 두 번째 그룹 (10-18) -->
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_10.jpeg" alt="사진 10" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_11.jpeg" alt="사진 11" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_12.jpeg" alt="사진 12" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_13.jpeg" alt="사진 13" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_14.jpeg" alt="사진 14" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_15.jpeg" alt="사진 15" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_16.jpg" alt="사진 16" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_17.jpg" alt="사진 17" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-2">
+                    <img src="images/gallery/wedding_18.jpeg" alt="사진 18" loading="lazy">
+                </div>
+                <!-- 세 번째 그룹 (19-23) -->
+                <div class="gallery-item gallery-item-group-3">
+                    <img src="images/gallery/wedding_19.jpeg" alt="사진 19" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-3">
+                    <img src="images/gallery/wedding_20.jpeg" alt="사진 20" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-3">
+                    <img src="images/gallery/wedding_21.jpeg" alt="사진 21" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-3">
+                    <img src="images/gallery/wedding_22.jpeg" alt="사진 22" loading="lazy">
+                </div>
+                <div class="gallery-item gallery-item-group-3">
+                    <img src="images/gallery/wedding_23.jpeg" alt="사진 23" loading="lazy">
+                </div>
+            </div>
+            <button type="button" class="more-btn" id="moreBtn" style="display: none;">더보기</button>
+            <div>
+                <img src="images/calendar.jpg" alt="calendar">
+            </div>
+            <!-- 결혼식 카운트다운 -->
+            <div class="countdown-section">
+                <div class="countdown-container">
+                    <div class="countdown-card">
+                        <div class="countdown-label">DAYS</div>
+                        <div class="countdown-value" id="countdown-days">00</div>
+                    </div>
+                    <div class="countdown-card">
+                        <div class="countdown-label">HOUR</div>
+                        <div class="countdown-value" id="countdown-hours">00</div>
+                    </div>
+                    <div class="countdown-card">
+                        <div class="countdown-label">MIN</div>
+                        <div class="countdown-value" id="countdown-minutes">00</div>
+                    </div>
+                    <div class="countdown-card">
+                        <div class="countdown-label">SEC</div>
+                        <div class="countdown-value" id="countdown-seconds">00</div>
+                    </div>
+                </div>
+                <div class="countdown-message">
+                    <span>김현동 <span class="heart">♥</span> 이경서의 결혼식이 <span class="days-highlight" id="countdown-days-text">0</span>일 남았습니다.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 다섯 번째 섹션 - 교통편 안내 -->
+        <section class="section section-transport">
+            <div class="direction-image-wrapper">
+                <img src="images/direction.png" alt="direction" class="direction-image">    
+            </div>
+            <div class="map-section">
+                <div id="map-container" style="width: 100%; height: 300px; margin: 20px 0;">
+                    <!-- 네이버 지도가 여기에 표시됩니다 -->
+                </div>
+                <div id="span" class="map-section-content">
+                    <div class="map-section-content-left">
+                        <div id="map">서울 광진구 능동로 87</div>
+                        <div id="map2" style="font-weight:bold">까사그랑데</div>
+                    </div>
+                    <div>
+                        <button id="map_btn" onclick="copy('map');return false;">복사하기</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="transport-info">
+                <p><strong>🚙 자가용</strong><br>네비게이션: "까사그랑데" 또는 "건대입구역 자이엘라" 입력<br></p>
+                <p><strong>🏁 주차</strong><br>건물 내 B1 ~ B5 + 외부 주차장<br>주차 요원의 안내를 받으세요.</p>
+                <p><strong>🚊 지하철</strong><br>2호선, 7호선 건대입구역 하차<br>5번출구에서 전방 직진 30M</p>
+                <p><strong>🚌 버스</strong><br>건대로데오거리입구 정류장 하차<br>간선: 240, 721, 지선: 2222, 2224, 직행: 3500, 마을버스: 광진05</p>
+            </div>
+        </section>
+
+        <!-- 여섯 번째 섹션 - 계좌번호 -->
+        <section class="section section-account">
+            <div class="send-to-image-wrapper">
+                <img src="images/send_to.png" alt="send to" class="send-to-image">    
+            </div>
+            <ul>
+                <h6 style="font-weight: bold; border-bottom: 1px solid #000;">🤵🏻‍♂️신랑측 계좌번호</h6>
+                <li>
+                    <span id="span">
+                        <p id="text1">국민 073002 04 052919</p>
+                        <p>김현동</p>
+                    </span>
+                    <button onclick="copy('text1');return false;">복사하기</button>
+                </li>
+                <li>
+                    <span id="span">
+                        <p id="text2">카카오뱅크 3333 05 0585629</p>
+                        <p>김대성</p>
+                    </span>
+                    <button onclick="copy('text2');return false;">복사하기</button>
+                </li>
+                <li>
+                    <span id="span">
+                        <p id="text3">카카오뱅크 3333 05 0585629</p>
+                        <p>한태연</p>
+                    </span>
+                    <button onclick="copy('text3');return false;">복사하기</button>
+                </li>
+            </ul>
+
+            <br>
+
+            <ul>
+                <h6 style="font-weight: bold; border-bottom: 1px solid #000;">👰🏻‍♀️신부측 계좌번호</h6>
+                <li>
+                    <span id="span">
+                        <p id="text4">농협 723100 52 034771</p>
+                        <p>이경서</p>
+                    </span>
+                    <button onclick="copy('text4');return false;">복사하기</button>
+                </li>
+                <li>
+                    <span id="span">
+                        <p id="text5">카카오뱅크 3333 03 7286312</p>
+                        <p>이현명</p>
+                    </span>
+                    <button onclick="copy('text5');return false;">복사하기</button>
+                </li>
+                <li>
+                    <span id="span">
+                        <p id="text6">카카오뱅크 3333 03 7286312</p>
+                        <p>전진숙</p>
+                    </span>
+                    <button onclick="copy('text6');return false;">복사하기</button>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 일곱 번째 섹션 - 공유 버튼 -->
+        <section class="section section-share">
+            <!-- <a id="kakaotalk-sharing-btn" href="javascript:;" class="share-btn-link"> -->
+                <button type="button" class="kakao_btn" onclick="shareMessage()">
+                    카카오톡 공유하기
+                </button>
+            <div style="text-align: center;">
+                <button id="url_copy" onclick="clip(); return false;">청첩장 주소 복사하기</button>
+            </div>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <p style="text-align: center;"><span style="font-size: 11px;">Made by Dongit</span></p>
+        </footer>
+    </main>
+
+    <!-- 라이트박스 모달 -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
+        <span class="lightbox-next" id="lightboxNext">&#10095;</span>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-counter">
+                <span id="lightboxCurrent">1</span> / <span id="lightboxTotal">1</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
