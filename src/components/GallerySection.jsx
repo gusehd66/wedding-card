@@ -57,13 +57,31 @@ export default function GallerySection() {
       </div>
       
       <div className="gallery-grid" id="galleryGrid" ref={galleryGridRef}>
-        {GALLERY_IMAGES.map((img, index) => {
+        {/* {GALLERY_IMAGES.map((img, index) => {
           let groupClass = ''
           if (index >= 9 && index < 18) groupClass = 'gallery-item-group-2'
           else if (index >= 18) groupClass = 'gallery-item-group-3'
           
           return (
             <div key={img.id} className={`gallery-item ${groupClass}`}>
+              <img src={img.src} alt={img.alt} loading="lazy" />
+            </div>
+          )
+        })} */}
+        {GALLERY_IMAGES.map((img, index) => {
+          const isHidden =
+            !showAllImages && index >= INITIAL_VISIBLE_COUNT
+
+          return (
+            <div
+              key={img.id}
+              className="gallery-item"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+              }}
+              style={{ display: isHidden ? 'none' : 'block' }}
+            >
               <img src={img.src} alt={img.alt} loading="lazy" />
             </div>
           )
@@ -76,7 +94,7 @@ export default function GallerySection() {
           className="more-btn" 
           id="moreBtn"
           onClick={handleMoreClick}
-          onTouchStart={(e) => e.preventDefault()}
+          // onTouchStart={(e) => e.preventDefault()}
         >
           {showAllImages ? '접기' : '더보기'}
         </button>

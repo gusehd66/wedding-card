@@ -77,3 +77,4 @@ git push
 
 가장 빠른 방법은 Vercel 대시보드에서 수동으로 "Redeploy" 버튼을 클릭하는 것입니다.
 
+
