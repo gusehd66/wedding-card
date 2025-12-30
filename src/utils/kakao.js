@@ -13,7 +13,7 @@ export function initKakaoSDK() {
 }
 
 export function shareMessage() {
-  // Vercel 배포 URL로 고정
+  // Vercel 배포 URL로 고정 (슬래시 제거하여 일관성 유지)
   const vercelURL = 'https://wedding-card-eight-kappa.vercel.app';
   
   // 콘솔에 공유 링크 로그 출력
@@ -29,29 +29,35 @@ export function shareMessage() {
     window.Kakao.init(JAVASCRIPT_KEY);
   }
 
+  // 카카오톡 링크 검증을 위해 정확한 URL 사용
+  const shareURL = vercelURL;
+  const imageURL = vercelURL + '/images/meta.jpg';
+
   const shareData = {
     objectType: 'feed',
     content: {
       title: 'Kim Hyun Dong & Lee Kyung Seo 결혼합니다',
       description: '2026.04.12 SUN 13:00PM\n까사그랑데',
-      imageUrl: vercelURL + '/images/meta.jpg',
+      imageUrl: imageURL,
       link: {
-        mobileWebUrl: vercelURL,
-        webUrl: vercelURL,
+        mobileWebUrl: shareURL,
+        webUrl: shareURL,
       },
     },
     buttons: [
       {
         title: '청첩장 보기',
         link: {
-          mobileWebUrl: vercelURL,
-          webUrl: vercelURL,
+          mobileWebUrl: shareURL,
+          webUrl: shareURL,
         },
       },
     ],
   };
 
-  console.log('카카오톡 공유 데이터:', shareData);
+  console.log('카카오톡 공유 데이터:', JSON.stringify(shareData, null, 2));
+  console.log('공유 URL 확인:', shareURL);
+  console.log('이미지 URL 확인:', imageURL);
 
   window.Kakao.Share.sendDefault(shareData);
 }
