@@ -10,17 +10,12 @@ import TransportSection from './components/TransportSection'
 import AccountSection from './components/AccountSection'
 import ShareSection from './components/ShareSection'
 import Footer from './components/Footer'
-import Lightbox from './components/Lightbox'
 import { initKakaoSDK } from './utils/kakao'
 import { initNaverMap } from './utils/naverMap'
 import { initScrollAnimation } from './utils/scrollAnimation'
 
-const GALLERY_IMAGES_COUNT = 23
-
 function App() {
   const [showOpening, setShowOpening] = useState(true)
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   useEffect(() => {
     // 카카오 SDK 초기화
@@ -41,15 +36,6 @@ function App() {
     initScrollAnimation()
   }, [])
 
-  const handleImageClick = (index) => {
-    setLightboxIndex(index)
-    setLightboxOpen(true)
-  }
-
-  const handleLightboxClose = () => {
-    setLightboxOpen(false)
-  }
-
   return (
     <div className={showOpening ? 'opening-active' : ''}>
       <OpeningAnimation onClose={() => setShowOpening(false)} />
@@ -58,17 +44,12 @@ function App() {
         <DateSection />
         <ParentsSection />
         <TogetherSection />
-        <GallerySection onImageClick={handleImageClick} />
+        <GallerySection />
         <TransportSection />
         <AccountSection />
         <ShareSection />
         <Footer />
       </main>
-      <Lightbox 
-        isOpen={lightboxOpen}
-        currentIndex={lightboxIndex}
-        onClose={handleLightboxClose}
-      />
     </div>
   )
 }

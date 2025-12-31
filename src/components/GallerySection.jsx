@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
-import { useGallerySlideshow } from '../hooks/useGallerySlideshow'
+import { useState, useRef, useEffect } from 'react'
 import { useCountdown } from '../hooks/useCountdown'
 
 const GALLERY_IMAGES = Array.from({ length: 23 }, (_, i) => ({
@@ -8,172 +7,250 @@ const GALLERY_IMAGES = Array.from({ length: 23 }, (_, i) => ({
   alt: `사진 ${i + 1}`
 }))
 
-const INITIAL_VISIBLE_COUNT = 9
+const VISIBLE_COUNT = 3 // 화면에 보이는 이미지 개수
 
-export default function GallerySection({ onImageClick }) {
-  const [showAllImages, setShowAllImages] = useState(false)
-  const galleryGridRef = useRef(null)
-  
-  useGallerySlideshow(GALLERY_IMAGES.length)
+export default function GallerySection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const carouselRef = useRef(null)
   const countdown = useCountdown()
 
-  const handleMoreClick = (e) => {
-    if (e) {
-      e.preventDefault()
-      e.stopPropagation()
-      if (typeof e.stopImmediatePropagation === 'function') {
-        e.stopImmediatePropagation()
-      }
+  const minSwipeDistance = 50
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX)
+    setIsDragging(true)
+  }
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false)
+      return
     }
     
-    if (!showAllImages) {
-      const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
-      items?.forEach(item => {
-        item.style.display = 'block'
-      })
-      setShowAllImages(true)
-    } else {
-      const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
-      items?.forEach(item => {
-        item.style.display = 'none'
-      })
-      setShowAllImages(false)
-      document.querySelector('.section-gallery')?.scrollIntoView({ behavior: 'smooth' })
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe) {
+      // 다음으로 이동 (무한 스와이프)
+      setCurrentIndex(prev => (prev + 1) % GALLERY_IMAGES.length)
+    }
+    if (isRightSwipe) {
+      // 이전으로 이동 (무한 스와이프)
+      setCurrentIndex(prev => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
+    }
+
+    setIsDragging(false)
+    setTouchStart(0)
+    setTouchEnd(0)
+  }
+
+  // 마우스 드래그 지원
+  const handleMouseDown = (e) => {
+    setTouchStart(e.clientX)
+    setIsDragging(true)
+  }
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      setTouchEnd(e.clientX)
     }
   }
 
-  const handleImageClick = (e, index) => {
-    if (e) {
-      e.preventDefault()
-      e.stopPropagation()
-      if (typeof e.stopImmediatePropagation === 'function') {
-        e.stopImmediatePropagation()
-      }
+  const handleMouseUp = () => {
+    if (!touchStart || !touchEnd) {
+      setIsDragging(false)
+      return
     }
     
-    if (onImageClick) {
-      onImageClick(index)
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe) {
+      // 다음으로 이동 (무한 스와이프)
+      setCurrentIndex(prev => (prev + 1) % GALLERY_IMAGES.length)
     }
+    if (isRightSwipe) {
+      // 이전으로 이동 (무한 스와이프)
+      setCurrentIndex(prev => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
+    }
+
+    setIsDragging(false)
+    setTouchStart(0)
+    setTouchEnd(0)
   }
 
   useEffect(() => {
-    const items = galleryGridRef.current?.querySelectorAll('.gallery-item-group-2, .gallery-item-group-3')
-    items?.forEach(item => {
-      item.style.display = 'none'
-    })
-  }, [])
+    if (isDragging) {
+      const handleMouseMoveWrapper = (e) => handleMouseMove(e)
+      const handleMouseUpWrapper = () => handleMouseUp()
+      
+      document.addEventListener('mousemove', handleMouseMoveWrapper)
+      document.addEventListener('mouseup', handleMouseUpWrapper)
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMoveWrapper)
+        document.removeEventListener('mouseup', handleMouseUpWrapper)
+      }
+    }
+  }, [isDragging, touchStart, touchEnd, currentIndex])
 
-  const shouldShowMoreButton = GALLERY_IMAGES.length > INITIAL_VISIBLE_COUNT
+
+  // translateX 계산 - 선택된 사진이 가운데에 오도록 조정
+  // 가운데 사진이 정확히 중앙에 오려면 각 사진의 너비만큼 이동
+  const translateX = -(currentIndex * (100 / VISIBLE_COUNT))
+  
+  // 현재 선택된 사진 정보
+  const selectedImage = GALLERY_IMAGES[currentIndex]
 
   return (
     <section className="section section-gallery">
-      <div className="gallery-slideshow" id="gallerySlideshow">
-        {GALLERY_IMAGES.map((img, index) => (
-          <div 
-            key={img.id} 
-            className={`gallery-slide ${index === 0 ? 'active' : ''}`}
-            onContextMenu={(e) => {
+      {/* 선택된 사진을 크게 표시하는 오버레이 */}
+      <div className="gallery-selected-overlay">
+        <img
+          src={selectedImage.src}
+          alt={selectedImage.alt}
+          draggable={false}
+          onContextMenu={(e) => {
+            e.preventDefault()
+            return false
+          }}
+          onDragStart={(e) => {
+            e.preventDefault()
+            return false
+          }}
+          onTouchStart={(e) => {
+            if (e.touches.length > 1) {
               e.preventDefault()
-              return false
-            }}
+            }
+          }}
+          onTouchMove={(e) => {
+            if (e.touches.length > 1) {
+              e.preventDefault()
+            }
+          }}
+        />
+      </div>
+      
+      <div 
+        className="gallery-carousel-container"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onMouseDown={handleMouseDown}
+        style={{
+          overflow: 'hidden',
+          position: 'relative',
+          width: '100%',
+          maxWidth: '414px',
+          margin: '0 auto',
+          touchAction: 'pan-x' // 가로 스와이프만 허용
+        }}
+      >
+        <div className="gallery-carousel-wrapper">
+          <div
+            ref={carouselRef}
+            className="gallery-carousel"
             style={{
-              touchAction: 'none',
-              WebkitTouchCallout: 'none',
-              WebkitUserSelect: 'none',
-              userSelect: 'none'
+              display: 'flex',
+              transform: `translateX(${translateX}%)`,
+              transition: isDragging ? 'none' : 'transform 0.3s ease-out',
+              willChange: 'transform'
             }}
           >
-            <img 
-              src={img.src} 
-              alt={img.alt}
-              draggable={false}
-              onContextMenu={(e) => {
-                e.preventDefault()
-                return false
-              }}
-              onDragStart={(e) => {
-                e.preventDefault()
-                return false
-              }}
-              style={{
-                touchAction: 'none',
-                WebkitTouchCallout: 'none',
-                WebkitUserSelect: 'none',
-                userSelect: 'none'
+          {GALLERY_IMAGES.map((img, index) => {
+            return (
+              <div
+                key={img.id}
+                className="gallery-carousel-item"
+                style={{
+                  flex: `0 0 ${100 / VISIBLE_COUNT}%`,
+                  padding: '4px',
+                  boxSizing: 'border-box',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <div
+                  className="gallery-carousel-image-wrapper film-frame"
+                  onContextMenu={(e) => {
+                    e.preventDefault()
+                    return false
+                  }}
+                  style={{
+                    width: '100%',
+                    aspectRatio: '1',
+                    overflow: 'visible',
+                    WebkitTouchCallout: 'none',
+                    WebkitUserSelect: 'none',
+                    userSelect: 'none',
+                    position: 'relative',
+                    backgroundImage: 'url(/images/film.jpg)',
+                    backgroundSize: '103% 103%',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    // transform: 'scale(0.85)',
+                    // opacity: 0.6,
+                    transition: 'transform 0.3s ease-out, opacity 0.3s ease-out'
+                  }}
+                >
+                <div className="film-image-container">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    draggable={false}
+                    loading="lazy"
+                    className="film-image"
+                    onContextMenu={(e) => {
+                      e.preventDefault()
+                      return false
+                    }}
+                    onDragStart={(e) => {
+                      e.preventDefault()
+                      return false
+                    }}
+                    onTouchStart={(e) => {
+                      // 다중 터치(핀치 줌)만 방지
+                      if (e.touches.length > 1) {
+                        e.preventDefault()
+                      }
+                    }}
+                    onTouchMove={(e) => {
+                      // 다중 터치(핀치 줌)만 방지
+                      if (e.touches.length > 1) {
+                        e.preventDefault()
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            )
+          })}
+          </div>
+        </div>
+        
+        {/* 인디케이터 - 각 사진마다 표시 */}
+        <div className="gallery-carousel-indicators">
+          {GALLERY_IMAGES.map((_, index) => (
+            <div
+              key={index}
+              className={`gallery-indicator ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => {
+                setCurrentIndex(index)
               }}
             />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      
-      <div className="gallery-grid" id="galleryGrid" ref={galleryGridRef}>
-        {GALLERY_IMAGES.map((img, index) => {
-          let groupClass = ''
-          if (index >= 9 && index < 18) groupClass = 'gallery-item-group-2'
-          else if (index >= 18) groupClass = 'gallery-item-group-3'
-          
-          return (
-            <div 
-              key={img.id} 
-              className={`gallery-item ${groupClass}`}
-              onClick={(e) => handleImageClick(e, index)}
-              onTouchStart={(e) => {
-                e.preventDefault()
-              }}
-              onContextMenu={(e) => {
-                e.preventDefault()
-                return false
-              }}
-              style={{
-                touchAction: 'none',
-                WebkitTouchCallout: 'none',
-                WebkitUserSelect: 'none',
-                userSelect: 'none'
-              }}
-            >
-              <img 
-                src={img.src} 
-                alt={img.alt} 
-                loading="lazy"
-                draggable={false}
-                onClick={(e) => handleImageClick(e, index)}
-                onTouchStart={(e) => {
-                  e.preventDefault()
-                }}
-                onContextMenu={(e) => {
-                  e.preventDefault()
-                  return false
-                }}
-                onDragStart={(e) => {
-                  e.preventDefault()
-                  return false
-                }}
-                style={{
-                  touchAction: 'none',
-                  WebkitTouchCallout: 'none',
-                  WebkitUserSelect: 'none',
-                  userSelect: 'none',
-                  pointerEvents: 'auto'
-                }}
-              />
-            </div>
-          )
-        })}
-      </div>
-      
-      {shouldShowMoreButton && (
-        <button 
-          type="button" 
-          className="more-btn" 
-          id="moreBtn"
-          onClick={handleMoreClick}
-          onTouchStart={(e) => {
-            e.preventDefault()
-          }}
-        >
-          {showAllImages ? '접기' : '더보기'}
-        </button>
-      )}
       
       <div>
         <img src="/images/calendar.jpg" alt="calendar" />

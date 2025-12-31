@@ -31,7 +31,7 @@ export default function TransportSection() {
             <div id="map2" style={{ fontWeight: 'bold' }}>까사그랑데</div>
           </div>
           <div>
-            <button onClick={() => copyAccountNumber('map')}>복사하기</button>
+            <button className='copy-btn' onClick={() => copyAccountNumber('map')}>복사하기</button>
           </div>
         </div>
       </div>
