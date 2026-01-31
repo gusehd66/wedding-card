@@ -721,17 +721,88 @@ main {
     }
 }
 
-/* 갤러리 캐러셀 스타일 */
+/* 갤러리 Swiper 스타일 - inner-gallery */
+.inner-gallery {
+    position: relative;
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    margin-top: 40px;
+    z-index: 10;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-swiper {
+    width: 100%;
+    padding: 20px 0 40px 0;
+    overflow: visible;
+}
+
+.gallery-swiper .swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
+.gallery-swiper .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    width: 200px !important;
+    height: 200px;
+}
+
+.gallery-swiper-reverse .swiper-slide {
+    width: 140px !important;
+    height: 140px;
+}
+
+.gallery-slide-item {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-slide-item-small {
+    width: 140px;
+    height: 140px;
+}
+
+.gallery-swiper .swiper-pagination {
+    bottom: 10px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.gallery-swiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+    margin: 0 4px;
+    transition: all 0.3s ease;
+}
+
+.gallery-swiper .swiper-pagination-bullet-active {
+    background-color: #ffffff;
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* 갤러리 캐러셀 스타일 (기존 - 호환성 유지) */
 .gallery-carousel-container {
     position: relative;
     width: 100%;
     max-width: 414px;
     margin: 0 auto;
-    /* padding: 20px 16px; */
-    /* border-radius: 12px; */
     overflow: hidden;
     margin-top: -200px;
-    /* 오버레이와 겹치도록 */
     z-index: 10;
 }
 
@@ -773,52 +844,26 @@ main {
     z-index: 2;
 }
 
-.gallery-carousel-image-wrapper {
-    width: 100%;
-    aspect-ratio: 1;
-    overflow: visible;
-    position: relative;
-    box-sizing: border-box;
-}
-
-/* 영화 필름 스타일 - film.png 이미지 사용 */
-.film-frame {
-    background-image: url('/images/film.jpg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.film-image-container {
-    position: absolute;
-    width: 70%;
-    height: 70%;
-    top: 15%;
-    left: 15%;
-    overflow: hidden;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-}
-
-.film-image-container .film-image {
-    width: 100%;
-    height: 97%;
+.gallery-image {
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     display: block;
-    touch-action: pan-x;
+    border-radius: 4px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
     pointer-events: auto;
-    filter: contrast(1.05) brightness(0.95);
-    box-shadow:
-        inset 0 0 10px rgba(0, 0, 0, 0.3),
-        0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-image-small {
+    width: 140px;
+    height: 140px;
+}
+
+.inner-gallery-reverse {
+    margin-top: 0px;
+    padding: 0 0 20px;
 }
 
 .gallery-carousel-indicators {
@@ -1451,12 +1496,16 @@ main {
 .calendar-title-image {
     margin-bottom: 10px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .calendar-title-image img {
     max-width: 100%;
     height: 20px;
     display: block;
+    margin: 0 auto;
 }
 
 .list-date {
@@ -1581,6 +1630,22 @@ main {
 .calendar-custom-area {
     width: 100%;
     /* 여기에 달력을 만드세요 */
+}
+
+.gallery-title-text {
+    font-family: "ROKAF Sans";
+    font-size: 16px;
+    color: #333;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.gallery-title-text.desc {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 60px;
 }
 
 /* 모바일 반응형 */

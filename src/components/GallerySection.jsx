@@ -1,6 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useCountdown } from '../hooks/useCountdown'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 const GALLERY_IMAGES = Array.from({ length: 23 }, (_, i) => ({
   id: i + 1,
@@ -121,46 +126,10 @@ export default function GallerySection() {
   }, [lightboxOpen])
 
 
-  // translateX 계산 - 선택된 사진이 가운데에 오도록 조정
-  // 가운데 사진이 정확히 중앙에 오려면 각 사진의 너비만큼 이동
-  const translateX = -(currentIndex * (100 / VISIBLE_COUNT))
-
-  // 현재 선택된 사진 정보
-  const selectedImage = GALLERY_IMAGES[currentIndex]
+  // Swiper에서 currentIndex는 onSlideChange로 관리됨
 
   return (
     <section className="section section-gallery">
-      {/* 선택된 사진을 크게 표시하는 오버레이 */}
-      <div className="gallery-selected-overlay">
-        <img
-          src={selectedImage.src}
-          alt={selectedImage.alt}
-          draggable={false}
-          onClick={() => {
-            setLightboxIndex(currentIndex)
-            setLightboxOpen(true)
-          }}
-          style={{ cursor: 'pointer' }}
-          onContextMenu={(e) => {
-            e.preventDefault()
-            return false
-          }}
-          onDragStart={(e) => {
-            e.preventDefault()
-            return false
-          }}
-          onTouchStart={(e) => {
-            if (e.touches.length > 1) {
-              e.preventDefault()
-            }
-          }}
-          onTouchMove={(e) => {
-            if (e.touches.length > 1) {
-              e.preventDefault()
-            }
-          }}
-        />
-      </div>
 
       {/* Tailwind CSS 모달 - Portal을 사용하여 body에 직접 렌더링 */}
       {lightboxOpen && createPortal(
@@ -425,117 +394,118 @@ export default function GallerySection() {
         document.body
       )}
 
-      <div
-        className="gallery-carousel-container"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onMouseDown={handleMouseDown}
-        style={{
-          overflow: 'hidden',
-          position: 'relative',
-          width: '100%',
-          maxWidth: '414px',
-          margin: '0 auto',
-          touchAction: 'pan-x' // 가로 스와이프만 허용
-        }}
-      >
-        <div className="gallery-carousel-wrapper">
-          <div
-            ref={carouselRef}
-            className="gallery-carousel"
-            style={{
-              display: 'flex',
-              transform: `translateX(${translateX}%)`,
-              transition: isDragging ? 'none' : 'transform 0.3s ease-out',
-              willChange: 'transform'
-            }}
-          >
-            {GALLERY_IMAGES.map((img, index) => {
-              return (
-                <div
-                  key={img.id}
-                  className="gallery-carousel-item"
-                  style={{
-                    flex: `0 0 ${100 / VISIBLE_COUNT}%`,
-                    padding: '4px',
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
+      <div className="inner-gallery">
+        <div className="calendar-title-image">
+          <img src="/images/ico_tit.png" alt="calendar title" />
+        </div>
+        <div className="gallery-title-text title">Gallery</div>
+        <div className="gallery-title-text desc">클릭 시 이미지를 크게 보실 수 있습니다.</div>
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={10}
+          slidesPerView={3}
+          centeredSlides={true}
+          loop={true}
+          navigation={false}
+          autoplay={{
+            delay: 1,
+            disableOnInteraction: false,
+          }}
+          speed={5000}
+          allowTouchMove={true}
+          pagination={false}
+          onSlideChange={(swiper) => {
+            setCurrentIndex(swiper.realIndex)
+          }}
+          className="gallery-swiper"
+        >
+          {GALLERY_IMAGES.map((img, index) => (
+            <SwiperSlide key={img.id}>
+              <div
+                className="gallery-slide-item"
+                onClick={() => {
+                  setLightboxIndex(index)
+                  setLightboxOpen(true)
+                }}
+                onContextMenu={(e) => {
+                  e.preventDefault()
+                  return false
+                }}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  draggable={false}
+                  loading="lazy"
+                  className="gallery-image"
+                  onContextMenu={(e) => {
+                    e.preventDefault()
+                    return false
                   }}
-                >
-                  <div
-                    className="gallery-carousel-image-wrapper film-frame"
-                    onContextMenu={(e) => {
-                      e.preventDefault()
-                      return false
-                    }}
-                    style={{
-                      width: '100%',
-                      aspectRatio: '1',
-                      overflow: 'visible',
-                      WebkitTouchCallout: 'none',
-                      WebkitUserSelect: 'none',
-                      userSelect: 'none',
-                      position: 'relative',
-                      backgroundImage: 'url(/images/film.jpg)',
-                      backgroundSize: '103% 103%',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundPosition: 'center',
-                      // transform: 'scale(0.85)',
-                      // opacity: 0.6,
-                      transition: 'transform 0.3s ease-out, opacity 0.3s ease-out'
-                    }}
-                  >
-                    <div className="film-image-container">
-                      <img
-                        src={img.src}
-                        alt={img.alt}
-                        draggable={false}
-                        loading="lazy"
-                        className="film-image"
-                        onContextMenu={(e) => {
-                          e.preventDefault()
-                          return false
-                        }}
-                        onDragStart={(e) => {
-                          e.preventDefault()
-                          return false
-                        }}
-                        onTouchStart={(e) => {
-                          // 다중 터치(핀치 줌)만 방지
-                          if (e.touches.length > 1) {
-                            e.preventDefault()
-                          }
-                        }}
-                        onTouchMove={(e) => {
-                          // 다중 터치(핀치 줌)만 방지
-                          if (e.touches.length > 1) {
-                            e.preventDefault()
-                          }
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* 인디케이터 - 각 사진마다 표시 */}
-        <div className="gallery-carousel-indicators">
-          {GALLERY_IMAGES.map((_, index) => (
-            <div
-              key={index}
-              className={`gallery-indicator ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => {
-                setCurrentIndex(index)
-              }}
-            />
+                  onDragStart={(e) => {
+                    e.preventDefault()
+                    return false
+                  }}
+                />
+              </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
+      </div>
+
+      <div className="inner-gallery inner-gallery-reverse">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={10}
+          slidesPerView={3}
+          centeredSlides={true}
+          loop={true}
+          navigation={false}
+          autoplay={{
+            delay: 1,
+            disableOnInteraction: false,
+            reverseDirection: true,
+          }}
+          speed={5000}
+          allowTouchMove={true}
+          pagination={false}
+          onSlideChange={(swiper) => {
+            setCurrentIndex(swiper.realIndex)
+          }}
+          className="gallery-swiper gallery-swiper-reverse"
+        >
+          {GALLERY_IMAGES.map((img, index) => (
+            <SwiperSlide key={`reverse-${img.id}`}>
+              <div
+                className="gallery-slide-item gallery-slide-item-small"
+                onClick={() => {
+                  setLightboxIndex(index)
+                  setLightboxOpen(true)
+                }}
+                onContextMenu={(e) => {
+                  e.preventDefault()
+                  return false
+                }}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  draggable={false}
+                  loading="lazy"
+                  className="gallery-image gallery-image-small"
+                  onContextMenu={(e) => {
+                    e.preventDefault()
+                    return false
+                  }}
+                  onDragStart={(e) => {
+                    e.preventDefault()
+                    return false
+                  }}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
       <div className="calendar-container">
