@@ -38,7 +38,7 @@ export default function GallerySection() {
       setIsDragging(false)
       return
     }
-    
+
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
@@ -74,7 +74,7 @@ export default function GallerySection() {
       setIsDragging(false)
       return
     }
-    
+
     const distance = touchStart - touchEnd
     const isLeftSwipe = distance > minSwipeDistance
     const isRightSwipe = distance < -minSwipeDistance
@@ -97,7 +97,7 @@ export default function GallerySection() {
     if (isDragging) {
       const handleMouseMoveWrapper = (e) => handleMouseMove(e)
       const handleMouseUpWrapper = () => handleMouseUp()
-      
+
       document.addEventListener('mousemove', handleMouseMoveWrapper)
       document.addEventListener('mouseup', handleMouseUpWrapper)
       return () => {
@@ -114,7 +114,7 @@ export default function GallerySection() {
     } else {
       document.body.style.overflow = ''
     }
-    
+
     return () => {
       document.body.style.overflow = ''
     }
@@ -124,7 +124,7 @@ export default function GallerySection() {
   // translateX 계산 - 선택된 사진이 가운데에 오도록 조정
   // 가운데 사진이 정확히 중앙에 오려면 각 사진의 너비만큼 이동
   const translateX = -(currentIndex * (100 / VISIBLE_COUNT))
-  
+
   // 현재 선택된 사진 정보
   const selectedImage = GALLERY_IMAGES[currentIndex]
 
@@ -164,7 +164,7 @@ export default function GallerySection() {
 
       {/* Tailwind CSS 모달 - Portal을 사용하여 body에 직접 렌더링 */}
       {lightboxOpen && createPortal(
-        <div 
+        <div
           id="gallery-modal"
           className="fixed top-0 right-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black/95 overflow-y-auto overflow-x-hidden"
           style={{
@@ -189,7 +189,7 @@ export default function GallerySection() {
             }
           }}
         >
-          <div 
+          <div
             className="relative w-full h-full flex items-center justify-center p-5"
             style={{
               position: 'relative',
@@ -231,7 +231,7 @@ export default function GallerySection() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
+
             {/* 이전 버튼 */}
             <button
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-gradient-to-r from-black/70 to-black/50 hover:from-black/90 hover:to-black/70 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95 select-none touch-manipulation z-[10000] backdrop-blur-sm border border-white/20 md:left-3 md:w-12 md:h-12"
@@ -264,9 +264,9 @@ export default function GallerySection() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            
+
             {/* 이미지 컨텐츠 */}
-            <div 
+            <div
               className="relative w-full h-full flex items-center justify-center flex-col"
               style={{
                 position: 'relative',
@@ -283,9 +283,9 @@ export default function GallerySection() {
               onTouchMove={(e) => setLightboxTouchEnd(e.touches[0].clientX)}
               onTouchEnd={() => {
                 if (!lightboxTouchStart || !lightboxTouchEnd) return
-                
+
                 const distance = lightboxTouchStart - lightboxTouchEnd
-                
+
                 if (distance > minSwipeDistance) {
                   // 왼쪽 스와이프 - 다음 이미지
                   setLightboxIndex((prev) => (prev + 1) % GALLERY_IMAGES.length)
@@ -293,7 +293,7 @@ export default function GallerySection() {
                   // 오른쪽 스와이프 - 이전 이미지
                   setLightboxIndex((prev) => (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
                 }
-                
+
                 setLightboxTouchStart(0)
                 setLightboxTouchEnd(0)
               }}
@@ -331,7 +331,7 @@ export default function GallerySection() {
                 }}
               />
               {/* 카운터 */}
-              <div 
+              <div
                 className="absolute bottom-20 left-1/2 -translate-x-1/2 text-white text-sm font-medium bg-gradient-to-r from-black/70 to-black/50 backdrop-blur-sm px-5 py-2.5 rounded-full select-none shadow-lg border border-white/20"
                 style={{
                   position: 'absolute',
@@ -352,9 +352,9 @@ export default function GallerySection() {
                 <span style={{ margin: '0 8px', color: 'rgba(255, 255, 255, 0.6)' }}>/</span>
                 <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>{GALLERY_IMAGES.length}</span>
               </div>
-              
+
               {/* 인디케이터 */}
-              <div 
+              <div
                 style={{
                   position: 'absolute',
                   bottom: '20px',
@@ -387,7 +387,7 @@ export default function GallerySection() {
                 ))}
               </div>
             </div>
-            
+
             {/* 다음 버튼 */}
             <button
               className="absolute right-4 top-1/2 -translate-y-1/2 bg-gradient-to-l from-black/70 to-black/50 hover:from-black/90 hover:to-black/70 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95 select-none touch-manipulation z-[10000] backdrop-blur-sm border border-white/20 md:right-3 md:w-12 md:h-12"
@@ -424,8 +424,8 @@ export default function GallerySection() {
         </div>,
         document.body
       )}
-      
-      <div 
+
+      <div
         className="gallery-carousel-container"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -451,79 +451,79 @@ export default function GallerySection() {
               willChange: 'transform'
             }}
           >
-          {GALLERY_IMAGES.map((img, index) => {
-            return (
-              <div
-                key={img.id}
-                className="gallery-carousel-item"
-                style={{
-                  flex: `0 0 ${100 / VISIBLE_COUNT}%`,
-                  padding: '4px',
-                  boxSizing: 'border-box',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
+            {GALLERY_IMAGES.map((img, index) => {
+              return (
                 <div
-                  className="gallery-carousel-image-wrapper film-frame"
-                  onContextMenu={(e) => {
-                    e.preventDefault()
-                    return false
-                  }}
+                  key={img.id}
+                  className="gallery-carousel-item"
                   style={{
-                    width: '100%',
-                    aspectRatio: '1',
-                    overflow: 'visible',
-                    WebkitTouchCallout: 'none',
-                    WebkitUserSelect: 'none',
-                    userSelect: 'none',
-                    position: 'relative',
-                    backgroundImage: 'url(/images/film.jpg)',
-                    backgroundSize: '103% 103%',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    // transform: 'scale(0.85)',
-                    // opacity: 0.6,
-                    transition: 'transform 0.3s ease-out, opacity 0.3s ease-out'
+                    flex: `0 0 ${100 / VISIBLE_COUNT}%`,
+                    padding: '4px',
+                    boxSizing: 'border-box',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }}
                 >
-                <div className="film-image-container">
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    draggable={false}
-                    loading="lazy"
-                    className="film-image"
+                  <div
+                    className="gallery-carousel-image-wrapper film-frame"
                     onContextMenu={(e) => {
                       e.preventDefault()
                       return false
                     }}
-                    onDragStart={(e) => {
-                      e.preventDefault()
-                      return false
+                    style={{
+                      width: '100%',
+                      aspectRatio: '1',
+                      overflow: 'visible',
+                      WebkitTouchCallout: 'none',
+                      WebkitUserSelect: 'none',
+                      userSelect: 'none',
+                      position: 'relative',
+                      backgroundImage: 'url(/images/film.jpg)',
+                      backgroundSize: '103% 103%',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center',
+                      // transform: 'scale(0.85)',
+                      // opacity: 0.6,
+                      transition: 'transform 0.3s ease-out, opacity 0.3s ease-out'
                     }}
-                    onTouchStart={(e) => {
-                      // 다중 터치(핀치 줌)만 방지
-                      if (e.touches.length > 1) {
-                        e.preventDefault()
-                      }
-                    }}
-                    onTouchMove={(e) => {
-                      // 다중 터치(핀치 줌)만 방지
-                      if (e.touches.length > 1) {
-                        e.preventDefault()
-                      }
-                    }}
-                  />
+                  >
+                    <div className="film-image-container">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        draggable={false}
+                        loading="lazy"
+                        className="film-image"
+                        onContextMenu={(e) => {
+                          e.preventDefault()
+                          return false
+                        }}
+                        onDragStart={(e) => {
+                          e.preventDefault()
+                          return false
+                        }}
+                        onTouchStart={(e) => {
+                          // 다중 터치(핀치 줌)만 방지
+                          if (e.touches.length > 1) {
+                            e.preventDefault()
+                          }
+                        }}
+                        onTouchMove={(e) => {
+                          // 다중 터치(핀치 줌)만 방지
+                          if (e.touches.length > 1) {
+                            e.preventDefault()
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            )
-          })}
+              )
+            })}
           </div>
         </div>
-        
+
         {/* 인디케이터 - 각 사진마다 표시 */}
         <div className="gallery-carousel-indicators">
           {GALLERY_IMAGES.map((_, index) => (
@@ -537,11 +537,48 @@ export default function GallerySection() {
           ))}
         </div>
       </div>
-      
-      <div>
-        <img src="/images/calendar.jpg" alt="calendar" />
+
+      <div className="calendar-container">
+        {/* 배경 이미지들 */}
+        <div className="calendar-bg-wrapper">
+          <div className="calendar-bg-top" style={{ backgroundImage: 'url(/images/calendar_top.png)' }}></div>
+          <div className="calendar-bg-main" style={{ backgroundImage: 'url(/images/calendar_main.png)' }}>
+            {/* 캘린더 콘텐츠 */}
+            <div className="calendar-content">
+              {/* ico_tit.png 이미지 */}
+              <div className="calendar-title-image">
+                <img src="/images/ico_tit.png" alt="calendar title" />
+              </div>
+              <div className="calendar-title-text">Calendar</div>
+              <div className="calendar-month-wrapper">
+                <div className="calendar-month" style={{ backgroundImage: 'url(/images/calendar_month.png)' }}>
+                  <span className="calendar-month-text">April</span>
+                </div>
+              </div>
+              {/* 달력을 만들 공간 */}
+              <div className="calendar-custom-area">
+                <ul className="list-date">
+                  <li>
+                    <span className="txt-week">sat</span>
+                    <span className="txt-day">11</span>
+                  </li>
+                  <li className="active">
+                    <span className="txt-week">sun</span>
+                    <span className="txt-day">12</span>
+                  </li>
+                  <li>
+                    <span className="txt-week">mon</span>
+                    <span className="txt-day">13</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="calendar-date-text">2026년 4월 12일 일요일 오후 1시 20분</div>
+          </div>
+          <div className="calendar-bg-bottom" style={{ backgroundImage: 'url(/images/calendar_bottom.png)' }}></div>
+        </div>
       </div>
-      
+
       <div className="countdown-section">
         <div className="countdown-container">
           <div className="countdown-card">
