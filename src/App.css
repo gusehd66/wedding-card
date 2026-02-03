@@ -1101,15 +1101,23 @@ main {
 
 /* 일곱 번째 섹션 - 공유 버튼 */
 .section-share {
-    background-color: #ffffff;
+    background-color: #080c0d !important;
+    background: #080c0d !important;
     padding: 30px 16px;
     text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.section.section-share {
+    background-color: #080c0d !important;
+    background: #080c0d !important;
 }
 
 .kakao_btn {
-    background-color: #fee500;
+    background-color: #fee500 !important;
     /* 카카오 노란색 배경 */
-    color: #3c1e1e;
+    color: #3c1e1e !important;
     /* 진한 글자색 */
     border: none;
     padding: 10px 20px;
@@ -1119,6 +1127,7 @@ main {
     font-weight: bold;
     margin-bottom: 8px;
     min-width: 185px;
+    display: inline-block;
 }
 
 .kakao_btn:hover {
@@ -1152,14 +1161,15 @@ main {
 
 .url_copy {
     padding: 10px 20px;
-    background-color: #333;
-    color: #ffffff;
+    background-color: #333 !important;
+    color: #ffffff !important;
     border: none;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 400;
     cursor: pointer;
     min-width: 185px;
+    display: inline-block;
 }
 
 .url_copy:hover {
@@ -1646,6 +1656,172 @@ main {
     font-size: 12px;
     color: #666;
     margin-bottom: 60px;
+}
+
+.footer-pattern-wrapper {
+    width: 100%;
+    position: relative;
+    top: 1px;
+    max-width: 414px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.footer-pattern-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: rotate(180deg);
+}
+
+.footer-content-wrapper {
+    width: 100%;
+    max-width: 414px;
+    margin: 0 auto;
+    background-color: #080c0d;
+    padding: 20px 16px;
+    position: relative;
+    z-index: 0;
+    color: #ffffff;
+}
+
+.footer-content-wrapper .cast-item.test,
+.footer-content-wrapper .cast-title {
+    opacity: 0;
+    transform: translateY(120px);
+    transition: opacity 5s ease-out, transform 5s ease-out;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test,
+.footer-content-wrapper.footer-visible .cast-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* .footer-content-wrapper.footer-visible .cast-item.test:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test:nth-child(2) {
+    transition-delay: 0.3s;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test:nth-child(3) {
+    transition-delay: 0.8s;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test:nth-child(4) {
+    transition-delay: 1.3s;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test:nth-child(5) {
+    transition-delay: 1.8s;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test:nth-child(6) {
+    transition-delay: 2.3s;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test:nth-child(7) {
+    transition-delay: 2.8s;
+}
+
+.footer-content-wrapper.footer-visible .cast-item.test:nth-child(8) {
+    transition-delay: 3.3s;
+} */
+
+.cast-section {
+    margin-bottom: 40px;
+}
+
+.cast-section:last-child {
+    margin-top: 80px;
+    margin-bottom: 0;
+}
+
+.cast-title {
+    font-family: "ROKAF Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.cast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.cast-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.cast-item.test {
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+.cast-item.test .inner-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    font-family: "ROKAF Sans", sans-serif;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    width: 180px;
+}
+
+.cast-item.test .inner-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    font-family: "ROKAF Sans", sans-serif;
+    font-size: 10px;
+    color: #ffffff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    width: 180px;
+}
+
+.cast-item.test .txt-info,
+.cast-item.test .tit-info {
+    text-align: right;
+}
+
+.cast-item.test .txt-en,
+.cast-item.test .txt-ko {
+    text-align: left;
+}
+
+.cast-role {
+    font-family: "ROKAF Sans", sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-align: right;
+}
+
+.cast-name {
+    font-family: "ROKAF Sans", sans-serif;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: left;
 }
 
 /* 모바일 반응형 */
