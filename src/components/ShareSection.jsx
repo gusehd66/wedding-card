@@ -36,19 +36,20 @@ export default function ShareSection() {
     <>
 
       <section className="section section-share">
-        {/* <div className="footer-pattern-wrapper">
+        <div className="footer-pattern-wrapper">
           <img
-            src="/images/footer-pattern.png"
+            src="/images/window2.png"
             alt="footer pattern"
             className="footer-pattern-image"
           />
-        </div> */}
+        </div>
         <div
           ref={footerRef}
           className={`footer-content-wrapper ${isVisible ? 'footer-visible' : ''}`}
         >
 
           <div className="cast-section cast">
+
             <h2 className="cast-title">CAST</h2>
             <div className="cast-list">
               <div className="cast-item test">
