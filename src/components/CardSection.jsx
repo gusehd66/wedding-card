@@ -12,6 +12,11 @@ export default function CardSection() {
         setIsActive(true)
     }
 
+    const handleClose = () => {
+        setIsActive(false)
+        setIsFrontOpen(false) // 닫을 때 앞면 상태도 초기화
+    }
+
     const handleCardToggle = () => {
         // 카드가 보이는 상태에서만 앞면 각도 토글
         if (!isActive) return
@@ -43,8 +48,8 @@ export default function CardSection() {
 
         const loopMobile = () => {
             mx += (x - mx) * 0.1
-            // 상하 움직임은 고정 (rotateX 제거)
-            wrap.style.transform = `translate3d(-50%, -50%, 0) rotateY(${mx}deg)`
+            my += (y - my) * 0.1
+            wrap.style.transform = `translate3d(-50%, -50%, 0) rotateX(${my - 50}deg) rotateY(${mx}deg)`
             rafId = window.requestAnimationFrame(loopMobile)
         }
 
@@ -61,9 +66,8 @@ export default function CardSection() {
         }
 
         const handleDeviceOrientation = (event) => {
-            // 좌우(가로) 움직임만 사용, 상하는 고정
             if (event.gamma != null) x = event.gamma
-            // y 값은 사용하지 않음 (상하 고정)
+            if (event.beta != null) y = event.beta
         }
 
         const setupMobile = () => {
@@ -112,7 +116,7 @@ export default function CardSection() {
                 className={`card-button ${isActive ? 'dimd' : ''}`}
                 onClick={handleClick}
             >
-                Invite to Our Wedding<br />Click!
+                <span>Click Me!</span>
             </button>
 
             <div
@@ -175,7 +179,21 @@ export default function CardSection() {
                     {/* <div className='back-footer-from'>from. 현동♥경서</div> */}
                 </div>
             </div>
-            <div className='card-toggle-text'>카드를 클릭하면 Open/Close 할 수 있습니다.</div>
+            {isActive && (
+                <>
+                    <button
+                        type="button"
+                        className="card-close-button"
+                        onClick={handleClose}
+                        aria-label="닫기"
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div className='card-toggle-text'>카드를 클릭하면 Open/Close 할 수 있습니다.</div>
+                </>
+            )}
         </section>
     )
 }
