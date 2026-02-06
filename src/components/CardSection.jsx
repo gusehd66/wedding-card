@@ -43,8 +43,8 @@ export default function CardSection() {
 
         const loopMobile = () => {
             mx += (x - mx) * 0.1
-            my += (y - my) * 0.1
-            wrap.style.transform = `translate3d(-50%, -50%, 0) rotateX(${my - 50}deg) rotateY(${mx}deg)`
+            // 상하 움직임은 고정 (rotateX 제거)
+            wrap.style.transform = `translate3d(-50%, -50%, 0) rotateY(${mx}deg)`
             rafId = window.requestAnimationFrame(loopMobile)
         }
 
@@ -61,8 +61,9 @@ export default function CardSection() {
         }
 
         const handleDeviceOrientation = (event) => {
+            // 좌우(가로) 움직임만 사용, 상하는 고정
             if (event.gamma != null) x = event.gamma
-            if (event.beta != null) y = event.beta
+            // y 값은 사용하지 않음 (상하 고정)
         }
 
         const setupMobile = () => {
