@@ -109,8 +109,9 @@ body:not(.opening-active) main {
     max-width: 260px;
     height: auto;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    /* 뷰포트 퍼센트 대신 고정 px 기준으로 위치 지정 */
+    top: 260px;
+    transform: translate(-50%, 0);
 }
 
 .opening-img-1 {
@@ -130,23 +131,23 @@ body:not(.opening-active) main {
 
 @keyframes openingImg2Move {
     0% {
-        transform: translate(-50%, -50%) rotate(7deg);
+        transform: translate(-50%, 20px) rotate(7deg);
     }
 
     20% {
-        transform: translate(-50%, calc(-50% - 20px)) rotate(0deg);
+        transform: translate(-50%, -0px) rotate(0deg);
     }
 
     40% {
-        transform: translate(-50%, calc(-50% - 30px)) rotate(7deg);
+        transform: translate(-50%, -10px) rotate(7deg);
     }
 
     60% {
-        transform: translate(-50%, calc(-50% - 50px)) rotate(0deg);
+        transform: translate(-50%, -20px) rotate(0deg);
     }
 
     100% {
-        transform: translate(-50%, calc(-50% - 50px)) rotate(0deg);
+        transform: translate(-50%, -20px) rotate(0deg);
     }
 }
 
