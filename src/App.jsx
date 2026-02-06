@@ -3,6 +3,7 @@ import './App.css'
 import OpeningAnimation from './components/OpeningAnimation'
 import HeaderImage from './components/HeaderImage'
 import DateSection from './components/DateSection'
+import CardSection from './components/CardSection'
 import ParentsSection from './components/ParentsSection'
 import TogetherSection from './components/TogetherSection'
 import GallerySection from './components/GallerySection'
@@ -20,7 +21,7 @@ function App() {
   useEffect(() => {
     // 카카오 SDK 초기화
     initKakaoSDK()
-    
+
     // 네이버 지도 초기화
     if (typeof window !== 'undefined' && window.naver?.maps) {
       initNaverMap()
@@ -41,6 +42,7 @@ function App() {
       <OpeningAnimation onClose={() => setShowOpening(false)} />
       <HeaderImage />
       <main>
+        <CardSection />
         <DateSection />
         <ParentsSection />
         <TogetherSection />
