@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { copyAccountNumber } from '../utils/copy'
 
 const accounts = {
@@ -14,15 +15,25 @@ const accounts = {
 }
 
 export default function AccountSection() {
+  const [isGroomOpen, setIsGroomOpen] = useState(false)
+  const [isBrideOpen, setIsBrideOpen] = useState(false)
+
   return (
     <section className="section section-account">
       <div className="send-to-image-wrapper">
         <img src="/images/send_to.png" alt="send to" className="send-to-image" />
       </div>
-      
+
       <ul>
-        <h6 style={{ fontWeight: 'bold', borderBottom: '1px solid #000' }}>🤵🏻‍♂️신랑측 계좌번호</h6>
-        {accounts.groom.map(acc => (
+        <h6
+          className="account-header"
+          onClick={() => setIsGroomOpen(!isGroomOpen)}
+          style={{ fontWeight: 'bold', borderBottom: '1px solid #000', cursor: 'pointer' }}
+        >
+          {/* 🤵🏻‍♂️신랑측 계좌번호 {isGroomOpen ? '▼' : '▶'} */}
+          🤵🏻신랑측 계좌번호 {isGroomOpen ? '▼' : '▶'}
+        </h6>
+        {isGroomOpen && accounts.groom.map(acc => (
           <li key={acc.id}>
             <span>
               <p id={acc.id}>{acc.account}</p>
@@ -36,8 +47,15 @@ export default function AccountSection() {
       <br />
 
       <ul>
-        <h6 style={{ fontWeight: 'bold', borderBottom: '1px solid #000' }}>👰🏻‍♀️신부측 계좌번호</h6>
-        {accounts.bride.map(acc => (
+        <h6
+          className="account-header"
+          onClick={() => setIsBrideOpen(!isBrideOpen)}
+          style={{ fontWeight: 'bold', borderBottom: '1px solid #000', cursor: 'pointer' }}
+        >
+          {/* 👰🏻‍♀️신부측 계좌번호 {isBrideOpen ? '▼' : '▶'} */}
+          👰🏻신부측 계좌번호 {isBrideOpen ? '▼' : '▶'}
+        </h6>
+        {isBrideOpen && accounts.bride.map(acc => (
           <li key={acc.id}>
             <span>
               <p id={acc.id}>{acc.account}</p>

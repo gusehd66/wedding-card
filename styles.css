@@ -102,6 +102,7 @@ body:not(.opening-active) main {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -113,6 +114,7 @@ body:not(.opening-active) main {
         opacity: 0;
         transform: scale(0.8);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -123,15 +125,19 @@ body:not(.opening-active) main {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
 }
 
 @keyframes heartbeat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.2);
     }
@@ -205,6 +211,7 @@ img {
     0% {
         background-position-x: 0;
     }
+
     100% {
         background-position-x: 1600px;
     }
@@ -500,7 +507,8 @@ main {
     align-items: center;
     transform: translateX(-50%);
     z-index: 2;
-    left: calc(30px + (100% - 80px) * 0.8); /* left: 30px + (전체 너비 - 여백) * 80% */
+    left: calc(30px + (100% - 80px) * 0.8);
+    /* left: 30px + (전체 너비 - 여백) * 80% */
 }
 
 .timeline-label {
@@ -694,6 +702,7 @@ main {
     position: relative;
     justify-content: center;
 }
+
 .direction-image {
     visibility: visible;
     image-rendering: -webkit-optimize-contrast;
@@ -747,7 +756,7 @@ main {
 /* 여섯 번째 섹션 - 계좌번호 */
 .section-account {
     background-color: #f9eded;
-    padding: 30px 16px;
+    padding: 30px 16px 80px;
 }
 
 .send-to-image-wrapper {
@@ -832,8 +841,10 @@ main {
 }
 
 .kakao_btn {
-    background-color: #fee500; /* 카카오 노란색 배경 */
-    color: #3c1e1e; /* 진한 글자색 */
+    background-color: #fee500;
+    /* 카카오 노란색 배경 */
+    color: #3c1e1e;
+    /* 진한 글자색 */
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -846,7 +857,7 @@ main {
 
 .kakao_btn:hover {
     background-color: #fddf00;
-  }
+}
 
 .share-btn-link {
     display: block;
@@ -1027,6 +1038,7 @@ main {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -1037,30 +1049,30 @@ main {
     body {
         max-width: 100%;
     }
-    
+
     .section {
         max-width: 100%;
     }
-    
+
     .gallery-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    
+
     .lightbox-prev,
     .lightbox-next {
         width: 40px;
         height: 40px;
         font-size: 30px;
     }
-    
+
     .lightbox-prev {
         left: 10px;
     }
-    
+
     .lightbox-next {
         right: 10px;
     }
-    
+
     .lightbox-close {
         top: 10px;
         right: 15px;

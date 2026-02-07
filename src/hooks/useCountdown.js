@@ -4,8 +4,8 @@ export function useCountdown() {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
   useEffect(() => {
-    const weddingDate = new Date('2026-04-12T13:00:00')
-    
+    const weddingDate = new Date('2026-04-12T13:20:00')
+
     const updateCountdown = () => {
       const now = new Date()
       const timeDifference = weddingDate - now

@@ -127,8 +127,8 @@ export default function CardSection() {
                 <div className={`front ${isFrontOpen ? 'front-open' : ''}`}>
                     <div className='left-image'></div>
                     {/* <div className="sun"></div> */}
-                    <div className="cloud1"></div>
-                    <div className="cloud2"></div>
+                    {/* <div className="cloud1"></div>
+                    <div className="cloud2"></div> */}
 
                     {/* <div className="m1"></div>
                     <div className="m2"></div>

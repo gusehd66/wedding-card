@@ -31,6 +31,15 @@
     font-style: normal;
 }
 
+/* SUITE Medium 폰트 */
+@font-face {
+    font-family: "SUITE";
+    font-weight: 500;
+    font-display: swap;
+    src: url(/fonts/SUITE-Medium.ttf) format("truetype");
+    font-style: normal;
+}
+
 /* 기본 스타일 */
 * {
     margin: 0;
@@ -397,6 +406,7 @@ main {
 
 .date-section {
     padding: 40px 0 30px;
+    font-family: "ROKAF Sans", "Noto Sans KR", sans-serif;
 }
 
 .date-section p {
@@ -422,6 +432,7 @@ main {
 
 .couple-section {
     padding: 0px 0;
+    font-family: "ROKAF Sans", "Noto Sans KR", sans-serif;
 }
 
 .couple-section p {
@@ -1027,6 +1038,7 @@ main {
 .section-transport {
     background-color: #ffffff;
     padding: 30px 16px;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 .direction-image-wrapper {
@@ -1046,6 +1058,7 @@ main {
 .map-section {
     text-align: center;
     margin-bottom: 30px;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 .map-section p {
@@ -1061,6 +1074,7 @@ main {
 
 .map-section-content-left {
     text-align: start;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 .copy-btn {
@@ -1076,6 +1090,7 @@ main {
 
 .transport-info {
     padding: 20px 0;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 .transport-info p {
@@ -1089,6 +1104,7 @@ main {
 .section-account {
     background-color: #f9eded;
     padding: 30px 16px;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 .send-to-image-wrapper {
@@ -1123,6 +1139,15 @@ main {
     color: #000;
 }
 
+.section-account .account-header {
+    user-select: none;
+    transition: opacity 0.2s ease;
+}
+
+.section-account .account-header:hover {
+    opacity: 0.7;
+}
+
 .section-account li {
     background-color: #ffffff;
     padding: 16px;
@@ -1140,13 +1165,15 @@ main {
 }
 
 .section-account li span p:first-child {
-    font-weight: 500;
+    font-weight: 700;
     font-size: 14px;
+    color: #000;
 }
 
 .section-account li span p:last-child {
     font-size: 13px;
-    color: #666;
+    color: #000;
+    font-weight: 700;
 }
 
 .section-account button {
