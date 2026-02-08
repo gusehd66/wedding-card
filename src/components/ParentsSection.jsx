@@ -25,10 +25,10 @@ export default function ParentsSection() {
 
       <section className="section section-white">
         <div className="parents-section">
-          <img src="/images/couple_letter.png" alt="couple letter" className="couple-letter-image" />
+          <img src="/images/couple_letter2.jpg" alt="couple letter" className="couple-letter-image" />
         </div>
         <div className="parents-section">
-          <img src="/images/couple_letter2.png" alt="couple letter" className="couple-letter-image" />
+          <img src="/images/couple_letter.jpg" alt="couple letter" className="couple-letter-image" />
         </div>
       </section>
     </>
