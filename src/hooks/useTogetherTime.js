@@ -5,17 +5,17 @@ export function useTogetherTime() {
 
   useEffect(() => {
     const firstDate = new Date('2012-06-18T00:00:00')
-    
+
     const updateTime = () => {
       const now = new Date()
       const timeDifference = now - firstDate
-      
+
       if (timeDifference <= 0) {
         setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 })
         return
       }
 
-      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24)) + 1; // 첫날은 하루로 계산
       const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000)
