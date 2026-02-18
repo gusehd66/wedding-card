@@ -108,7 +108,6 @@ body:not(.opening-active) main {
     justify-content: center;
     width: 100%;
     height: 100%;
-    animation: fadeInUp 1.2s ease-out;
     overflow: hidden;
 }
 
@@ -463,8 +462,18 @@ main {
     position: relative;
 }
 
+.parents-section-container {
+    position: relative;
+}
+
 .parents-section {
     margin: 30px 0;
+    text-align: center;
+}
+
+.parents-section-with-letters {
+    position: relative;
+    padding-bottom: 450px;
 }
 
 .parents-section p {
@@ -472,10 +481,63 @@ main {
     font-weight: bold;
 }
 
+.groom-parents-image {
+    height: 400px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.parent-letter-image {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.parent-letter-1 {
+    /* top: -100px; */
+    bottom: 260px;
+}
+
+.parent-letter-2 {
+    /* top: -280px; */
+    bottom: -30px;
+}
+
 .couple-letter-image {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.couple-letter-3-overlay {
+    position: absolute;
+    right: 20px;
+    bottom: 440px;
+    width: auto;
+    height: auto;
+    max-width: 35%;
+    max-height: 60%;
+    z-index: 5;
+    transform: translate(10%, 10%);
+    pointer-events: none;
+}
+
+.couple-letter-4-overlay {
+    position: absolute;
+    right: 20px;
+    bottom: 440px;
+    width: auto;
+    height: auto;
+    max-width: 45%;
+    max-height: 60%;
+    z-index: 5;
+    transform: translate(10%, 10%);
+    pointer-events: none;
 }
 
 /* 세 번째 섹션 - 검은 배경 */

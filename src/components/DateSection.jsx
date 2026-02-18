@@ -8,10 +8,10 @@ export default function DateSection() {
         <p>서울 광진구 능동로 87<br />건대입구역 자이엘라 6F</p>
       </div>
 
-      <div className="invite_to">
+      {/* <div className="invite_to">
         <img src="/images/invite_to_7.jpg" alt="invite to" className="invite-to-image" loading="eager" />
         <img src="/images/invite_letter2.png" alt="invite letter" className="invite-letter-image" loading="eager" />
-      </div>
+      </div> */}
 
       <div className="couple-section">
         <p><strong>Groom</strong></p>

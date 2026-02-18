@@ -116,7 +116,7 @@ export default function CardSection() {
                 className={`card-button ${isActive ? 'dimd' : ''}`}
                 onClick={handleClick}
             >
-                <span>Click Me!</span>
+                <img src="/images/invite_to2.png" alt="Click Me" />
             </button>
 
             <div

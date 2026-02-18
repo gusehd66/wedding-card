@@ -462,48 +462,20 @@ section.card-section {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translate(-50%, -50%);
     padding: 0;
-    font-size: 16px;
-    font-weight: 500;
     z-index: 10000;
-    background: #ed7a8c;
-    color: #fff;
-    width: 70px;
-    height: 70px;
+    background: transparent;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(237, 122, 140, 0.4);
-    border-radius: 0 0 0 10px;
+    width: 100%;
+    height: 100%;
 }
 
-/* 하트 모양 만들기 - 왼쪽 원 */
-.card-button::before {
-    content: '';
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    background: #ed7a8c;
-    border-radius: 50%;
-    top: -35px;
-    left: 0;
-}
-
-/* 하트 모양 만들기 - 오른쪽 원 */
-.card-button::after {
-    content: '';
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    background: #ed7a8c;
-    border-radius: 50%;
-    left: 35px;
-    top: 0;
-}
 
 /* 텍스트는 원래 방향으로 */
 .card-button span {
@@ -514,13 +486,22 @@ section.card-section {
     font-family: 'ROKAF Sans', 'Noto Sans KR', sans-serif;
 }
 
+/* 이미지 스타일 */
+.card-button img {
+    position: relative;
+    z-index: 10;
+    display: block;
+    width: auto;
+    height: 180px;
+    max-height: 180px;
+}
+
 .card-button:hover {
-    transform: translate(-50%, -50%) rotate(-45deg) scale(1.1);
-    box-shadow: 0 6px 16px rgba(237, 122, 140, 0.6);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .card-button:active {
-    transform: translate(-50%, -50%) rotate(-45deg) scale(0.95);
+    transform: translate(-50%, -50%) scale(0.95);
 }
 
 /* .card-button::before {
