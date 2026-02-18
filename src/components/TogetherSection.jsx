@@ -3,15 +3,20 @@ import { useTogetherTime } from '../hooks/useTogetherTime'
 
 // 각 dot에 대한 이미지 설정 (필요에 따라 수정 가능)
 const timelineImages = {
-  start: '/images/meta.jpg', // 시작 날짜 이미지
-  today: '/images/header_image.jpg' // 오늘 이미지
+  start: '/images/ago_1.jpg', // 시작 날짜 이미지
+  second: '/images/ago_3.jpg', // 두 번째 날짜 이미지
+  third: '/images/ago_2.jpg', // 세 번째 날짜 이미지
+  fourth: '/images/ago_4.jpg', // 네 번째 날짜 이미지
+  today: '/images/meta.jpg' // 오늘 이미지
 }
 
 export default function TogetherSection() {
   const { days, hours, minutes, seconds } = useTogetherTime()
   const progressBarRef = useRef(null)
-  const [activeTooltip, setActiveTooltip] = useState(null) // 'start' | 'today' | null
+  const [activeTooltip, setActiveTooltip] = useState(null) // 'start' | 'third' | 'fourth' | 'today' | null
   const [modalImage, setModalImage] = useState(null)
+  const [userHasClicked, setUserHasClicked] = useState(false) // 사용자가 클릭했는지 여부
+  const autoPlayIndexRef = useRef(0) // 자동 재생 인덱스
 
   useEffect(() => {
     const updateProgress = () => {
@@ -29,7 +34,11 @@ export default function TogetherSection() {
       const timelineWrapper = progressBarRef.current.parentElement
       if (timelineWrapper) {
         const lineWidth = timelineWrapper.offsetWidth - 80
-        const progressWidth = (percentage / 100) * lineWidth
+        // 실제 날짜 비율로 계산한 길이
+        let progressWidth = (percentage / 100) * lineWidth
+        // 바 끝을 살짝 더 오른쪽으로 보이게 + 여유 길이(px)
+        const extraWidth = 30
+        progressWidth = Math.min(progressWidth + extraWidth, lineWidth)
         progressBarRef.current.style.width = progressWidth + 'px'
       }
     }
@@ -38,6 +47,26 @@ export default function TogetherSection() {
     const interval = setInterval(updateProgress, 1000)
     return () => clearInterval(interval)
   }, [])
+
+  // 자동 재생: 사용자가 클릭하기 전까지 5초마다 순차적으로 이미지 표시 (start, third, fourth, today 4개)
+  useEffect(() => {
+    if (userHasClicked) return // 사용자가 클릭하면 자동 재생 중지
+
+    const timelineOrder = ['start', 'third', 'fourth', 'today']
+
+    const autoPlayInterval = setInterval(() => {
+      const currentIndex = autoPlayIndexRef.current
+      // 바로 다음 이미지로 전환 (중간 딜레이 없이)
+      setActiveTooltip(timelineOrder[currentIndex])
+      autoPlayIndexRef.current = (currentIndex + 1) % timelineOrder.length
+    }, 5000) // 5초마다 변경
+
+    // 초기값 설정
+    setActiveTooltip(timelineOrder[0])
+    autoPlayIndexRef.current = 1
+
+    return () => clearInterval(autoPlayInterval)
+  }, [userHasClicked])
 
   return (
     <section className="section section-together">
@@ -59,11 +88,15 @@ export default function TogetherSection() {
             </div>
             <div className="timeline-start-marker"></div>
             <div className="timeline-arrow-marker"></div>
+            {/* 시작 날짜 */}
             <div className="timeline-start-date">
               <span>2012-06-18</span>
               <div
                 className="timeline-dot start-dot"
-                onClick={() => setActiveTooltip(activeTooltip === 'start' ? null : 'start')}
+                onClick={() => {
+                  setUserHasClicked(true)
+                  setActiveTooltip(activeTooltip === 'start' ? null : 'start')
+                }}
                 style={{ cursor: 'pointer' }}
               ></div>
               {activeTooltip === 'start' && (
@@ -77,15 +110,64 @@ export default function TogetherSection() {
                 </div>
               )}
             </div>
+            {/* 세 번째 날짜 */}
+            {/* 두 번째 날짜는 현재 사용하지 않아 주석 처리 */}
+            {/* <div className="timeline-second-date">...</div> */}
+            <div className="timeline-third-date">
+              <span>2015-05-12</span>
+              <div
+                className="timeline-dot start-dot"
+                onClick={() => {
+                  setUserHasClicked(true)
+                  setActiveTooltip(activeTooltip === 'third' ? null : 'third')
+                }}
+                style={{ cursor: 'pointer' }}
+              ></div>
+              {activeTooltip === 'third' && (
+                <div className="timeline-tooltip">
+                  <img
+                    src={timelineImages.third}
+                    alt="세 번째 날짜"
+                    onClick={() => setModalImage(timelineImages.third)}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </div>
+              )}
+            </div>
+            {/* 네 번째 날짜 */}
+            <div className="timeline-fourth-date">
+              <span>2018-12-01</span>
+              <div
+                className="timeline-dot start-dot"
+                onClick={() => {
+                  setUserHasClicked(true)
+                  setActiveTooltip(activeTooltip === 'fourth' ? null : 'fourth')
+                }}
+                style={{ cursor: 'pointer' }}
+              ></div>
+              {activeTooltip === 'fourth' && (
+                <div className="timeline-tooltip">
+                  <img
+                    src={timelineImages.fourth}
+                    alt="네 번째 날짜"
+                    onClick={() => setModalImage(timelineImages.fourth)}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </div>
+              )}
+            </div>
             {/* <div className="timeline-info">
               <span className="timeline-label">오늘</span>
               <div className="timeline-dot today-dot"></div>
             </div> */}
             <div className="timeline-today" id="timeline-today">
-              <span className="timeline-label">오늘</span>
+              <span className="timeline-label">~ing</span>
               <div
                 className="timeline-dot today-dot"
-                onClick={() => setActiveTooltip(activeTooltip === 'today' ? null : 'today')}
+                onClick={() => {
+                  setUserHasClicked(true)
+                  setActiveTooltip(activeTooltip === 'today' ? null : 'today')
+                }}
                 style={{ cursor: 'pointer' }}
               ></div>
               {activeTooltip === 'today' && (

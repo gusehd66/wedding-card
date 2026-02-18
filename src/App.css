@@ -588,8 +588,9 @@ main {
 /* 타임라인 라인 (배경) */
 .timeline-line {
     position: absolute;
-    left: 30px;
-    right: 50px;
+    /* 양 끝이 화면 가장자리에서 조금 더 안쪽으로 오도록 여백 조정 */
+    left: 20px;
+    right: 30px;
     top: 25px;
     height: 1px;
     background-color: #aaa;
@@ -598,7 +599,7 @@ main {
 /* 프로그레스 바 */
 .timeline-progress {
     position: absolute;
-    left: 30px;
+    left: 20px;
     top: 25px;
     height: 1px;
     background-color: #ba94c1;
@@ -609,8 +610,9 @@ main {
 /* 시작 마커 (왼쪽 작은 사각형) */
 .timeline-start-marker {
     position: absolute;
-    left: 28px;
-    top: 23.5px;
+    /* 라인 시작점(40px) 바로 앞에 오도록 조정 */
+    left: 18px;
+    top: 23px;
     width: 4px;
     height: 4px;
     background-color: #aaa;
@@ -619,8 +621,9 @@ main {
 /* 화살표 마커 (오른쪽) */
 .timeline-arrow-marker {
     position: absolute;
-    right: 48px;
-    top: 22.5px;
+    /* 라인 끝점(우측 40px) 바로 뒤에 오도록 조정 */
+    right: 28px;
+    top: 23px;
     width: 0;
     height: 0;
     border-left: 4px solid #aaa;
@@ -631,7 +634,8 @@ main {
 /* 하트 아이콘들 (오른쪽) */
 .timeline-hearts {
     position: absolute;
-    right: 20px;
+    /* right: 20px; */
+    right: 0px;
     top: 19px;
     display: flex;
     gap: -7px;
@@ -654,7 +658,8 @@ main {
 /* 시작 날짜 (왼쪽) */
 .timeline-start-date {
     position: absolute;
-    left: 80px;
+    /* 타임라인 라인 시작점(40px)에서 약간 안쪽(마커보다 살짝 안쪽) */
+    left: calc(40px + 0 * (100% - 80px) / 3 + 10px);
     top: -7px;
     display: flex;
     flex-direction: column;
@@ -669,6 +674,62 @@ main {
     margin-bottom: 4px;
 }
 
+/* 두 번째 날짜 (시작 날짜보다 조금 오른쪽) */
+.timeline-second-date {
+    position: absolute;
+    left: 100px;
+    top: -7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+}
+
+.timeline-second-date span {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+/* 세 번째 날짜 - 4개 지점 중 1번째 */
+.timeline-third-date {
+    position: absolute;
+    /* 타임라인 라인 시작점(40px) 기준, 4개 지점 중 1번째 */
+    left: calc(40px + 1 * (100% - 80px) / 3);
+    top: -7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+}
+
+.timeline-third-date span {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+/* 네 번째 날짜 - 4개 지점 중 2번째 */
+.timeline-fourth-date {
+    position: absolute;
+    /* 타임라인 라인 시작점(40px) 기준, 4개 지점 중 2번째 */
+    left: calc(40px + 2 * (100% - 80px) / 3);
+    top: -7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%);
+}
+
+.timeline-fourth-date span {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
 .start-dot {
     width: 12px;
     height: 12px;
@@ -676,7 +737,7 @@ main {
     border-radius: 50%;
 }
 
-/* 오늘 마커 (고정 위치 80%) */
+/* 오늘 마커 - 4개 지점 중 3번째 (라인 끝 지점) */
 .timeline-today {
     position: absolute;
     top: -7px;
@@ -685,8 +746,8 @@ main {
     align-items: center;
     transform: translateX(-50%);
     z-index: 2;
-    left: calc(30px + (100% - 80px) * 0.8);
-    /* left: 30px + (전체 너비 - 여백) * 80% */
+    /* 타임라인 라인 끝 지점에서 약간 안쪽(마커보다 살짝 안쪽) */
+    left: calc(40px + 3 * (100% - 80px) / 3 - 10px);
 }
 
 .timeline-label {
