@@ -215,16 +215,16 @@
                     <img src="images/gallery/wedding_9.jpeg" alt="사진 9">
                 </div>
                 <div class="gallery-slide">
-                    <img src="images/gallery/wedding_10.jpeg" alt="사진 10">
+                    <img src="images/gallery/wedding_10.webp" alt="사진 10">
                 </div>
                 <div class="gallery-slide">
-                    <img src="images/gallery/wedding_11.jpeg" alt="사진 11">
+                    <img src="images/gallery/wedding_11.webp" alt="사진 11">
                 </div>
                 <div class="gallery-slide">
                     <img src="images/gallery/wedding_12.jpeg" alt="사진 12">
                 </div>
                 <div class="gallery-slide">
-                    <img src="images/gallery/wedding_13.jpeg" alt="사진 13">
+                    <img src="images/gallery/wedding_13.webp" alt="사진 13">
                 </div>
                 <div class="gallery-slide">
                     <img src="images/gallery/wedding_14.jpeg" alt="사진 14">
@@ -245,10 +245,10 @@
                     <img src="images/gallery/wedding_19.jpeg" alt="사진 19">
                 </div>
                 <div class="gallery-slide">
-                    <img src="images/gallery/wedding_20.jpeg" alt="사진 20">
+                    <img src="images/gallery/wedding_20.webp" alt="사진 20">
                 </div>
                 <div class="gallery-slide">
-                    <img src="images/gallery/wedding_21.jpeg" alt="사진 21">
+                    <img src="images/gallery/wedding_21.webp" alt="사진 21">
                 </div>
                 <div class="gallery-slide">
                     <img src="images/gallery/wedding_22.jpeg" alt="사진 22">
@@ -289,16 +289,16 @@
                 </div>
                 <!-- 두 번째 그룹 (10-18) -->
                 <div class="gallery-item gallery-item-group-2">
-                    <img src="images/gallery/wedding_10.jpeg" alt="사진 10" loading="lazy">
+                    <img src="images/gallery/wedding_10.webp" alt="사진 10" loading="lazy">
                 </div>
                 <div class="gallery-item gallery-item-group-2">
-                    <img src="images/gallery/wedding_11.jpeg" alt="사진 11" loading="lazy">
+                    <img src="images/gallery/wedding_11.webp" alt="사진 11" loading="lazy">
                 </div>
                 <div class="gallery-item gallery-item-group-2">
                     <img src="images/gallery/wedding_12.jpeg" alt="사진 12" loading="lazy">
                 </div>
                 <div class="gallery-item gallery-item-group-2">
-                    <img src="images/gallery/wedding_13.jpeg" alt="사진 13" loading="lazy">
+                    <img src="images/gallery/wedding_13.webp" alt="사진 13" loading="lazy">
                 </div>
                 <div class="gallery-item gallery-item-group-2">
                     <img src="images/gallery/wedding_14.jpeg" alt="사진 14" loading="lazy">
@@ -320,10 +320,10 @@
                     <img src="images/gallery/wedding_19.jpeg" alt="사진 19" loading="lazy">
                 </div>
                 <div class="gallery-item gallery-item-group-3">
-                    <img src="images/gallery/wedding_20.jpeg" alt="사진 20" loading="lazy">
+                    <img src="images/gallery/wedding_20.webp" alt="사진 20" loading="lazy">
                 </div>
                 <div class="gallery-item gallery-item-group-3">
-                    <img src="images/gallery/wedding_21.jpeg" alt="사진 21" loading="lazy">
+                    <img src="images/gallery/wedding_21.webp" alt="사진 21" loading="lazy">
                 </div>
                 <div class="gallery-item gallery-item-group-3">
                     <img src="images/gallery/wedding_22.jpeg" alt="사진 22" loading="lazy">

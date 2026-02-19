@@ -449,8 +449,8 @@ th {
 /* CardSection 영역 전체 배경/레이아웃 */
 section.card-section {
     position: relative;
-    padding: 60px 16px;
-    min-height: 550px;
+    padding: 30px 16px;
+    min-height: 500px;
     /* background: #50759b; */
     overflow: hidden;
     /* CardSection 전반 폰트 */
@@ -494,6 +494,7 @@ section.card-section {
     width: auto;
     height: 180px;
     max-height: 180px;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
 }
 
 .card-button:hover {

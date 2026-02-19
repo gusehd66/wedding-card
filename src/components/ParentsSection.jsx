@@ -21,7 +21,7 @@ export default function ParentsSection() {
           <img src="/images/couple_letter4.png" alt="couple letter 4" className="couple-letter-4-overlay" />
         </div>
         <div className="parents-section parents-section-with-letters">
-          <img src="/images/parent_letter1.png" alt="parent letter 1" className="parent-letter-image parent-letter-1" />
+          <img src="/images/parent_letter1.png" alt="parent letter 1" className="parent-letter-image parent-letter-4" />
           <img src="/images/parent_letter2.png" alt="parent letter 2" className="parent-letter-image parent-letter-2" />
           <p><strong>Bride's Parents</strong></p>
           <img src="/images/parent1.jpg" alt="bride parents" className="groom-parents-image" />
