@@ -4,9 +4,9 @@ import { useTogetherTime } from '../hooks/useTogetherTime'
 // 각 dot에 대한 이미지 설정 (필요에 따라 수정 가능)
 const timelineImages = {
   start: '/images/ago_1.jpg', // 시작 날짜 이미지
-  second: '/images/ago_3.jpg', // 두 번째 날짜 이미지
-  third: '/images/ago_2.jpg', // 세 번째 날짜 이미지
-  fourth: '/images/ago_4.jpg', // 네 번째 날짜 이미지
+  // second: '/images/ago_2.jpg', // 두 번째 날짜 이미지
+  third: '/images/ago_4.jpg', // 세 번째 날짜 이미지
+  fourth: '/images/ago_3.jpg', // 네 번째 날짜 이미지
   today: '/images/meta.jpg' // 오늘 이미지
 }
 
@@ -114,7 +114,7 @@ export default function TogetherSection() {
             {/* 두 번째 날짜는 현재 사용하지 않아 주석 처리 */}
             {/* <div className="timeline-second-date">...</div> */}
             <div className="timeline-third-date">
-              <span>2015-05-12</span>
+              <span>2018-12-01</span>
               <div
                 className="timeline-dot start-dot"
                 onClick={() => {
@@ -136,7 +136,7 @@ export default function TogetherSection() {
             </div>
             {/* 네 번째 날짜 */}
             <div className="timeline-fourth-date">
-              <span>2018-12-01</span>
+              <span>2021-08-23</span>
               <div
                 className="timeline-dot start-dot"
                 onClick={() => {
