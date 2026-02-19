@@ -13,9 +13,9 @@ export default function ParentsSection() {
           <div className="wave wave-2"></div>
           <div className="wave wave-3"></div>
         </div>
-        <div className="parents-section parents-section-with-letters">
-          <img src="/images/parent_letter1.png" alt="parent letter 1" className="parent-letter-image parent-letter-1" />
-          <img src="/images/parent_letter2.png" alt="parent letter 2" className="parent-letter-image parent-letter-2" />
+        <div className="parents-section parents-section-with-letters-kim">
+          <img src="/images/parent_letter3.png" alt="parent letter 1" className="parent-letter-image parent-letter-1" />
+          <img src="/images/parent_letter4.png" alt="parent letter 2" className="parent-letter-image parent-letter-3" />
           <p><strong>Groom's Parents</strong></p>
           <img src="/images/parent2.jpg" alt="groom parents" className="groom-parents-image" />
           <img src="/images/couple_letter4.png" alt="couple letter 4" className="couple-letter-4-overlay" />

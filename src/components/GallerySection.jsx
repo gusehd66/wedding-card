@@ -7,9 +7,9 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-const GALLERY_IMAGES = Array.from({ length: 23 }, (_, i) => ({
+const GALLERY_IMAGES = Array.from({ length: 21 }, (_, i) => ({
   id: i + 1,
-  src: `/images/gallery/wedding_${i + 1}.${i < 5 || (i >= 15 && i < 17) ? 'jpg' : 'jpeg'}`,
+  src: `/images/gallery/wedding_${i + 1}.jpg`,
   alt: `사진 ${i + 1}`
 }))
 

@@ -4,13 +4,13 @@ import { copyAccountNumber } from '../utils/copy'
 const accounts = {
   groom: [
     { id: 'text1', account: '국민 073002 04 052919', name: '김현동' },
-    { id: 'text2', account: '카카오뱅크 3333 05 0585629', name: '김대성' },
-    { id: 'text3', account: '카카오뱅크 3333 05 0585629', name: '한태연' }
+    { id: 'text2', account: '국민 664625 01 006299', name: '김대성' },
+    { id: 'text3', account: '국민 919302 01 030001', name: '한태연' }
   ],
   bride: [
-    { id: 'text4', account: '농협 723100 52 034771', name: '이경서' },
-    { id: 'text5', account: '카카오뱅크 3333 03 7286312', name: '이현명' },
-    { id: 'text6', account: '카카오뱅크 3333 03 7286312', name: '전진숙' }
+    { id: 'text4', account: '신한 110 198 402168', name: '이경서' },
+    { id: 'text5', account: '농협 100030 56 079703', name: '이현명' },
+    { id: 'text6', account: '농협 201018 56 106801', name: '전진숙' }
   ]
 }
 

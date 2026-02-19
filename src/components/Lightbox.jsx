@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
-const GALLERY_IMAGES = Array.from({ length: 23 }, (_, i) => ({
-  original: `/images/gallery/wedding_${i + 1}.${i < 5 || (i >= 15 && i < 17) ? 'jpg' : 'jpeg'}`,
-  thumbnail: `/images/gallery/wedding_${i + 1}.${i < 5 || (i >= 15 && i < 17) ? 'jpg' : 'jpeg'}`,
+const GALLERY_IMAGES = Array.from({ length: 21 }, (_, i) => ({
+  original: `/images/gallery/wedding_${i + 1}.jpg`,
+  thumbnail: `/images/gallery/wedding_${i + 1}.jpg`,
   description: `사진 ${i + 1}`
 }))
 
@@ -20,7 +20,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose }) {
   if (!isOpen) return null
 
   return (
-    <div 
+    <div
       className="lightbox-overlay"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
@@ -70,7 +70,7 @@ export default function Lightbox({ isOpen, currentIndex, onClose }) {
       >
         &times;
       </button>
-      <div 
+      <div
         onClick={(e) => {
           e.stopPropagation()
         }}
@@ -98,11 +98,11 @@ export default function Lightbox({ isOpen, currentIndex, onClose }) {
           swipeThreshold={50}
           flickThreshold={0.4}
           renderItem={(item) => (
-            <div 
-              style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 height: '100%',
                 width: '100%',
                 touchAction: 'none',

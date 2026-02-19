@@ -387,6 +387,7 @@ main {
     background-color: #ffffff;
     color: #ffffff;
     text-align: center;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 .date-section-header {
@@ -405,7 +406,7 @@ main {
 
 .date-section {
     padding: 40px 0 30px;
-    font-family: "ROKAF Sans", "Noto Sans KR", sans-serif;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 .date-section p {
@@ -476,6 +477,11 @@ main {
     padding-bottom: 450px;
 }
 
+.parents-section-with-letters-kim {
+    position: relative;
+    padding-bottom: 580px;
+}
+
 .parents-section p {
     color: #000;
     font-weight: bold;
@@ -508,6 +514,12 @@ main {
     bottom: -30px;
 }
 
+.parent-letter-3 {
+    /* top: -280px; */
+    bottom: 0px;
+    width: 90%;
+}
+
 .couple-letter-image {
     width: 100%;
     height: auto;
@@ -530,7 +542,7 @@ main {
 .couple-letter-4-overlay {
     position: absolute;
     right: 20px;
-    bottom: 440px;
+    bottom: 540px;
     width: auto;
     height: auto;
     max-width: 45%;
@@ -544,6 +556,7 @@ main {
 .section-white {
     background-color: #ffffff;
     min-height: 200px;
+    font-family: "SUITE", "Noto Sans KR", sans-serif;
 }
 
 /* 네 번째 섹션 - 우리가 함께한 지 */
@@ -604,7 +617,7 @@ main {
     height: 1px;
     background-color: #ba94c1;
     transition: width 0.3s ease;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 /* 시작 마커 (왼쪽 작은 사각형) */
@@ -837,15 +850,15 @@ main {
 
 .timeline-image-modal-close {
     position: absolute;
-    top: -40px;
+    top: 0px;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.9);
+    /* background-color: rgba(255, 255, 255, 0.9); */
     color: #333;
     border: none;
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -979,6 +992,7 @@ main {
     color: #333;
     line-height: 1.6;
     margin-top: 20px;
+    font-family: "ROKAF Sans", sans-serif;
 }
 
 .countdown-message .heart {
