@@ -98,7 +98,7 @@ export default function ShareSection() {
                   <strong className="tit-info">신부 아버지</strong>
                 </div>
                 <div className="inner-name">
-                  <span className="txt-en">KIM DAE SUNG</span>
+                  <span className="txt-en">LEE HYEON MYUNG</span>
                   <strong className="txt-ko">이현명</strong>
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default function ShareSection() {
                   <strong className="tit-info">신부 어머니</strong>
                 </div>
                 <div className="inner-name">
-                  <span className="txt-en">HAN TAE YEON</span>
+                  <span className="txt-en">JEON JIN SOOK</span>
                   <strong className="txt-ko">전진숙</strong>
                 </div>
               </div>
