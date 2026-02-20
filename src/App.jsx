@@ -11,7 +11,7 @@ import TransportSection from './components/TransportSection'
 import AccountSection from './components/AccountSection'
 import ShareSection from './components/ShareSection'
 import Footer from './components/Footer'
-import { initKakaoSDK } from './utils/kakao'
+import { initKakaoSDK, shareMessage } from './utils/kakao'
 import { initNaverMap } from './utils/naverMap'
 import { initScrollAnimation } from './utils/scrollAnimation'
 
@@ -21,6 +21,16 @@ function App() {
   useEffect(() => {
     // 카카오 SDK 초기화
     initKakaoSDK()
+
+    // URL에 ?action=share 있으면 공유 창 자동 실행 (카카오 카드 '공유하기' 버튼용)
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('action') === 'share') {
+      const timer = setTimeout(() => {
+        shareMessage()
+        window.history.replaceState({}, '', window.location.pathname || '/')
+      }, 500)
+      return () => clearTimeout(timer)
+    }
 
     // 네이버 지도 초기화
     if (typeof window !== 'undefined' && window.naver?.maps) {

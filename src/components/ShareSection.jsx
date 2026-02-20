@@ -128,6 +128,16 @@ export default function ShareSection() {
                 </div>
               </div>
             </div>
+            <div className="cast-list cast-pet-image-wrap">
+              <div className="cast-item test">
+              <img
+                src="/images/dongdong.png"
+                alt="동동"
+                className="cast-pet-image"
+              />
+              </div>
+              
+            </div>
           </div>
         </div>
         <button type="button" className="kakao_btn" onClick={shareMessage}>

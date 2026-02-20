@@ -1541,7 +1541,7 @@ main {
     margin: 0 auto;
     top: -60px;
     /* background-color: #f7bdc1; */
-    padding: 20px 16px;
+    padding: 20px 16px 5px;
     position: relative;
     z-index: 9;
     color: #3b3939;
@@ -1673,6 +1673,14 @@ main {
     width: 180px;
 }
 
+.cast-pet-image-wrap {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .cast-item.test .txt-info,
 .cast-item.test .tit-info {
     text-align: right;
@@ -1681,6 +1689,14 @@ main {
 .cast-item.test .txt-en,
 .cast-item.test .txt-ko {
     text-align: left;
+}
+
+.cast-item.test .cast-pet-image {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-top: 6px;
+    display: block;
 }
 
 /* 모바일 반응형 */
