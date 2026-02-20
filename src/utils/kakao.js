@@ -35,7 +35,7 @@ export function shareMessage() {
   const imageURL = vercelURL + '/images/meta.jpg';
 
   // 복사 시 URL이 함께 복사되도록 description에 링크 포함 (재공유 시 링크 미리보기 연동)
-  const descriptionWithLink = `2026.04.12 SUN 13:20PM\n까사그랑데\n${shareURL}`;
+  const descriptionWithLink = `2026.04.12 SUN 13:20PM\n까사그랑데\n\n${shareURL}`;
 
   const shareData = {
     objectType: 'feed',
