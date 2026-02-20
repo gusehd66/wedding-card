@@ -53,7 +53,8 @@ function App() {
       <HeaderImage />
       <main>
         <section className="section custom-made-section">
-          <p>신랑이 직접 제작한 모바일 청첩장입니다 재밌게 봐주세요 ^_^</p>
+          <p>신랑이 직접 제작한 모바일 청첩장입니다</p>
+          <p>재밌게 봐주세요 ^_^</p>
         </section>
         <CardSection />
         <DateSection />
