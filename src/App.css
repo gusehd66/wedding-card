@@ -888,7 +888,7 @@ main {
 }
 
 /* 카운트다운: 360px 미만에서 잘리지 않도록 */
-@media (max-width: 359px) {
+@media (max-width: 380px) {
     .countdown-section {
         padding: 16px 12px;
         margin: 24px 0;
@@ -933,6 +933,21 @@ main {
 
     .countdown-message .days-highlight {
         font-size: 16px;
+    }
+
+    .footer-content-wrapper {
+        padding: 20px 8px 5px;
+    }
+    .cast-item.test .inner-info {
+        width: 50% !important;
+        font-size: 10px !important;
+    }
+    .cast-item.test .inner-name {
+        width: 50% !important;
+        font-size: 10px !important;
+    }
+    .cast-item.test {
+        align-items: start;
     }
 }
 
